@@ -1,0 +1,55 @@
+.cf-numeric-list-answer {
+  &__control {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__input {
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    &::-ms-clear {
+      display: none;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.cf-numeric-list-auto-sum {
+  &__label {
+    margin-top: calcTopOffsetForAlignment(2em, 1.4em);
+  }
+
+  &__value {
+    min-width: 10em;
+    margin-top: calcTopOffsetForAlignment(2em, 1.4em);
+    padding: 0 0.5em;
+    text-align: right;
+    border-bottom: none;
+  }
+
+  .cf-grid-layout__row-control {
+    flex-shrink: 1;
+  }
+}
+
+@media (min-width: $desktop-layout-delimiter + 1) {
+  .cf-numeric-list-answer {
+    @include grid-layout-answer-content-indent(2em, 1.4em);
+  }
+  .cf-numeric-list-auto-sum {
+    width: auto;
+  }
+}
+
+.cf-numeric-list-auto-sum--rtl {
+  .cf-numeric-list-auto-sum__value {
+    text-align: left;
+  }
+}

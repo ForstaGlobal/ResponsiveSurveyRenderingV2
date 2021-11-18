@@ -1,0 +1,23 @@
+.cf-mobile-grid-layout {
+  display: flex;
+  flex-direction: column;
+
+  &__answer {
+    margin-bottom: 2em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__answer-text {
+    margin-bottom: 1em;
+  }
+
+  &__answer-content {
+  }
+
+  &__answer-right-text {
+    margin-top: 1em;
+  }
+}

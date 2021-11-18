@@ -1,0 +1,54 @@
+.cf-page-html-wrapper {
+  height: 100%;
+}
+
+.cf-page--reviewing {
+  display: flex;
+  height: 100%;
+
+  .cf-page__main-wrapper {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 0 10px;
+  }
+
+  .cf-page__comments-panel {
+    flex: 0 0 auto;
+  }
+
+  .cf-page__comments-panel > * {
+    width: 400px;
+  }
+}
+
+.cf-question__comments-button {
+  vertical-align: middle;
+  margin: $font-size / 2;
+}
+
+.sr-question-comments-button svg {
+  fill: $control-secondary-color;
+}
+
+.sr-question-comments-button--active svg {
+  fill: $control-active-color;
+}
+
+@media (max-width: $desktop-layout-delimiter) {
+  .cf-test-navigator {
+    display: none;
+  }
+
+  .cf-page--reviewing {
+    .cf-page__comments-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .cf-page__comments-panel > * {
+      width: 100vw;
+    }
+  }
+}

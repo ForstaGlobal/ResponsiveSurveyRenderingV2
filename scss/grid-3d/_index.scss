@@ -1,0 +1,142 @@
+// Mobile
+.cf-grid-3d-mobile-inner-question {
+  margin-bottom: 2em;
+
+  &__text,
+  &__errors {
+    margin-bottom: 1em;
+  }
+
+  &__text {
+    font-weight: bold;
+  }
+
+  &__content {
+    padding: 0 ($padding-desktop + $answer-group-border-width);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: $delimiter-tablet) {
+  .cf-grid-3d-mobile-inner-question {
+    &__content {
+      padding: 0 ($padding-tablet + $answer-group-border-width);
+    }
+  }
+}
+
+@media (max-width: $delimiter-mobile) {
+  .cf-grid-3d-mobile-inner-question {
+    &__content {
+      padding: 0 ($padding-mobile + $answer-group-border-width);
+    }
+  }
+}
+
+
+// Desktop
+.cf-grid-3d-desktop {
+  &__errors {
+    margin-bottom: 1em;
+  }
+
+  &__content {
+    padding-bottom: 1em;
+  }
+
+  &__answer-other-input {
+    width: 100%;
+    min-width: 8em;
+    max-width: 20em;
+  }
+}
+
+.cf-grid-3d-desktop:not(.cf-grid-3d-desktop--rtl) {
+  .cf-grid-3d-desktop__answer-other-input {
+    margin-left: -0.5em;
+  }
+}
+
+.cf-grid-3d-desktop.cf-grid-3d-desktop--rtl {
+  .cf-grid-3d-desktop__answer-other-input {
+    margin-right: -0.5em;
+  }
+}
+
+.cf-grid-3d-desktop__slider-no-value-header-spacer {
+  width: 3em - (0.5em * 2);
+}
+
+.cf-grid-3d-desktop__dropdown-control {
+  min-width: 8em;
+  max-width: 20em;
+  width: 100%;
+}
+
+.cf-grid-3d-desktop__open-control {
+  min-width: 8em;
+  max-width: 20em;
+  width: 100%;
+
+  &--no-limit {
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  &--disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
+.cf-grid-3d-desktop__numeric-control {
+  min-width: 2em;
+  max-width: 4em;
+  width: 100%;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  &::-ms-clear {
+    display: none;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.cf-grid-3d-desktop__cf-numeric-list-auto-sum {
+  width: 4em;
+  min-width: 2em;
+  max-width: 4em;
+  flex-direction: row;
+  margin-top: 0.3em;
+  padding: 0 0.5em;
+  text-align: right;
+  border-bottom: none;
+  flex-shrink: 1;
+
+  &--rtl {
+    text-align: left;
+  }
+}
+
+.cf-grid-3d-desktop__star-rating-scale-item {
+  width: 3em;
+}
+
+.cf-grid-3d-desktop__grid-bars-scale-item {
+  width: 2.4em;
+}
+
+.cf-grid-3d-desktop__horizontal-rating-scale-item {
+  width: 2.4em;
+}

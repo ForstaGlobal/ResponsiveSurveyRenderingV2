@@ -1,0 +1,91 @@
+.cf-mobile-gb-grid {
+  &__answer {
+    &--first {
+      .cf-mobile-gb-grid__answer-label-panel {
+        display: block;
+      }
+    }
+  }
+
+  &__answer-label-panel {
+    display: none;
+    margin-top: 1em;
+  }
+
+  &__scale-texts-panel {
+    margin-top: 1em;
+  }
+
+  &__answer-scale {
+  }
+
+  &__non-scored-list {
+    margin-top: 1em;
+  }
+}
+
+.cf-desktop-gb-grid {
+  &__table {
+    width: 100%;
+  }
+
+  &__head-spacer {
+    height: 0;
+  }
+
+  &__answer-text-cell {
+    width: 25%;
+  }
+
+  &__label-panel-cell-element,
+  &__answer-rating-scale-cell-element {
+    padding: 0.125em;
+  }
+
+  &__non-scored-scale-cell {
+    width: 15%;
+
+    &-element {
+      padding: 0.125em;
+    }
+  }
+
+  &__label-panel-cell {
+    &-element {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &__answer-other {
+    max-width: 15em;
+    width: 100%;
+  }
+}
+
+.cf-desktop-gb-grid:not(.cf-desktop-gb-grid--rtl) {
+  .cf-desktop-gb-grid__non-scored-scale-cell {
+    padding-left: 1em;
+
+    &-element {
+      padding-right: 0;
+    }
+  }
+
+  .cf-desktop-gb-grid__answer-other {
+    margin-left: -0.5em;
+  }
+}
+.cf-desktop-gb-grid.cf-desktop-gb-grid--rtl {
+  .cf-desktop-gb-grid__non-scored-scale-cell {
+    padding-right: 1em;
+
+    &-element {
+      padding-left: 0;
+    }
+  }
+
+  .cf-desktop-gb-grid__answer-other {
+    margin-right: -0.5em;
+  }
+}

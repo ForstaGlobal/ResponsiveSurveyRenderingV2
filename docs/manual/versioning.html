@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | Responsive Rendering</title>
+   <link rel="shortcut icon" type="image/x-icon" href="./image/favicon.ico">
+   <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+   <link type="text/css" rel="stylesheet" href="css/style.css">
+   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+   <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Responsive Rendering Api"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Responsive Rendering"><meta property="twitter:description" content="Responsive Rendering Api"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<div class="navbar navbar-default navbar-fixed-top">
+	<div>
+		<div class="navbar-header">
+			 <a class="navbar-brand" href="./index.html">
+				<img src="./image/brand_logo.svg" style="width:30px;">
+			</a>
+			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			<li><a href="./index.html" data-ice="manualHeaderLink"> Articles and Guides </a></li>
+			<li><a href="identifiers.html" data-ice="manualHeaderLink">Library <div class="label label-default">API</div></a></li>
+			<li><a href="https://github.com/ForstaGlobal/ResponsiveSurveyRenderingV2"><img width="20px" src="./image/github.png"></a></li>
+		</ul>
+            <div class="pull-right">
+                 <div class="search-box">
+					<span>
+						<img src="./image/search.png">
+						<span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+					</span>
+					<ul class="search-result"></ul>
+				</div>
+            </div>
+	</div>
+	</div>
+</div>
+
+<nav class="navigation" data-ice="nav">
+<div class="manual-toc-root">
+  
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html" data-ice="link">Forsta Responsive Survey Rendering V2 documentation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html#what-is-it-" data-ice="link">What is it?</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html#how-to-start-using" data-ice="link">How to start using</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html#key-concepts" data-ice="link">Key concepts</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html#launch-validation" data-ice="link">Launch validation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html#browser-support" data-ice="link">Browser support</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html#further-reading" data-ice="link">Further reading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/index.html"><a class="manual-toc-href" href="manual/index.html#testlab-survey-with-examples---a-href--https---author-testlab-firmglobal-net-surveydesigner-p1010101--p1010101--a-" data-ice="link">Testlab survey with examples: p1010101</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/styling.html"><a class="manual-toc-href" href="manual/styling.html" data-ice="link">How to do styling</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/styling.html"><a class="manual-toc-href" href="manual/styling.html#style-bundle-customization" data-ice="link">Style bundle customization</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/styling.html"><a class="manual-toc-href" href="manual/styling.html#custom-css" data-ice="link">Custom CSS</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/styling.html"><a class="manual-toc-href" href="manual/styling.html#totally-custom-css" data-ice="link">Totally custom CSS</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/stylebundle.html"><a class="manual-toc-href" href="manual/stylebundle.html" data-ice="link">Style Bundle</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html" data-ice="link">How to do scripting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#where-to-put-code" data-ice="link">Where to put code</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#how-to-send-data-to-server" data-ice="link">How to send data to server</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#client-side-events" data-ice="link">Client-side events</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#changeevent" data-ice="link">ChangeEvent</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#validationevent" data-ice="link">ValidationEvent</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#validationcompleteevent" data-ice="link">ValidationCompleteEvent</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#server-side-piping" data-ice="link">Server side piping</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#custom-question-experience" data-ice="link">Custom question experience</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/scripting.html"><a class="manual-toc-href" href="manual/scripting.html#custom-jquery-slider-example" data-ice="link">Custom jQuery slider example</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html" data-ice="link">Augmenting default questions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#api-spec" data-ice="link">API spec</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#examples" data-ice="link">Examples</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#question-level" data-ice="link">Question level</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#question-type-level" data-ice="link">Question type level</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#side-by-side-views" data-ice="link">Side by side views</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#inherit-from-default-views" data-ice="link">Inherit from default views</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#replace-default-view-with-custom" data-ice="link">Replace default view with custom</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customViews.html"><a class="manual-toc-href" href="manual/customViews.html#detach-question-views" data-ice="link">Detach question views</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html" data-ice="link">Custom questions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#disabling-default-rendering" data-ice="link">Disabling default rendering</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#where-to-put-code" data-ice="link">Where to put code</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#single-slider" data-ice="link">Single slider</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#implementation" data-ice="link">Implementation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#grid-slider" data-ice="link">Grid slider</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#implementation" data-ice="link">Implementation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#grid-slider-re-rendered" data-ice="link">Grid slider re-rendered</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#implementation" data-ice="link">Implementation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#multi-accordion-with-bootstrap" data-ice="link">Multi accordion with bootstrap</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#overview" data-ice="link">Overview</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#implementation" data-ice="link">Implementation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/customQuestions.html"><a class="manual-toc-href" href="manual/customQuestions.html#custom-factory-example" data-ice="link">Custom factory example</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cheatsheet.html"><a class="manual-toc-href" href="manual/cheatsheet.html" data-ice="link">Useful style and code snippets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheatsheet.html"><a class="manual-toc-href" href="manual/cheatsheet.html#background-image" data-ice="link">Background image</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/cheatsheet.html"><a class="manual-toc-href" href="manual/cheatsheet.html#solid-picture" data-ice="link">Solid picture</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/cheatsheet.html"><a class="manual-toc-href" href="manual/cheatsheet.html#repeating-picture" data-ice="link">Repeating picture</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/layout.html"><a class="manual-toc-href" href="manual/layout.html" data-ice="link">What&apos;s changed in survey layouts</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/layout.html"><a class="manual-toc-href" href="manual/layout.html#rendering-version" data-ice="link">Rendering version</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/layout.html"><a class="manual-toc-href" href="manual/layout.html#new-in-survey-layouts" data-ice="link">New in survey layouts</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/layout.html"><a class="manual-toc-href" href="manual/layout.html#removed-from-survey-layouts" data-ice="link">Removed from survey layouts</a></li>
+</ul>
+  </div>
+<div data-ice="manual" class="nav-anchor">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/versioning.html"><a class="manual-toc-href" href="manual/versioning.html" data-ice="link">Forsta Responsive Rendering versioning</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/versioning.html"><a class="manual-toc-href" href="manual/versioning.html#what-is-rendering-version-" data-ice="link">What is Rendering Version?</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/versioning.html"><a class="manual-toc-href" href="manual/versioning.html#existing-versions" data-ice="link">Existing versions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/versioning.html"><a class="manual-toc-href" href="manual/versioning.html#key-differences-between-v2--current-documentation--and-v1-versions" data-ice="link">Key differences between V2 (current documentation) and V1 versions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/versioning.html"><a class="manual-toc-href" href="manual/versioning.html#user-experience" data-ice="link">User experience</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/versioning.html"><a class="manual-toc-href" href="manual/versioning.html#markup-changes" data-ice="link">Markup changes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/versioning.html"><a class="manual-toc-href" href="manual/versioning.html#responsive-client-api--models-layer-" data-ice="link">Responsive client API (models layer)</a></li>
+</ul>
+  </div>
+</div></nav>
+<div class="content" data-ice="content">
+<div class="github-markdown" data-ice="content"><h1 id="forsta-responsive-rendering-versioning">Forsta Responsive Rendering versioning</h1><p>Rendering versioning is a new concept that allows responsive rendering to be updated, including making breaking changes that won&apos;t automatically affect existing surveys.</p>
+<h2 id="what-is-rendering-version-">What is Rendering Version?</h2><p>The rendering version contains:</p>
+<ul>
+<li>Server-side markup generation code</li>
+<li>Client-side JavaScript code</li>
+<li>CSS files (style bundles)</li>
+</ul>
+<p>Every responsive survey layout references a specific rendering version. This means that a survey using this layout uses HTML markup, JavaScript and CSS from this rendering version. It is possible to change the rendering version in the layout properties.
+For layout templates, you have the option of setting the rendering version. If this is not set, it will use the latest available version by default. This is useful for layouts that only reference style bundles but do not contain any version-specific customizations.</p>
+<h2 id="existing-versions">Existing versions</h2><ul>
+<li>V2 version - latest and current documentation version</li>
+<li><a href="./manual/./../../ResponsiveSurveyRenderingV1">V1 version</a> </li>
+</ul>
+<h2 id="key-differences-between-v2--current-documentation--and-v1-versions">Key differences between V2 (current documentation) and V1 versions</h2><h3 id="user-experience">User experience</h3><ul>
+<li>Grid question supports &quot;Card sort&quot; appearance</li>
+<li>Grid question supports &quot;Ranking card sort&quot; appearance</li>
+<li>3D-grid supports new inner question types such as &quot;Horizontal rating scale&quot;, &quot;Grid bars&quot;, &quot;Star rating&quot; and &quot;Slider&quot;</li>
+<li>Answer colors support</li>
+<li>Repeat headers and bottom headers support in Grid and 3D-grid</li>
+<li>Slider grid supports label panel</li>
+<li>Multi question types supports enforcing the &quot;max number of answers&quot; setting</li>
+<li>Increased rating item sizes in &quot;Whitespace&quot; style bundle</li>
+<li>Improved accessibility support</li>
+<li>HTML element &lt;form&gt; wraps only hidden inputs, not whole page. If need to send data to server don&apos;t create hidden inputs, instead use Confirmit.page.serverVariables object to add, remove or edit variables. It has add/edit/remove methods.</li>
+</ul>
+<h3 id="markup-changes">Markup changes</h3><ul>
+<li><p>Grid, MultiGrid and Rating grids use two markups for mobile and desktop versions.</p>
+<blockquote>
+<p>In rendering version V1 the grid family has one markup for both mobile and desktop sizes which can cause problems with space distribution.
+Also mobile and desktop versions had different functionality with extra markup, that was not used in both versions.
+yet at the same time still needed to maintain a quite different set of CSS style for mobile and desktop version.<br>As a result, in V2 rendering, the grid family uses two standalone markups for mobile and desktop versions with corresponding standalone views that are bound to one question model.</p>
+</blockquote>
+</li>
+<li><p>3D-grid&apos;s mobile version uses the same markup for an inner question as for a regular version. For example, 3D-grid&apos;s inner single has the same as a regular single.</p>
+<blockquote>
+<p>In rendering version V1 the mobile version of 3D-grid inner question uses its own implementation of markup and corresponding &quot;View&quot;, but tries to mimic the original question type. 
+This led to extra effort if you tried to do visual customization.<br>In rendering version V2 mobile 3D-grid inner questions use the same markup and corresponding View as in regular question types.</p>
+</blockquote>
+</li>
+<li><p>All questions support a generic scrollable container.</p>
+<blockquote>
+<p>In rendering version V1 there is no scrollable container for a question&apos;s content which results in breaking the question layout or even the page layout is there is oversized content.<br>In rendering version V2 there is a generic scrollable container to cater for this.</p>
+</blockquote>
+</li>
+<li><p>Extracted repeated visual elements to standalone reusable markup blocks.</p>
+<blockquote>
+<p>In rendering version V1, part of an identical-looking element on the page has completely different HTML markups.
+For example radio/checkbox answers or label panels in rating types.<br>In rendering version V2 the logical shared visual elements have been extracted to standalone markup blocks, resulting in customization
+requiring changing styles for one markup block only. Affected elements: radio, checkbox, answer button, answer image, rating items/scales and label panel.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="responsive-client-api--models-layer-">Responsive client API (models layer)</h3><ul>
+<li><p>Single other value is now aligned with the other question types</p>
+<blockquote>
+<p>In rendering version V1 the SingleQuestionModel has a different interaction compared to the other models with &quot;other&quot; values, (it was needed to set value first, then after that set &quot;other&quot; value).<br>In rendering version V2 all question models that have &quot;other&quot; values behave the same way, the interaction with &quot;other&quot; values is now independent from model value.<br>Changes in syntax: V1:<code>SingleModel.setOtherValue(otherValue)</code> -&gt; V2:<code>SingleModel.setOtherValue(answerCode, otherValue)</code></p>
+</blockquote>
+</li>
+<li><p>Introduced &quot;detached&quot; method on question view.</p>
+<blockquote>
+<p>In rendering version V2 if you need to release resources (for example: detach from DOM, detach from Model, destroy WebGL context or make any cleanup) before the View will be destroyed, you can implement a &quot;detach&quot; method, where you can do those things.</p>
+</blockquote>
+</li>
+<li><p>Improved validation of 3D-grid questions</p>
+</li>
+</ul>
+</div>
+</div>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+
+<script src="script/jquery-3.2.1.min.js"></script>
+<script src="script/bootstrap.min.js"></script>
+</body>
+</html>

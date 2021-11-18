@@ -1,0 +1,76 @@
+.cf-grid-bars-item {
+  min-width: 1.5em;
+  min-height: 2.4em;
+  background: $control-primary-color;
+  text-align: center;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  transition-delay: 0.1s;
+
+  &--selected {
+    background: $control-active-color;
+    color: $question-bg-color;
+  }
+
+  &--hover {
+    background: $control-active-color;
+    color: $question-bg-color;
+    transition: background 0.5s linear;
+  }
+}
+
+.cf-grid-bars-scale {
+  display: flex;
+
+  &__item {
+    flex: 1 0 auto;
+    margin-right: .25em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.cf-grid-bars-scale--rtl {
+  .cf-grid-bars-scale__item {
+    margin-left: .25em;
+    margin-right: 0;
+
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.cf-grid-bars-scale-texts-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  &__item {
+    flex: 1 1 0px;
+    min-width: 1px;
+    padding-right: 0.25em;
+    text-align: center;
+    transition-delay: 0.1s;
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &--selected {
+      color: $control-active-color;
+    }
+
+    &--hover {
+      color: $control-active-color;
+      transition: color 0.5s linear;
+    }
+  }
+}

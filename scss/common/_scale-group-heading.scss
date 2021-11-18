@@ -1,0 +1,34 @@
+.scale-group-heading,
+.scale-group-end {
+  width: 100%;
+  height: 0.75em;
+  margin: 0 auto 1em;
+  border: 1px solid;
+  border-color: $control-head-color;
+  color: $control-head-color;
+}
+
+.scale-group-heading {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  border-bottom: none;
+
+  &__title {
+    text-align: center;
+    overflow: hidden;
+    max-width: 80%;
+    margin-top: -0.75em;
+    padding-left: 1em;
+    padding-right: 1em;
+    background-color: $question-bg-color;
+  }
+}
+
+.scale-group-end {
+  border-top: none;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

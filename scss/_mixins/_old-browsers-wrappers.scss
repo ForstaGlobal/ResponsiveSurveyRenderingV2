@@ -1,0 +1,11 @@
+@mixin ie-only-wrapper {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content
+  }
+}
+
+@mixin edge-only-wrapper {
+  @supports (-ms-ime-align: auto) {
+    @content
+  }
+}

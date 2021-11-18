@@ -1,0 +1,82 @@
+//--- FROM COMMON TO SPECIFIC! (from top to bottom) --//
+@import "_variables";
+@import "_functions";
+@import "_mixins";
+@import "_global";
+
+//controls
+@import "common/controls/_radio";
+@import "common/controls/_checkbox";
+@import "common/controls/_image";
+@import "common/controls/_button";
+@import "common/controls/_dropdown";
+@import "common/controls/_text-input";
+
+//answers
+@import "common/answers/_radio-answer";
+@import "common/answers/_checkbox-answer";
+@import "common/answers/_image-answer";
+@import "common/answers/_button-answer";
+
+@import "common/_table-layout";
+@import "common/_grid-layout";
+@import "common/_mobile-grid-layout";
+@import "common/_header";
+@import "common/_page";
+@import "common/_question";
+@import "common/_navigation";
+@import "common/_powered-by-confirmit";
+@import "common/_list";
+@import "common/_collapsing-panel";
+@import "common/_carousel";
+@import "common/_group-heading";
+@import "common/_scale-group-heading";
+@import "common/_toast";
+@import "common/_error";
+@import "common/_label-panel";
+@import "common/_floating-panel";
+@import "common/_progress";
+@import "common/_smart-banner";
+@import "common/slider/_index";
+@import "common/_media-upload";
+@import "common/_collapsible-groups";
+@import "common/_affix-input-decorator";
+@import "common/_searchable-question";
+@import "common/_loader";
+@import "common/rating/_horizontal-rating";
+@import "common/rating/_star-rating";
+@import "common/rating/_grid-bars";
+
+
+
+@import "open/_list";
+@import "numeric/_list";
+@import "ranking/_number";
+@import "ranking/_click";
+@import "ranking/_dnd";
+@import "dropdown/_grid";
+@import "hierarchy/_index";
+@import "accordion/_index";
+@import "grid/_single";
+@import "grid/_multi";
+@import "grid-3d/_index";
+@import "horizontal-rating-scale/_single";
+@import "horizontal-rating-scale/_grid";
+@import "grid-bars/_single";
+@import "grid-bars/_grid";
+@import "star-rating/_single";
+@import "star-rating/_grid";
+@import "carousel/_rating";
+@import "card-sort/_grid";
+@import "geolocation/_index";
+@import "image-upload/_index";
+@import "login-page/_index";
+@import "max-diff/_index";
+@import "slider/_single";
+@import "slider/_numeric";
+@import "slider/_numeric_list";
+@import "slider/_grid";
+@import "video-upload/_index";
+@import "audio-upload/_index";
+@import "code-capture/_index";
+@import "_survey-reviewer";

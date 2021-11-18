@@ -1,0 +1,45 @@
+.cf-mobile-multi-grid {
+  display: flex;
+  flex-direction: column;
+
+  &__question {
+    margin-bottom: 2em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.cf-mobile-multi-grid-question {
+  &__title {
+    margin-bottom: 1em;
+  }
+}
+
+.cf-desktop-multi-grid {
+  &__answer-other {
+    width: 100%;
+    max-width: 12em;
+    min-width: 5em;
+  }
+
+  &__answer-text {
+  }
+
+  &__question {
+  }
+}
+
+.cf-desktop-multi-grid--answer-buttons {
+    .cf-desktop-multi-grid__head-spacer {
+      height: 0;
+    }
+    .cf-desktop-multi-grid__cell-element {
+      padding: 0.125em;
+    }
+}
+
+.cf-desktop-multi-grid-question {
+
+}

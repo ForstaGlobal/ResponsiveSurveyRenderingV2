@@ -1,0 +1,6 @@
+.cf-floating-panel{
+  &--fixed{
+    position: fixed;
+    z-index: 10;
+  }
+}

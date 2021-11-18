@@ -1,0 +1,313 @@
+$border-width: 2px;
+$grid-gap: 1em;
+
+.cf-card-sort{
+  user-select: none;
+  -ms-user-select: none;
+}
+
+//Layouts
+@media (max-width: $desktop-layout-delimiter) {
+  .cf-card-sort {
+    &__layout-cell {
+      margin-bottom: 1em;
+    }
+
+    &__layout-stretched-cell {
+      margin-bottom: 1.5em;
+    }
+  }
+}
+
+@media (min-width: $desktop-layout-delimiter) {
+  .cf-card-sort {
+    display: grid;
+  }
+
+  .cf-card-sort--top-bottom,
+  .cf-card-sort--bottom-top {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $grid-gap;
+
+    .cf-card-sort__layout-stretched-cell {
+      grid-column: 1 / -1;
+
+
+      &-inner-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: $grid-gap;
+
+        &-cell {
+          grid-column: 2;
+        }
+      }
+    }
+  }
+
+  .cf-card-sort--top-bottom .cf-card-sort__layout-stretched-cell {
+    grid-row: 1;
+    margin-bottom: $grid-gap / 2;
+  }
+  .cf-card-sort--bottom-top .cf-card-sort__layout-stretched-cell {
+    margin-top: $grid-gap / 2;
+  }
+
+  .cf-card-sort--right-left,
+  .cf-card-sort--left-right {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(10, minmax(auto, min-content));
+    grid-column-gap: $grid-gap;
+
+    .cf-card-sort__layout-cell {
+      margin-bottom: $grid-gap;
+    }
+
+    .cf-card-sort__layout-stretched-cell {
+      grid-row: 1 / -1;
+      margin-bottom: $grid-gap / 2;
+    }
+  }
+  .cf-card-sort--right-left .cf-card-sort__layout-stretched-cell {
+    grid-column: 1;
+  }
+
+  .cf-card-sort--right-left .cf-card-sort__layout-stretched-cell {
+    grid-column: 4;
+  }
+}
+
+.cf-card-sort-drop-zone {
+  border: $border-width dashed $control-primary-color;
+}
+
+.cf-card-sort-drop-zone--selected {
+  border-color: $control-active-color;
+  background-color: rgba($control-active-color, .1);
+
+  .cf-card-sort-drop-zone__content {
+    padding: .5em 1em .75em 1em;
+  }
+
+  &.cf-card-sort-drop-zone--active {
+    background-color: rgba($control-active-color, .5);
+  }
+
+  &.cf-card-sort-drop-zone--error {
+    border-color: $error-text-color;
+  }
+}
+
+.cf-card-sort-drop-zone--non-selected {
+  border-color: $question-border-color;
+  margin-left: -$border-width;
+  margin-right: -$border-width;
+
+  .cf-card-sort-drop-zone__content {
+    padding: .5em calc(1em + #{$border-width}) .75em;
+  }
+
+  &.cf-card-sort-drop-zone--active {
+    background-color: rgba($control-primary-color, .5);
+  }
+}
+
+
+.cf-card-sort-answer-list {
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5em;
+  }
+
+  &__items {
+    min-height: 3em;
+  }
+}
+
+
+.cf-card-sort-answer-list--non-selected {
+  .cf-card-sort-answer-list__title {
+    justify-content: center;
+  }
+
+  .cf-card-sort-answer-list__counter--error {
+    color: $error-text-color;
+  }
+
+  .cf-card-sort-answer-list__item--placeholder {
+    background: $control-secondary-color;
+  }
+}
+
+.cf-card-sort-answer-list--selected{
+  .cf-card-sort-answer-list {
+    &__text {
+      color: $control-active-color;
+    }
+
+    &__counter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: $question-bg-color;
+      background: $control-active-color;
+      border-radius: 50%;
+      height: 20px;
+      min-width: 20px;
+    }
+
+    &__item {
+      margin-bottom: .5em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &--placeholder {
+        background-color: rgba($control-active-color, .3);
+      }
+    }
+  }
+}
+
+.cf-card-sort-answer {
+  display: none;
+  min-height: 3em;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $control-primary-color;
+  cursor: grab;
+  padding: .5em 1em;
+
+  &:first-child {
+    display: flex;
+  }
+
+  &__text {
+    order: 1;
+    flex: 1 1 auto;
+  }
+
+  &:after {
+    content: '';
+    order: 2;
+    flex: 0 0 1em;
+  }
+
+  &__handle {
+    order: 3;
+    flex: 0 0 1.5em;
+    height: .5em;
+    margin: .5em 0;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    border-color: $question-bg-color;
+  }
+
+  &__other {
+    max-width: initial;
+    width: 100%;
+
+    &:not(:hover):not(:focus) {
+      border-bottom: none;
+      padding-bottom: 1px;
+    }
+  }
+
+  &--dragging, &--selected {
+    display: flex;
+    background: $control-active-color;
+    border-color: $control-active-color;
+    color: $question-bg-color;
+
+    .cf-card-sort-answer__other {
+      color: $question-bg-color;
+      border-bottom: 1px solid $question-bg-color;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .cf-card-sort-answer__handle {
+      border-color: $question-bg-color;
+    }
+
+    .cf-card-sort-answer__text {
+      color: $question-bg-color;
+    }
+  }
+
+  &--dragging {
+    position: fixed;
+    z-index: 100;
+    cursor: grabbing;
+    margin: 0;
+    top: 0;
+    left: 0;
+    user-select: none;
+  }
+}
+
+@include ie-only-wrapper {
+  .cf-card-sort {
+    display: -ms-grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
+
+    &__layout-stretched-cell {
+      -ms-grid-column-span: 3;
+    }
+
+    &__layout-stretched-cell-inner-container {
+      display: -ms-grid;
+      -ms-grid-columns: 1fr 1fr 1fr;
+    }
+
+    &__layout-stretched-cell-inner-container-cell {
+      -ms-grid-column: 2;
+      padding: 0 $grid-gap/2;
+    }
+
+    &__layout-cell {
+      margin-bottom: $grid-gap;
+      -ms-grid-row-align: start;
+
+      &:nth-last-child(1),
+      &:nth-last-child(2),
+      &:nth-last-child(3) {
+        margin-bottom: 0;
+      }
+
+      &:nth-child(1), &:nth-child(4n) {
+        -ms-grid-column: 1;
+        margin-right: $grid-gap/2;
+      }
+
+      &:nth-child(3n+2) {
+        -ms-grid-column: 2;
+        margin-left: $grid-gap/2;
+        margin-right: $grid-gap/2;
+      }
+
+      &:nth-child(3n) {
+        -ms-grid-column: 3;
+        margin-left: $grid-gap/2;
+      }
+    }
+  }
+
+  .cf-card-sort--bottom-top,
+  .cf-card-sort--left-right,
+  .cf-card-sort--right-left {
+    .cf-card-sort__layout-stretched-cell {
+      margin-top: $grid-gap * 1.5;
+    }
+  }
+  .cf-card-sort--top-bottom .cf-card-sort__layout-stretched-cell {
+    margin-bottom: $grid-gap * 1.5;
+  }
+
+  .cf-card-sort-answer-list__items {
+    display: flex;
+    flex-direction: column;
+  }
+}

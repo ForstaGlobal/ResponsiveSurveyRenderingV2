@@ -1,0 +1,65 @@
+$star-clip-path: polygon(51% 1%, 64% 37%, 100% 40%, 72% 63%, 83% 99%, 51% 77%, 18% 99%, 29% 63%, 1% 40%, 37% 37%);
+
+.cf-star-rating-scale {
+  display: flex;
+  justify-content: space-between;
+
+  &__item {
+    flex: 0 1 auto;
+
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.cf-star-rating-item {
+  width: 2em;
+  height: 2em;
+  background-color: $control-primary-color;
+  clip-path: $star-clip-path;
+  cursor: pointer;
+
+  &--selected {
+    background-color: $control-active-color;
+  }
+}
+
+@include ie-only-wrapper {
+  .cf-star-rating-item {
+    margin: 0;
+    background-color: transparent !important; /* need to avoid flicking background with answer colors*/
+    clip-path: none;
+    color: $control-primary-color;
+    overflow: hidden;
+
+    &::before {
+      content: unicode('2605');
+      color: inherit;
+      font-size: 2.5em;
+    }
+
+    &--selected {
+      color: $control-active-color;
+    }
+  }
+}
+
+@include edge-only-wrapper {
+  .cf-star-rating-item {
+    margin: 0;
+    background-color: transparent !important; /* need to avoid flicking background with answer colors*/
+    clip-path: none;
+    color: $control-primary-color;
+    overflow: hidden;
+
+    &::before {
+      content: unicode('2605');
+      color: inherit;
+      font-size: 2.5em;
+    }
+
+    &--selected {
+      color: $control-active-color;
+    }
+  }
+}

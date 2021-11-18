@@ -1,0 +1,57 @@
+.cf-navigation {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+
+  &__button {
+    width: 25%;
+    min-width: 140px;
+    max-width: 200px;
+
+    min-height: 2em;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: $border-radius;
+    background: none;
+    font-size: 1.4em;
+
+    cursor: pointer;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:first-child {
+      margin-left: auto;
+    }
+  }
+}
+
+.cf-navigation-next {
+  border: 1px solid $next-button-border-color;
+  background: $next-button-bg-color;
+  color: $next-button-font-color;
+}
+
+.cf-navigation-back {
+  border: 1px solid $back-button-border-color;
+  background: $back-button-bg-color;
+  color: $back-button-font-color;
+}
+
+.cf-navigation-ok {
+  @extend .cf-navigation-next;
+}
+
+.cf-navigation--disabled {
+  pointer-events: none;
+  user-select: none;
+}
+
+.cf-navigation--rtl {
+  .cf-navigation__button:first-child {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}

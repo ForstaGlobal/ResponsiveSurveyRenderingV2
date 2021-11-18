@@ -1,0 +1,37 @@
+.cf-desktop-grid {
+
+  &__scale-group-text {
+    color: $control-head-color;
+    border-bottom: 1px solid $control-head-color;
+    margin-bottom: 0.25em;
+    padding: 0 0.5em;
+  }
+
+  &__answer-other {
+    width: 100%;
+    max-width: 15em;
+    min-width: 5em;
+  }
+
+  &__scale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.cf-desktop-grid.cf-desktop-grid--rtl .cf-desktop-grid__answer-other {
+  margin-left: -0.5em;
+}
+.cf-desktop-grid:not(f-desktop-grid--rtl) .cf-desktop-grid__answer-other {
+  margin-right: -0.5em;
+}
+
+.cf-desktop-grid--answer-buttons {
+  .cf-desktop-grid__head-spacer {
+    height: 0;
+  }
+  .cf-desktop-grid__cell-element {
+    padding: 0.125em;
+  }
+}

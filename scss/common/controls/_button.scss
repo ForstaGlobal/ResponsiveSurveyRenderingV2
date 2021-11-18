@@ -1,0 +1,27 @@
+.cf-button {
+  color: $question-font-color;
+  background-color: $control-primary-color;
+  max-width: 100%;
+  min-height: 3em;
+  padding: 0 1em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+/* fix for min-height flex bug in IE11 */
+@include ie-only-wrapper {
+  .cf-button::before {
+    content: "";
+    visibility: hidden;
+    width: 0;
+    height: 3em;
+  }
+}
+
+.cf-button--selected {
+  color: $question-bg-color;
+  border-color: $control-active-color;
+  background-color: $control-active-color;
+}

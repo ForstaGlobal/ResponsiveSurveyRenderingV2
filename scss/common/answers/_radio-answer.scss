@@ -1,0 +1,31 @@
+.cf-radio-answer {
+  display: flex;
+  cursor: pointer;
+
+  &__control {
+    flex: 0 0 auto;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    min-width: 1px;
+    margin-left: .8em;
+  }
+
+  &__text {
+    margin-top: calcTopOffsetForAlignment($control-size, 1.4em);
+  }
+
+  &__other {
+    width: 15em;
+  }
+}
+
+.cf-radio-answer--small .cf-radio-answer__text {
+    margin-top: 0;
+}
+
+.cf-radio-answer--rtl .cf-radio-answer__content {
+  margin-left: 0;
+  margin-right: 0.8em;
+}

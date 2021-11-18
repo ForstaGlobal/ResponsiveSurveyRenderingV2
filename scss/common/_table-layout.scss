@@ -1,0 +1,238 @@
+$cell-padding: 8px;
+
+.cf-table-layout {
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  &__head-spacer {
+    height: 1em;
+  }
+
+  // TODO: bem violation
+  .cf-table-layout__row--head + .cf-table-layout__row--head {
+    .cf-table-layout-cell {
+      padding-top: 0;
+    }
+  }
+
+  &__cell {
+    vertical-align: middle;
+    font-weight: normal;
+    text-align: center;
+    padding: 0;
+
+    &--empty {
+      background-color: transparent;
+      border: none;
+    }
+
+    &--row-head {
+      max-width: 50vw;
+    }
+
+    &--column-head {
+      background-color: $control-head-color;
+      color: $control-head-font-color;
+    }
+
+    &--column-group {
+    }
+  }
+
+  // GROUP
+  &__row-group-start {
+    height: 2.4em;
+  }
+
+  &__row-group-title {
+    color: $control-head-color;
+    font-weight: bold;
+    position: relative;
+  }
+
+  &__row-group-end {
+    height: 2.4em;
+  }
+}
+
+.cf-table-layout:not(.cf-table-layout--rtl) {
+  padding-left: $answer-group-border-width;
+  text-align: left;
+
+  .cf-table-layout__cell {
+
+    &:first-child {
+      padding-left: $padding-desktop - $cell-padding;
+    }
+
+    &--row-head {
+      text-align: left;
+
+      &:first-child {
+        padding-right: 1em;
+      }
+
+      &:last-child {
+        padding-left: 1em;
+      }
+    }
+  }
+
+  .cf-table-layout__row--in-group .cf-table-layout__cell:first-child {
+    padding-left: ($padding-desktop - $answer-group-border-width - $cell-padding);
+    border-left: $answer-group-border-width solid $control-head-color;
+  }
+
+  .cf-table-layout__row-group-title {
+    left: -$answer-group-border-width;
+  }
+}
+
+.cf-table-layout--rtl {
+  direction: rtl;
+  padding-right: $answer-group-border-width;
+  text-align: right;
+
+  .cf-table-layout__cell {
+
+    &:first-child {
+      padding-right: $padding-desktop - $cell-padding;
+    }
+
+    &--row-head {
+      text-align: right;
+
+      &:first-child {
+        padding-left: 1em;
+      }
+
+      &:last-child {
+        padding-right: 1em;
+      }
+    }
+  }
+
+  .cf-table-layout__row--in-group .cf-table-layout__cell:first-child {
+    padding-right: ($padding-desktop - $answer-group-border-width - $cell-padding);
+    border-right: $answer-group-border-width solid $control-head-color;
+  }
+
+  .cf-table-layout__row-group-title {
+    right: -$answer-group-border-width;
+  }
+}
+
+// TABLET
+@media (max-width: $delimiter-tablet) {
+  .cf-table-layout:not(.cf-table-layout--rtl) {
+    .cf-table-layout {
+      &__cell:first-child {
+        padding-left: $padding-tablet - $cell-padding;
+      }
+
+      &__row--in-group .cf-table-layout__cell:first-child {
+        padding-left: ($padding-tablet - $answer-group-border-width / 2 - $cell-padding);
+        border-left: $answer-group-border-width / 2 solid $control-head-color;
+      }
+    }
+  }
+
+  .cf-table-layout--rtl {
+    .cf-table-layout {
+      &__cell:first-child {
+        padding-right: $padding-tablet - $cell-padding;
+      }
+
+      &__row--in-group .cf-table-layout__cell:first-child {
+        padding-right: ($padding-tablet - $answer-group-border-width / 2 - $cell-padding);
+        border-right: $answer-group-border-width / 2 solid $control-head-color;
+      }
+    }
+  }
+}
+
+// MOBILE
+@media (max-width: $delimiter-mobile) {
+  .cf-table-layout:not(.cf-table-layout--rtl) {
+    .cf-table-layout {
+      &__cell:first-child {
+        padding-left: $padding-mobile - $cell-padding;
+      }
+
+      &__row--in-group .cf-table-layout__cell:first-child {
+        padding-left: ($padding-mobile - $answer-group-border-width / 2 - $cell-padding);
+        border-left: $answer-group-border-width / 2 solid $control-head-color;
+      }
+    }
+  }
+
+  .cf-table-layout--rtl {
+    .cf-table-layout {
+      &__cell:first-child {
+        padding-right: $padding-mobile - $cell-padding;
+      }
+
+      &__row--in-group .cf-table-layout__cell:first-child {
+        padding-right: ($padding-mobile - $answer-group-border-width / 2 - $cell-padding);
+        border-right: $answer-group-border-width / 2 solid $control-head-color;
+      }
+    }
+  }
+}
+
+.cf-table-layout-cell {
+  padding: 0.5em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+  }
+}
+
+.cf-table-layout-cell--stretch {
+  justify-content: stretch;
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+  }
+}
+
+.cf-table-layout-cell--row-head {
+  justify-content: stretch;
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+  }
+}
+
+.cf-table-layout-cell--column-head {
+  justify-content: stretch;
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+.cf-table-layout-cell--column-group {
+  justify-content: stretch;
+  padding: 0.5em 0 0 0;
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+// MAX DIFF
+// TODO: move to max-diff block;
+.cf-table-layout--max-diff:not(.cf-table-layout--rtl),
+.cf-table-layout--max-diff.cf-table-layout--rtl {
+  .cf-table-layout__cell:first-child {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

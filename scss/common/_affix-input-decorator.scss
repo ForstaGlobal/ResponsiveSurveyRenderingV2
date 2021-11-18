@@ -1,0 +1,41 @@
+.cf-affix-input-decorator {
+  display: inline-flex;
+  max-width: 100%;
+  flex-direction: row;
+
+  &__input-wrapper {
+    flex: 0 1 auto;
+    min-width: 1px;
+  }
+
+  &__input-prefix, &__input-suffix {
+    flex: 0 0 auto;
+    margin-top: calcTopOffsetForAlignment(2em, 1.4em);
+  }
+
+  &__input-prefix {
+    text-align: right;
+    padding-right: 0.5em;
+  }
+
+  &__input-suffix {
+    text-align: left;
+    padding-left: 0.5em;
+  }
+}
+
+.cf-affix-input-decorator--rtl {
+  .cf-affix-input-decorator {
+    &__input-prefix {
+      text-align: left;
+      padding-left: 0.5em;
+      padding-right: 0;
+    }
+
+    &__input-suffix {
+      text-align: right;
+      padding-right: 0.5em;
+      padding-left: 0;
+    }
+  }
+}

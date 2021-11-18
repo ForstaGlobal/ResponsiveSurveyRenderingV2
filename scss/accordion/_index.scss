@@ -1,0 +1,34 @@
+.cf-accordion-grid-answer {
+  margin-bottom: 1em;
+  &__other {
+    width: 15em;
+  }
+
+  &__selected-list{
+    color: $control-active-color;
+    font-size: .9em;
+    font-weight: bold;
+    padding: 0 2.5em;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__scales{
+    margin-top: 1em;
+  }
+
+
+  &__right-text {
+    margin-top: 1em;
+    margin-left: 2.2em;
+  }
+}
+
+.cf-accordion-grid-answer--rtl{
+  .cf-accordion-grid-answer__right-text {
+    margin-left: 0;
+    margin-right: 2.2em;
+  }
+}
