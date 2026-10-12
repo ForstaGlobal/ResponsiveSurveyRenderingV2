@@ -1,7 +1,7 @@
 import Utils from '../../utils';
 import SearchableQuestionViewBase from './base/searchable-question-view-base';
-import StoredOtherValuesMixin from "./base/stored-other-values-mixin";
-import {SingleOtherValuesKeeper} from "../helpers/other-values-keeper";
+import StoredOtherValuesMixin from './base/stored-other-values-mixin';
+import { SingleOtherValuesKeeper } from '../helpers/other-values-keeper';
 
 export default class SearchableSingleQuestionView extends StoredOtherValuesMixin(SearchableQuestionViewBase) {
     constructor(question, settings = null) {
@@ -26,7 +26,9 @@ export default class SearchableSingleQuestionView extends StoredOtherValuesMixin
     }
 
     _getSelectedAnswerText(answer) {
-        return answer.isOther && !Utils.isEmpty(this._question.otherValues[answer.code]) ? this._question.otherValues[answer.code] : answer.text;
+        return answer.isOther && !Utils.isEmpty(this._question.otherValues[answer.code])
+            ? this._question.otherValues[answer.code]
+            : answer.text;
     }
 
     _renderAnswer(answer) {
@@ -46,10 +48,9 @@ export default class SearchableSingleQuestionView extends StoredOtherValuesMixin
     }
 
     _getAnswerColorStyle(answer) {
-        return answer.code === this._question.value && !Utils.isEmpty(answer.backgroundColor) ?
-            `style="background-color: ${answer.backgroundColor}; border-color: ${answer.backgroundColor}"`
-            :
-            '';
+        return answer.code === this._question.value && !Utils.isEmpty(answer.backgroundColor)
+            ? `style="background-color: ${answer.backgroundColor}; border-color: ${answer.backgroundColor}"`
+            : '';
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -57,7 +58,7 @@ export default class SearchableSingleQuestionView extends StoredOtherValuesMixin
         this._question.setValue(null);
     }
 
-    _updateAnswerNodes({value}) {
+    _updateAnswerNodes({ value }) {
         if (value === undefined) {
             return;
         }
@@ -65,9 +66,9 @@ export default class SearchableSingleQuestionView extends StoredOtherValuesMixin
         this._question.answers.forEach(answer => {
             this._getAnswerNode(answer.code).removeClass(this._selectedAnswerCssClass);
             this._getAnswerControlNode(answer.code)
-              .removeClass(this._selectedControlCssClass)
-              .css('background-color', '')
-              .css('border-color', '');
+                .removeClass(this._selectedControlCssClass)
+                .css('background-color', '')
+                .css('border-color', '');
         });
 
         if (this._question.value === null) {
@@ -80,7 +81,7 @@ export default class SearchableSingleQuestionView extends StoredOtherValuesMixin
         const controlNode = this._getAnswerControlNode(answer.code);
         controlNode.addClass(this._selectedControlCssClass);
         if (!Utils.isEmpty(answer.backgroundColor)) {
-            controlNode.css({backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor});
+            controlNode.css({ backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor });
         }
     }
 
@@ -96,6 +97,34 @@ export default class SearchableSingleQuestionView extends StoredOtherValuesMixin
         }
     }
 
+    /**
+     * @param {QuestionValidationResult} validationResult
+     * @protected
+     */
+    _showErrors(validationResult) {
+        super._showErrors(validationResult);
+        this._addReferenceToErrorForAnswers(validationResult);
+    }
+
+    _addReferenceToErrorForAnswers(validationResult) {
+        if (validationResult.isValid || validationResult.errors.length === 0) {
+            return;
+        }
+
+        this._question.answers.forEach(answer => {
+            const controlNode = this._getAnswerControlNode(answer.code);
+            controlNode.attr('aria-describedby', this._getQuestionErrorNodeId());
+        });
+    }
+
+    _hideErrors() {
+        super._hideErrors();
+
+        this._question.answers.forEach(answer => {
+            this._getAnswerControlNode(answer.code).removeAttr('aria-describedby');
+        });
+    }
+
     _onModelValueChange(data) {
         super._onModelValueChange(data.changes);
 
@@ -108,11 +137,13 @@ export default class SearchableSingleQuestionView extends StoredOtherValuesMixin
     }
 
     _onAnswerOtherNodeValueChange(answer, otherValue) {
-        if (!Utils.isEmpty(otherValue)) { // select answer
+        if (!Utils.isEmpty(otherValue)) {
+            // select answer
             this._question.setValue(answer.code);
         }
 
-        if (this._question.value === answer.code) { // update other value for currently selected answer
+        if (this._question.value === answer.code) {
+            // update other value for currently selected answer
             this._question.setOtherValue(answer.code, otherValue);
         }
     }

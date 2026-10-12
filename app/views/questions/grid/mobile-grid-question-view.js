@@ -1,5 +1,5 @@
-import MobileQuestionIdProvider from "../../helpers/mobile-question-id-provider";
-import GridQuestionViewBase from "./grid-question-view-base";
+import MobileQuestionIdProvider from '../../helpers/mobile-question-id-provider';
+import GridQuestionViewBase from './grid-question-view-base';
 
 export default class MobileGridQuestionView extends GridQuestionViewBase {
     /**

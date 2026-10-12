@@ -69,12 +69,16 @@ export default class DesktopQuestionIdProvider extends QuestionIdProvider {
         return 'desktop_' + super.getAnswerControlNodeId(answerCode);
     }
 
-    getScaleControlNodeId(answerCode, scaleCode){
+    getScaleControlNodeId(answerCode, scaleCode) {
         return 'desktop_' + super.getScaleControlNodeId(answerCode, scaleCode);
     }
 
     getScaleNodeId(answerCode, scaleCode) {
         return 'desktop_' + super.getScaleNodeId(answerCode, scaleCode);
+    }
+
+    getCommonScaleTextNodeId(scaleCode) {
+        return 'desktop_' + super.getCommonScaleTextNodeId(scaleCode);
     }
 
     getScaleTextNodeId(answerCode, scaleCode) {

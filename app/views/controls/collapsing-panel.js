@@ -1,4 +1,4 @@
-import Event from "../../event";
+import Event from '../../event';
 
 export default class CollapsingPanel {
     constructor(container) {
@@ -21,40 +21,43 @@ export default class CollapsingPanel {
         return this._isOpen;
     }
 
-    open() {
-        this._toggle(true);
+    async open() {
+        await this._toggle(true);
     }
 
-    close() {
-        this._toggle(false);
+    async close() {
+        await this._toggle(false);
     }
 
-    _toggle(value) {
+    async _toggle(value) {
         if (this._isOpen === value) {
             return;
         }
 
         this._isOpen = value;
-        this._toggleDOM();
         this._toggleEvent.trigger();
+        await this._toggleDOM();
     }
 
     _toggleDOM() {
-        const bodyNode = this._container.find('.cf-collapsing-panel__body');
+        return new Promise(resolve => {
+            const bodyNode = this._container.find('.cf-collapsing-panel__body');
 
-        bodyNode.one('transitionend', () => {
-            bodyNode[0].style.removeProperty('height');
-            bodyNode.removeClass('cf-collapsing-panel__body--collapsing');
+            bodyNode.one('transitionend', () => {
+                bodyNode[0].style.removeProperty('height');
+                bodyNode.removeClass('cf-collapsing-panel__body--collapsing');
+                resolve();
+            });
+
+            bodyNode.addClass('cf-collapsing-panel__body--collapsing');
+            bodyNode.css('height', `${bodyNode[0].scrollHeight}px`);
+
+            if (!this._isOpen) {
+                bodyNode[0].offsetHeight; //for make browser reflow
+                bodyNode.css('height', '0px');
+            }
+
+            this._container.toggleClass('cf-collapsing-panel--open', this._isOpen);
         });
-
-        bodyNode.addClass('cf-collapsing-panel__body--collapsing');
-        bodyNode.css('height', `${bodyNode[0].scrollHeight}px`);
-
-        if (!this._isOpen) {
-            bodyNode[0].offsetHeight; //for make browser reflow
-            bodyNode.css('height', '0px');
-        }
-
-        this._container.toggleClass('cf-collapsing-panel--open', this._isOpen);
     }
 }

@@ -1,5 +1,5 @@
-import Grid3DDesktopInnerQuestionView from "./grid-3d-desktop-inner-question-view";
-import ErrorBlockManager from "../../../error/error-block-manager";
+import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
+import ErrorBlockManager from '../../../error/error-block-manager';
 
 export default class Grid3DDesktopInnerDropdownGridQuestionView extends Grid3DDesktopInnerQuestionView {
     constructor(parentQuestion, question, settings = null) {
@@ -12,18 +12,17 @@ export default class Grid3DDesktopInnerDropdownGridQuestionView extends Grid3DDe
 
     _attachHandlersToDOM() {
         this._question.answers.forEach(answer => {
-            this._getAnswerNode(answer.code).on('change', event => {
+            this._getAnswerInputNode(answer.code).on('change', event => {
                 this._onAnswerChangedHandler(answer.code, event.target.value);
             });
         });
     }
 
-    _updateAnswerNodes({values = []}){
-        if (values.length === 0)
-            return;
+    _updateAnswerNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
-            const answerInput = this._getAnswerNode(answerCode);
+            const answerInput = this._getAnswerInputNode(answerCode);
             const value = this._question.values[answerCode] || '';
             answerInput.val(value);
         });
@@ -31,7 +30,7 @@ export default class Grid3DDesktopInnerDropdownGridQuestionView extends Grid3DDe
 
     _showErrors(validationResult) {
         validationResult.answerValidationResults.forEach(answerValidationResult => {
-            const target = this._getAnswerNode(answerValidationResult.answerCode);
+            const target = this._getAnswerInputNode(answerValidationResult.answerCode);
             const errorBlockId = this._getAnswerErrorBlockId(answerValidationResult.answerCode);
             const errors = answerValidationResult.errors.map(error => error.message);
             this._answerErrorBlockManager.showErrors(errorBlockId, target, errors);
@@ -42,7 +41,7 @@ export default class Grid3DDesktopInnerDropdownGridQuestionView extends Grid3DDe
         this._answerErrorBlockManager.removeAllErrors();
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
     }
 

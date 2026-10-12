@@ -1,0 +1,36 @@
+@use "variables";
+
+:root {
+  --cf-window-bg-color: #{variables.$window-bg-color};
+  --cf-window-bg-image: #{variables.$window-bg-image};
+  --cf-window-bg-repeat: #{variables.$window-bg-repeat};
+
+  --cf-header-bg-color: #{variables.$header-bg-color};
+  --cf-header-alignment: #{variables.$header-alignment};
+  --cf-header-text-color: #{variables.$header-text-color};
+
+  --cf-desktop-layout-delimiter: #{variables.$desktop-layout-delimiter};
+  --cf-page-font: #{variables.$page-font};
+
+  --cf-question-bg-color: #{variables.$question-bg-color};
+  --cf-question-border-color: #{variables.$question-border-color};
+  --cf-question-font-color: #{variables.$question-font-color};
+  --cf-question-instruction-color: #{variables.$question-instruction-color};
+
+  --cf-control-primary-color: #{variables.$control-primary-color};
+  --cf-control-secondary-color: #{variables.$control-secondary-color};
+  --cf-control-active-color: #{variables.$control-active-color};
+  --cf-control-head-color: #{variables.$control-head-color};
+  --cf-control-head-font-color: #{variables.$control-head-font-color};
+
+  --cf-back-button-border-color: #{variables.$back-button-border-color};
+  --cf-back-button-bg-color: #{variables.$back-button-bg-color};
+  --cf-back-button-font-color: #{variables.$back-button-font-color};
+
+  --cf-next-button-border-color: #{variables.$next-button-border-color};
+  --cf-next-button-bg-color: #{variables.$next-button-bg-color};
+  --cf-next-button-font-color: #{variables.$next-button-font-color};
+
+  --cf-progress-color: #{variables.$progress-color};
+  --cf-progress-indicator-color: #{variables.$progress-indicator-color};
+}

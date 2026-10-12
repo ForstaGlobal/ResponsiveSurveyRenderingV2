@@ -1,0 +1,30 @@
+@use "../../functions";
+@use "../../variables";
+
+.cf-radio-answer {
+  display: flex;
+  cursor: pointer;
+
+  &__control {
+    flex: 0 0 auto;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    min-width: 1px;
+    margin-left: 16px;
+  }
+
+  &__text {
+    margin-top: functions.calcTopOffsetForAlignment(variables.$control-size, 20px);
+  }
+}
+
+.cf-radio-answer--small .cf-radio-answer__text {
+  margin-top: functions.calcTopOffsetForAlignment(variables.$control-size - 6px, 20px);
+}
+
+.cf-radio-answer--rtl .cf-radio-answer__content {
+  margin-left: 0;
+  margin-right: 16px;
+}

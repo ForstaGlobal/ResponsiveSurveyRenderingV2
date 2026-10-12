@@ -1,6 +1,6 @@
 import CaptureOrderMultiQuestionView from './capture-order-multi-question-view';
-import StoredOtherValuesMixin from "./base/stored-other-values-mixin";
-import {RankingOtherValuesKeeper} from "../helpers/other-values-keeper";
+import StoredOtherValuesMixin from './base/stored-other-values-mixin';
+import { RankingOtherValuesKeeper } from '../helpers/other-values-keeper';
 
 export default class AnswerButtonsCaptureOrderMultiQuestionView extends CaptureOrderMultiQuestionView {
     /**
@@ -34,7 +34,9 @@ export default class AnswerButtonsCaptureOrderMultiQuestionView extends CaptureO
     }
 }
 
-export class AnswerButtonsCaptureOrderMultiQuestionViewWithStoredOtherValues extends StoredOtherValuesMixin(AnswerButtonsCaptureOrderMultiQuestionView) {
+export class AnswerButtonsCaptureOrderMultiQuestionViewWithStoredOtherValues extends StoredOtherValuesMixin(
+    AnswerButtonsCaptureOrderMultiQuestionView
+) {
     constructor(question, settings) {
         super(question, settings, new RankingOtherValuesKeeper(question, settings));
     }

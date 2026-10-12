@@ -1,4 +1,4 @@
-import Answer from "./answer";
+import Answer from './answer';
 
 /**
  * @desc A class for HierarchyNode

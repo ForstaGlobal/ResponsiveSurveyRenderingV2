@@ -3,6 +3,7 @@ import QuestionBase from './question-base.js';
 import QuestionValidationResult from './../validation/question-validation-result.js';
 import AnswerValidationResult from './../validation/answer-validation-result.js';
 import ValidationError from './../validation/validation-error.js';
+import Utils from 'utils.js';
 
 /**
  * @desc A base class for Question
@@ -18,16 +19,27 @@ export default class Question extends QuestionBase {
 
         this._readOnly = model.readOnly;
         this._required = model.required;
+        this._category = model.category;
         this._validationRules = model.validationRules || [];
         this._triggeredQuestions = model.triggeredQuestions || [];
+        this._isCatiReviewingMode = model.isCatiReviewingMode || false;
 
         this._allowValidateOnChange = true;
-        this._validateOnChange = false;
+        this._validateOnChange = model.errorMessages && model.errorMessages.length > 0;
 
         // Events
         this._changeEvent = new Event('question:change');
         this._validationEvent = new Event('question:validation');
         this._validationCompleteEvent = new Event('question:validation-complete');
+    }
+
+    /**
+     * The flag shows if user in CATI reviewing mode.
+     * @type {boolean}
+     * @readonly
+     */
+    get isCatiReviewingMode() {
+        return this._isCatiReviewingMode;
     }
 
     /**
@@ -46,6 +58,15 @@ export default class Question extends QuestionBase {
      */
     get required() {
         return this._required;
+    }
+
+    /**
+     * Question category.
+     * @type {string}
+     * @readonly
+     */
+    get category() {
+        return this._category;
     }
 
     /**
@@ -133,12 +154,12 @@ export default class Question extends QuestionBase {
         const questionValidationResult = new QuestionValidationResult(this._id);
 
         if (this.answers) {
-            this.answers.forEach((answer) => {
+            this.answers.forEach(answer => {
                 questionValidationResult.answerValidationResults.push(new AnswerValidationResult(answer.code));
             });
         }
 
-        validationRules.forEach((rule) => {
+        validationRules.forEach(rule => {
             const ruleValidationResult = this._validateRule(rule.type);
             if (ruleValidationResult.isValid) {
                 return;
@@ -149,9 +170,9 @@ export default class Question extends QuestionBase {
             if (ruleValidationResult.answers.length === 0) {
                 questionValidationResult.errors.push(validationError);
             } else {
-                ruleValidationResult.answers.forEach((answerCode) => {
+                ruleValidationResult.answers.forEach(answerCode => {
                     const answerValidationResult = questionValidationResult.answerValidationResults.find(
-                        (answerResult) => answerResult.answerCode === answerCode
+                        answerResult => answerResult.answerCode === answerCode
                     );
                     answerValidationResult.errors.push(validationError);
                 });
@@ -168,19 +189,19 @@ export default class Question extends QuestionBase {
     }
 
     _diffArrays(oldValue, newValue) {
-        const added = newValue.filter((newVal) => !oldValue.includes(newVal));
-        const removed = oldValue.filter((oldVal) => !newValue.includes(oldVal));
+        const added = newValue.filter(newVal => !oldValue.includes(newVal));
+        const removed = oldValue.filter(oldVal => !newValue.includes(oldVal));
         return [...added, ...removed];
     }
 
     _diffObjects(oldValue, newValue) {
         const oldKeys = Object.keys(oldValue);
         const newKeys = Object.keys(newValue);
-        const added = newKeys.filter((newKey) => !oldKeys.includes(newKey));
-        const removed = oldKeys.filter((oldKey) => !newKeys.includes(oldKey));
+        const added = newKeys.filter(newKey => !oldKeys.includes(newKey));
+        const removed = oldKeys.filter(oldKey => !newKeys.includes(oldKey));
         const modified = oldKeys
-            .filter((oldKey) => newKeys.includes(oldKey))
-            .filter((key) => oldValue[key] !== newValue[key]);
+            .filter(oldKey => newKeys.includes(oldKey))
+            .filter(key => oldValue[key] !== newValue[key]);
         return [...added, ...removed, ...modified];
     }
 
@@ -240,11 +261,23 @@ export default class Question extends QuestionBase {
             }
         };
 
+        const cleanNoResponseValues = (changes, previousState) => {
+            if (Utils.isEmpty(this.noResponseValue)) {
+                return;
+            }
+            const oldValue = this.noResponseValue;
+            this._noResponseValue = null;
+
+            changes.noResponseValue = this._diffPrimitives(oldValue, this._noResponseValue);
+            previousState.noResponseValue = oldValue;
+        };
+
         const changes = {};
         const previousState = {};
 
         cleanValues(changes, previousState);
         cleanOtherValues(changes, previousState);
+        cleanNoResponseValues(changes, previousState);
 
         if (Object.keys(changes).length > 0) {
             this._onChange(changes, previousState);

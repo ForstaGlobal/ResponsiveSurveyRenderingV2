@@ -5,6 +5,7 @@ import HorizontalSlider from '../controls/slider/horizontal-slider';
 import Utils from '../../utils';
 import StoredOtherValuesMixin from './base/stored-other-values-mixin';
 import { SingleOtherValuesKeeper } from '../helpers/other-values-keeper';
+import ValidationTypes from '../../api/models/validation/validation-types';
 
 export default class SliderSingleQuestionView extends QuestionWithAnswersView {
     /**
@@ -16,7 +17,7 @@ export default class SliderSingleQuestionView extends QuestionWithAnswersView {
 
         this._slider = this._createSlider();
         this._slider.changeEvent.on(this._onSliderChange.bind(this));
-        this._slider.moveEvent.on((value) => this._handleAnswerColors(value));
+        this._slider.moveEvent.on(value => this._handleAnswerColors(value));
 
         this._handleAnswerColors(this._slider.value);
         this._attachHandlersToDOM();
@@ -28,26 +29,26 @@ export default class SliderSingleQuestionView extends QuestionWithAnswersView {
     }
 
     _attachHandlersToDOM() {
-        this._question.answers.forEach((answer) => {
+        this._question.answers.forEach(answer => {
             this._getAnswerTextNode(answer.code).on('click', () => {
                 this._question.setValue(answer.code);
             });
 
             if (answer.isOther) {
                 const otherInput = this._getAnswerOtherNode(answer.code);
-                otherInput.on('click', (e) => e.stopPropagation());
-                otherInput.on('keydown', (e) => e.stopPropagation());
-                otherInput.on('input', (e) => this._onAnswerOtherNodeValueChange(answer, e.target.value));
+                otherInput.on('click', e => e.stopPropagation());
+                otherInput.on('keydown', e => e.stopPropagation());
+                otherInput.on('input', e => this._onAnswerOtherNodeValueChange(answer, e.target.value));
             }
         });
     }
 
     _createSlider() {
         const sliderNode = this._getQuestionInputNodeId();
-        const sliderValues = this._question.answers.map((answer) => answer.code);
+        const sliderValues = this._question.answers.map(answer => answer.code);
         const sliderValue = this._question.value;
         const readOnly = this._question.readOnly;
-        const sliderTextValueHandler = (sliderValue) => {
+        const sliderTextValueHandler = sliderValue => {
             return sliderValue === null
                 ? this._settings.messages.noResponse
                 : this._question.getAnswer(sliderValue).text;
@@ -75,7 +76,7 @@ export default class SliderSingleQuestionView extends QuestionWithAnswersView {
         this._slider.handleNode.css('background-color', '');
 
         if (value) {
-            const answerColor = this._question.answers.find((answer) => answer.code === value).backgroundColor;
+            const answerColor = this._question.answers.find(answer => answer.code === value).backgroundColor;
             if (answerColor) {
                 this._slider.handleNode.css('background-color', answerColor);
             }
@@ -111,13 +112,16 @@ export default class SliderSingleQuestionView extends QuestionWithAnswersView {
     }
 
     _showErrors(validationResult) {
-        let errors = validationResult.errors.map((error) => error.message);
+        if (validationResult.errors.some(error => error.type === ValidationTypes.Required)) {
+            this._slider.handleNode.attr('aria-invalid', 'true');
+        }
 
-        const otherAnswerCodes = this.answers.filter((answer) => answer.isOther).map((answer) => answer.code);
+        let errors = validationResult.errors.map(error => error.message);
+        const otherAnswerCodes = this.answers.filter(answer => answer.isOther).map(answer => answer.code);
         validationResult.answerValidationResults
-            .filter((result) => !result.isValid && otherAnswerCodes.includes(result.answerCode))
-            .forEach((answerValidationResult) => {
-                const answerErrors = answerValidationResult.errors.map((error) => error.message);
+            .filter(result => !result.isValid && otherAnswerCodes.includes(result.answerCode))
+            .forEach(answerValidationResult => {
+                const answerErrors = answerValidationResult.errors.map(error => error.message);
                 this._showAnswerOtherValidationError(answerValidationResult);
 
                 errors = errors.concat(answerErrors);
@@ -137,9 +141,12 @@ export default class SliderSingleQuestionView extends QuestionWithAnswersView {
 
     _hideErrors() {
         super._hideErrors();
+
+        this._slider.handleNode.attr('aria-invalid', 'false');
+
         this.answers
-            .filter((answer) => answer.isOther)
-            .forEach((answer) => {
+            .filter(answer => answer.isOther)
+            .forEach(answer => {
                 this._getAnswerOtherNode(answer.code)
                     .removeClass('cf-text-box--error')
                     .removeAttr('aria-errormessage')

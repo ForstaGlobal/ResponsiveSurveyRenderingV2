@@ -1,0 +1,15 @@
+.cf-powered-by-confirmit {
+  text-align: center;
+
+  &__link {
+    display: inline-block;
+    font-size: 14px;
+    padding: 16px 0 16px 0;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      color: #ff00ff;
+    }
+  }
+}

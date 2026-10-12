@@ -1,0 +1,14 @@
+@use "../_mixins/grid-layout";
+
+.cf-numeric-list-slider-answer {
+  @include grid-layout.grid-layout-answer-content-indent(36px + 2 * 20px, 20px);
+}
+
+.cf-numeric-list-slider-answer--vertical {
+  .cf-numeric-list-slider-answer {
+    &__text,
+    &__other {
+      margin-top: 0;
+    }
+  }
+}

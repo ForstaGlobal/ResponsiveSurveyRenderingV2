@@ -18,7 +18,9 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
 
         this._answerErrorBlockManager = new ErrorBlockManager();
 
-        this._carouselItems = this._question.innerQuestions.map(question => new CarouselItem(question.id, question.values.length > 0));
+        this._carouselItems = this._question.innerQuestions.map(
+            question => new CarouselItem(question.id, question.values.length > 0)
+        );
         this._carousel = new Carousel(this._container.find('.cf-carousel'), this._carouselItems);
         this._carousel.moveEvent.on(() => this._onCarouselMove());
         this._moveToFirstError = true;
@@ -44,7 +46,11 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
     }
 
     _getOtherNodes(answerCode) {
-        return this._container.find(this._question.innerQuestions.map(question => '#' + this._mgHelper.getInnerQuestionAnswerOtherNodeId(question.id, answerCode)).join(','));
+        return this._container.find(
+            this._question.innerQuestions
+                .map(question => '#' + this._mgHelper.getInnerQuestionAnswerOtherNodeId(question.id, answerCode))
+                .join(',')
+        );
     }
 
     _getCarouselItem(questionId) {
@@ -68,45 +74,53 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
     }
 
     _attachHandlersToDOM() {
-        this._question.innerQuestions.forEach((question) => {
-            question.answers.forEach((answer) => {
-                this._mgHelper.getInnerQuestionAnswerNode(question.id, answer.code)
-                    .on('click', this._onAnswerNodeClick.bind(this, question, answer))
+        this._question.innerQuestions.forEach(question => {
+            question.answers.forEach(answer => {
+                this._mgHelper
+                    .getInnerQuestionAnswerNode(question.id, answer.code)
+                    .on('click', this._onAnswerNodeClick.bind(this, question, answer));
             });
         });
 
-        this._question.answers.filter(answer => answer.isOther).forEach(answer => {
-            this._question.innerQuestions.forEach(question => {
-                this._mgHelper.getInnerQuestionAnswerOtherNode(question.id, answer.code)
-                    .on('click', e => e.stopPropagation())
-                    .on('input', event => {
-                        this._onQuestionAnswerOtherNodeValueChange(question, answer, event.target.value)
-                    });
+        this._question.answers
+            .filter(answer => answer.isOther)
+            .forEach(answer => {
+                this._question.innerQuestions.forEach(question => {
+                    this._mgHelper
+                        .getInnerQuestionAnswerOtherNode(question.id, answer.code)
+                        .on('click', e => e.stopPropagation())
+                        .on('input', event => {
+                            this._onQuestionAnswerOtherNodeValueChange(question, answer, event.target.value);
+                        });
+                });
             });
-        });
 
         if (!this._settings.disableKeyboardSupport) {
             this._container.on('keydown', this._onQuestionContainerKeyDown.bind(this));
 
             this._question.innerQuestions.forEach((question, questionIndex) => {
                 question.answers.forEach((answer, answerIndex) => {
-                    this._mgHelper.getInnerQuestionAnswerControlNode(question.id, answer.code)
+                    this._mgHelper
+                        .getInnerQuestionAnswerControlNode(question.id, answer.code)
                         .on('focus', this._onAnswerControlNodeFocus.bind(this, questionIndex, answerIndex))
                         .on('keydown', this._onAnswerControlNodeKeyDown.bind(this));
                 });
             });
 
-            this._question.answers.filter(answer => answer.isOther).forEach(answer => {
-                this._question.innerQuestions.forEach(question => {
-                    this._mgHelper.getInnerQuestionAnswerOtherNode(question.id, answer.code)
-                        .on('keydown', this._onAnswerOtherNodeKeyDown.bind(this))
+            this._question.answers
+                .filter(answer => answer.isOther)
+                .forEach(answer => {
+                    this._question.innerQuestions.forEach(question => {
+                        this._mgHelper
+                            .getInnerQuestionAnswerOtherNode(question.id, answer.code)
+                            .on('keydown', this._onAnswerOtherNodeKeyDown.bind(this));
+                    });
                 });
-            });
         }
     }
 
-    _updateQuestionAnswerNodes({questions = {}}) {
-        Object.entries(questions).forEach(([questionId, {values = []}]) => {
+    _updateQuestionAnswerNodes({ questions = {} }) {
+        Object.entries(questions).forEach(([questionId, { values = [] }]) => {
             if (values.length === 0) {
                 return;
             }
@@ -116,34 +130,38 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
                 const isSelected = this._question.getInnerQuestion(questionId).values.includes(answer.code);
 
                 const controlNode = this._mgHelper.getInnerQuestionAnswerControlNode(questionId, answer.code);
-                const answerNode = this._mgHelper.getInnerQuestionAnswerNode(questionId, answer.code)
+                const answerNode = this._mgHelper.getInnerQuestionAnswerNode(questionId, answer.code);
 
                 answerNode.toggleClass(this._getSelectedAnswerClass(answer), isSelected);
 
                 controlNode
                     .toggleClass(this._getSelectedControlClass(answer), isSelected)
-                    .attr('aria-checked', () => isSelected ? 'true' : 'false');
+                    .attr('aria-checked', () => (isSelected ? 'true' : 'false'));
 
                 if (answer.backgroundColor !== null) {
                     if (isSelected) {
-                        controlNode.css({backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor});
+                        controlNode.css({
+                            backgroundColor: answer.backgroundColor,
+                            borderColor: answer.backgroundColor,
+                        });
                     } else {
-                        controlNode.css({backgroundColor: '', borderColor: ''});
+                        controlNode.css({ backgroundColor: '', borderColor: '' });
                     }
                 }
             });
         });
     }
 
-    _updateAnswerOtherNodes({questions = {}, otherValues = []}) {
-        Object.entries(questions).forEach(([questionId, {values = []}]) => {
+    _updateAnswerOtherNodes({ questions = {}, otherValues = [] }) {
+        Object.entries(questions).forEach(([questionId, { values = [] }]) => {
             if (values.length === 0) {
                 return;
             }
 
             values.forEach(answerCode => {
                 const isSelected = this._question.getInnerQuestion(questionId).values.includes(answerCode);
-                this._mgHelper.getInnerQuestionAnswerOtherNode(questionId, answerCode)
+                this._mgHelper
+                    .getInnerQuestionAnswerOtherNode(questionId, answerCode)
                     .attr('tabindex', isSelected ? '0' : '-1')
                     .attr('aria-hidden', isSelected ? 'false' : 'true');
             });
@@ -158,9 +176,13 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
     _updateCarouselPaging() {
         this._question.innerQuestions.forEach(question => {
             const carouselItem = this._getCarouselItem(question.id);
-            const selectedAnswersWithOther = this._question.answers.filter(answer => answer.isOther && question.values.includes(answer.code));
+            const selectedAnswersWithOther = this._question.answers.filter(
+                answer => answer.isOther && question.values.includes(answer.code)
+            );
             if (selectedAnswersWithOther.length !== 0) {
-                carouselItem.isComplete = selectedAnswersWithOther.every(answer => this._question.otherValues[answer.code] !== undefined);
+                carouselItem.isComplete = selectedAnswersWithOther.every(
+                    answer => this._question.otherValues[answer.code] !== undefined
+                );
             } else {
                 carouselItem.isComplete = question.values.length !== 0;
             }
@@ -177,16 +199,24 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
     _hideErrors() {
         super._hideErrors();
 
-        this._carouselItems.forEach(item => item.isError = false);
+        this._carouselItems.forEach(item => (item.isError = false));
         this._answerErrorBlockManager.removeAllErrors();
 
-        this._container.find('.cf-list')
+        this._container
+            .find('.cf-list')
             .removeAttr('aria-invalid')
-            .removeAttr('aria-errormessage');
-
-        this._container.find('.cf-text-box')
             .removeAttr('aria-errormessage')
-            .removeAttr('aria-invalid');
+            .removeAttr('aria-describedby');
+
+        this._question.innerQuestions.forEach(question => {
+            this._question.answers.forEach(answer => {
+                this._mgHelper
+                    .getInnerQuestionAnswerControlNode(question.id, answer.code)
+                    .removeAttr('aria-describedby');
+            });
+        });
+
+        this._container.find('.cf-text-box').removeAttr('aria-errormessage').removeAttr('aria-invalid');
     }
 
     _showErrors(validationResult) {
@@ -250,16 +280,31 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
     }
 
     _showInnerQuestionErrors(validationResult) {
-        validationResult.questionValidationResults.filter(result => !result.isValid).forEach(questionValidationResult => {
-            const target = this._mgHelper.getInnerQuestionTextNode(questionValidationResult.questionId);
-            const errorBlockId = this._mgHelper.getInnerQuestionErrorNodeId(questionValidationResult.questionId);
-            const errors = questionValidationResult.errors.map(error => error.message);
-            this._answerErrorBlockManager.showErrors(errorBlockId, target, errors);
+        validationResult.questionValidationResults
+            .filter(result => !result.isValid)
+            .forEach(questionValidationResult => {
+                const target = this._mgHelper.getInnerQuestionTextNode(questionValidationResult.questionId);
+                const errorBlockId = this._mgHelper.getInnerQuestionErrorNodeId(questionValidationResult.questionId);
+                const errors = questionValidationResult.errors.map(error => error.message);
+                this._answerErrorBlockManager.showErrors(errorBlockId, target, errors);
 
-            this._mgHelper.getInnerQuestionNode(questionValidationResult.questionId).find('.cf-list')
-                .attr('aria-invalid', 'true')
-                .attr('aria-errormessage', errorBlockId);
-        });
+                this._mgHelper
+                    .getInnerQuestionNode(questionValidationResult.questionId)
+                    .find('.cf-list')
+                    .attr('aria-invalid', 'true')
+                    .attr('aria-errormessage', errorBlockId)
+                    .attr('aria-describedby', errorBlockId);
+
+                if (questionValidationResult.errors.length > 0) {
+                    this._question.answers.forEach(answer => {
+                        const controlNode = this._mgHelper.getInnerQuestionAnswerControlNode(
+                            questionValidationResult.questionId,
+                            answer.code
+                        );
+                        controlNode.attr('aria-describedby', errorBlockId);
+                    });
+                }
+            });
     }
 
     _showAnswerOtherError(validationResult) {
@@ -274,7 +319,8 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
                         const errors = answerValidationResult.errors.map(error => error.message);
                         this._answerErrorBlockManager.showErrors(errorBlockId, target, errors);
 
-                        this._mgHelper.getInnerQuestionAnswerOtherNode(question.id, answerValidationResult.answerCode)
+                        this._mgHelper
+                            .getInnerQuestionAnswerOtherNode(question.id, answerValidationResult.answerCode)
                             .attr('aria-errormessage', errorBlockId)
                             .attr('aria-invalid', 'true');
                     });
@@ -291,7 +337,7 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
         }
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateQuestionAnswerNodes(changes);
         this._updateAnswerOtherNodes(changes);
         this._updateCarouselPaging();
@@ -336,7 +382,9 @@ export default class CarouselMultiGridQuestionView extends QuestionView {
         const isLastAnswer = this._currentAnswerIndex === this._question.answers.length - 1;
         const answerControlIsFocused = activeElement.classList.contains('cf-button');
         const otherNodeIsFocused = activeElement.classList.contains('cf-button-answer__other-input');
-        const lastAnswerIsSelected = this._question.getInnerQuestion(this._currentQuestion.id).values.includes(this._currentAnswer.code);
+        const lastAnswerIsSelected = this._question
+            .getInnerQuestion(this._currentQuestion.id)
+            .values.includes(this._currentAnswer.code);
 
         if (isLastQuestion || !isLastAnswer) {
             return;

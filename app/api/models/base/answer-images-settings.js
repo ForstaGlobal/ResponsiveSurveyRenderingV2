@@ -61,7 +61,7 @@ export default class AnswerImagesSetting {
      * @type {string}
      * @readonly
      */
-    get appearance(){
+    get appearance() {
         return this._appearance;
     }
 }

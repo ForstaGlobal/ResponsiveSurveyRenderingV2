@@ -1,0 +1,50 @@
+@use "../variables";
+
+// Error list in global page error toast and in standard local error block
+.cf-error-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// Standard local error
+.cf-error-block {
+  font-size: (variables.$font-size - 2);
+  padding: 4px 0;
+  margin: 0;
+  color: variables.$error-text-color;
+
+  &--top {
+    margin-top: 0;
+    margin-bottom: 8px;
+    border-top: none;
+    border-bottom: 1px solid variables.$error-border-color;
+  }
+
+  &--bottom {
+    margin-top: 8px;
+    margin-bottom: 0;
+    border-top: 1px solid variables.$error-border-color;
+    border-bottom: none;
+  }
+
+  &--absolute-bottom,
+  &--absolute-top {
+    width: 100%;
+    background: variables.$primary-shade-1;
+    position: absolute;
+  }
+  &--absolute-top {
+    @extend .cf-error-block--top;
+    bottom: 100%;
+
+  }
+  &--absolute-bottom {
+    @extend .cf-error-block--bottom;
+    top: 100%;
+  }
+
+  &--hidden {
+    display: none;
+  }
+}

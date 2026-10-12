@@ -79,6 +79,10 @@ export default class SingleRatingQuestion extends QuestionWithAnswers {
     }
 
     _setValue(value) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         value = Utils.isEmpty(value) ? null : value.toString();
         if (this._value === value) {
             return false;

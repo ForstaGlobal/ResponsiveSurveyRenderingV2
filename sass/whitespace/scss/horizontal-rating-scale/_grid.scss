@@ -1,0 +1,16 @@
+.cf-desktop-hrs-grid {
+  &__answer-other {
+    max-width: 260px;
+    width: 100%;
+  }
+}
+.cf-desktop-hrs-grid:not(.cf-desktop-hrs-grid--rtl) {
+  .cf-desktop-hrs-grid__non-scored-scale-cell {
+    padding-left: 16px;
+  }
+}
+.cf-desktop-hrs-grid.cf-desktop-hrs-grid--rtl {
+  .cf-desktop-hrs-grid__non-scored-scale-cell {
+    padding-right: 16px;
+  }
+}

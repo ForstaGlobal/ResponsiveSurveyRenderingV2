@@ -7,8 +7,7 @@ export default class QuestionErrorBlock {
     }
 
     showErrors(errors) {
-        if (errors.length === 0)
-            return;
+        if (errors.length === 0) return;
 
         this._errorList.clean();
         this._errorList.addErrors(errors);

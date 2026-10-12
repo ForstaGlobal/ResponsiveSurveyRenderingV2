@@ -1,10 +1,9 @@
-import SliderBase from "./slider-base";
-import KEYS from "../../helpers/keyboard-keys";
+import SliderBase from './slider-base';
+import KEYS from '../../helpers/keyboard-keys';
 
 export default class HorizontalRtlSlider extends SliderBase {
-
     _setProgressNodeSize(progressValue) {
-        this._progressNode.css('width', progressValue+'%');
+        this._progressNode.css('width', progressValue + '%');
     }
 
     _setHandleNodePosition(position) {

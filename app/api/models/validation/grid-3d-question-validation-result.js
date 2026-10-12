@@ -1,4 +1,4 @@
-import QuestionValidationResult from "./question-validation-result";
+import QuestionValidationResult from './question-validation-result';
 /**
  * @class
  * @extends {QuestionValidationResult}
@@ -22,7 +22,10 @@ export default class Grid3dQuestionValidationResult extends QuestionValidationRe
      * @readonly
      */
     get isValid() {
-        return this._questionValidationResults.every(result => result.isValid) && this._answerValidationResults.every(result => result.isValid);
+        return (
+            this._questionValidationResults.every(result => result.isValid) &&
+            this._answerValidationResults.every(result => result.isValid)
+        );
     }
 
     /**

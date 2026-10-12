@@ -1,0 +1,101 @@
+@use "../_mixins/visually-hidden";
+@use "../variables";
+
+.cf-ranking-answer {
+  min-height: 38px;
+  padding: 8px 16px;
+  border: 1px solid variables.$control-primary-color;
+  border-radius: 2px;
+  color: variables.$control-active-color;
+
+  display: flex;
+  align-content: stretch;
+  align-items: flex-start;
+  cursor: pointer;
+
+  &__rank {
+    position: relative;
+    flex: 0 0 auto;
+    width: variables.$control-size - 4px;
+    height: variables.$control-size - 4px;
+    margin-right: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: variables.$primary-shade-5;
+    border-radius: 2px;
+    color: variables.$control-primary-color;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__text {
+    flex: 1 1 auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__other-input {
+    max-width: 90%;
+    font-size: inherit;
+    text-overflow: ellipsis;
+
+    cursor: pointer;
+  }
+
+  &__other-input:not(:hover):not(:focus) {
+    border-bottom: none;
+    padding-bottom: 5px;
+  }
+
+  &--selected {
+    border-color: variables.$control-active-color;
+    background-color: variables.$control-active-color;
+
+    .cf-ranking-answer__rank {
+      color: inherit;
+      background-color: variables.$question-bg-color;
+    }
+
+    .cf-ranking-answer__text {
+      color: variables.$question-bg-color;
+    }
+
+    .cf-ranking-answer__other-input {
+      color: variables.$question-bg-color;
+      border-bottom: 1px solid variables.$question-bg-color;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.cf-ranking-answer--rtl {
+  .cf-ranking-answer__rank {
+    margin-right: 0;
+    margin-left: 16px;
+  }
+}
+
+.cf-ranking-answer-other {
+  margin-top: 4px;
+}
+
+.cf-ranking-status {
+  @include visually-hidden.visually-hidden;
+}
+
+.cf-ranking-status--rtl {
+  right: -9999px;
+  left: auto;
+}

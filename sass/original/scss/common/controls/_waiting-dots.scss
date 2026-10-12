@@ -1,0 +1,60 @@
+@use "../../variables";
+
+.cf-waiting-dots {
+  display: block;
+  position: relative;
+  width: 36px;
+  height: 20px;
+
+  background-color: var(--cf-header-bg-color, variables.$header-bg-color);
+  border-radius: 4px;
+}
+
+.cf-waiting-dots__items {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--cf-control-active-color, variables.$control-active-color);
+  color: var(--cf-control-active-color, variables.$control-active-color);
+  animation: waiting-dots 1s infinite linear alternate;
+  animation-delay: 0.5s;
+}
+.cf-waiting-dots::before, .cf-waiting-dots::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 8px;
+}
+.cf-waiting-dots::before {
+  left: 7px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--cf-control-active-color, variables.$control-active-color);
+  color: var(--cf-control-active-color, variables.$control-active-color);
+  animation: waiting-dots 1s infinite alternate;
+  animation-delay: 0s;
+}
+.cf-waiting-dots::after {
+  right: 7px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--cf-control-active-color, variables.$control-active-color);
+  color: var(--cf-control-active-color, variables.$control-active-color);
+  animation: waiting-dots 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes waiting-dots {
+  0% {
+    background-color: var(--cf-control-active-color, variables.$control-active-color);
+  }
+  50%, 100% {
+    background-color: var(--cf-control-active-color, variables.$control-active-color);
+    opacity: 0.2;
+  }
+}

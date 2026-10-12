@@ -1,0 +1,48 @@
+@use "../variables";
+
+.cf-assisted-open {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: min-content;
+  max-width: 100%;
+}
+.cf-assisted-open__assistance {
+  display: flex;
+  gap: 4px;
+}
+.cf-assisted-open__messages-list {
+  padding: 0 2px;
+  overflow-y: hidden;
+}
+.cf-assisted-open__assist-icon {
+  width: 20px;
+  height: 20px;
+}
+.cf-assisted-open__assist-icon svg {
+  display: block;
+  fill: var(--cf-control-active-color, variables.$control-active-color);
+}
+
+.cf-assisted-open__message {
+  display: none;
+  position: relative;
+  font-style: italic;
+  color: var(--cf-control-active-color, variables.$control-active-color);
+  opacity: 0;
+  transition: all 0.7s ease-in;
+  margin-bottom: 1em;
+}
+.cf-assisted-open__message:nth-child(1) {
+  display: block;
+  opacity: 1;
+}
+.cf-assisted-open__message:nth-child(2) {
+  display: block;
+  opacity: 0.5;
+}
+.cf-assisted-open__message:nth-child(3) {
+  display: block;
+  opacity: 0;
+  max-height: 0;
+}

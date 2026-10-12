@@ -1,7 +1,7 @@
-import QuestionWithAnswerView from "../base/question-with-answers-view";
-import KEYS from "../../helpers/keyboard-keys";
-import ValidationTypes from "../../../api/models/validation/validation-types";
-import Utils from "../../../utils";
+import QuestionWithAnswerView from '../base/question-with-answers-view';
+import KEYS from '../../helpers/keyboard-keys';
+import ValidationTypes from '../../../api/models/validation/validation-types';
+import Utils from '../../../utils';
 
 export default class RatingGridQuestionViewBase extends QuestionWithAnswerView {
     /**
@@ -52,39 +52,44 @@ export default class RatingGridQuestionViewBase extends QuestionWithAnswerView {
     _attachToDOM() {
         this._answers.forEach((answer, answerIndex) => {
             this._scales.forEach((scale, scaleIndex) => {
-                this._getScaleNode(answer.code, scale.code)
-                    .on('click', event => this._onScaleNodeClick(event, answer, scale));
-                this._getScaleControlNode(answer.code, scale.code)
-                    .on('focus', this._onScaleControlNodeFocus.bind(this, answerIndex, scaleIndex));
+                this._getScaleNode(answer.code, scale.code).on('click', event =>
+                    this._onScaleNodeClick(event, answer, scale)
+                );
+                this._getScaleControlNode(answer.code, scale.code).on(
+                    'focus',
+                    this._onScaleControlNodeFocus.bind(this, answerIndex, scaleIndex)
+                );
             });
 
             if (answer.isOther) {
-                this._getAnswerOtherNode(answer.code)
-                    .on('input', event => this._onAnswerOtherNodeValueChange(answer, event.target.value));
+                this._getAnswerOtherNode(answer.code).on('input', event =>
+                    this._onAnswerOtherNodeValueChange(answer, event.target.value)
+                );
             }
         });
 
         if (!this._settings.disableKeyboardSupport) {
             this._answers.forEach(answer => {
-                this._getScaleGroupNode(answer.code)
-                    .on('keydown', this._onGroupNodeKeyDown.bind(this));
+                this._getScaleGroupNode(answer.code).on('keydown', this._onGroupNodeKeyDown.bind(this));
 
                 if (answer.isOther) {
                     this._getAnswerOtherNode(answer.code).on('keydown', event =>
-                        this._onAnswerOtherNodeKeyDown(event, answer));
+                        this._onAnswerOtherNodeKeyDown(event, answer)
+                    );
                 }
 
                 this._scales.forEach(scale => {
-                    this._getScaleControlNode(answer.code, scale.code)
-                        .on('keydown', this._onScaleControlNodeKeyDown.bind(this));
+                    this._getScaleControlNode(answer.code, scale.code).on(
+                        'keydown',
+                        this._onScaleControlNodeKeyDown.bind(this)
+                    );
                 });
             });
         }
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             this._scales.forEach(scale => {
@@ -118,16 +123,12 @@ export default class RatingGridQuestionViewBase extends QuestionWithAnswerView {
 
         const scale = this._question.getScale(scaleCode);
         if (!Utils.isEmpty(scale.backgroundColor)) {
-            controlNode.css({backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor});
+            controlNode.css({ backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor });
         }
     }
 
     _selectScale(answer, scale) {
         this._question.setValue(answer.code, scale.code);
-    }
-
-    _showErrors(validationResult) {
-        this._showAnswerErrors(validationResult);
     }
 
     _showAnswerError(validationResult) {
@@ -148,9 +149,11 @@ export default class RatingGridQuestionViewBase extends QuestionWithAnswerView {
 
         const answerHasNotOnlyOtherErrors = validationResult.errors.length > otherErrors.length;
         if (answerHasNotOnlyOtherErrors) {
-            this._getScaleGroupNode(answer.code)
-                .attr("aria-invalid", "true")
-                .attr("aria-errormessage", errorBlockId);
+            this._getScaleGroupNode(answer.code).attr('aria-invalid', 'true').attr('aria-errormessage', errorBlockId);
+
+            this._scales.forEach(scale => {
+                this._getScaleControlNode(answer.code, scale.code).attr('aria-describedby', errorBlockId);
+            });
         }
     }
 
@@ -158,17 +161,17 @@ export default class RatingGridQuestionViewBase extends QuestionWithAnswerView {
         this._answerErrorBlockManager.removeAllErrors();
 
         this._answers.forEach(answer => {
-            this._getScaleGroupNode(answer.code)
-                .removeAttr("aria-invalid")
-                .removeAttr("aria-errormessage");
+            this._getScaleGroupNode(answer.code).removeAttr('aria-invalid').removeAttr('aria-errormessage');
+
+            this._scales.forEach(scale => {
+                this._getScaleControlNode(answer.code, scale.code).removeAttr('aria-describedby');
+            });
         });
 
-        this._container.find('.cf-text-box')
-            .removeAttr('aria-errormessage')
-            .removeAttr('aria-invalid');
+        this._container.find('.cf-text-box').removeAttr('aria-errormessage').removeAttr('aria-invalid');
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerScaleNodes(changes);
         this._updateAnswerOtherNodes(changes);
     }

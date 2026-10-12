@@ -13,8 +13,9 @@ export default class MultiGridQuestionView extends CompositeQuestionView {
         let desktopView;
         let mobileView;
 
-        const isAnswerButtons =  question.innerQuestions[0] !== undefined && question.innerQuestions[0].answerButtons || false;
-        if(isAnswerButtons) {
+        const isAnswerButtons =
+            (question.innerQuestions[0] !== undefined && question.innerQuestions[0].answerButtons) || false;
+        if (isAnswerButtons) {
             desktopView = new DesktopAnswerButtonsMultiGridQuestionView(question, settings);
             mobileView = new MobileAnswerButtonsMultiGridQuestionView(question, settings);
         } else {
@@ -22,6 +23,6 @@ export default class MultiGridQuestionView extends CompositeQuestionView {
             mobileView = new MobileMultiGridQuestionView(question, settings);
         }
 
-        super(question, [ mobileView, desktopView ], settings);
+        super(question, [mobileView, desktopView], settings);
     }
 }

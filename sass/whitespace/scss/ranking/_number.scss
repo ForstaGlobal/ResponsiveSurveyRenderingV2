@@ -1,0 +1,80 @@
+@use "../_mixins/grid-layout";
+@use "../variables";
+
+.cf-rank-by-number-answer {
+  @include grid-layout.grid-layout-answer-content-indent(24px, 20px);
+
+  &__input {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+
+.cf-rank-by-number-layout {
+  display: flex;
+  flex-direction: column;
+
+  &__row {
+    display: flex;
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &-text {
+      flex: 0 1 auto;
+      min-width: 1px; // 1px instead of 0px due to fix ie11 bug
+    }
+
+    &-control {
+      flex: 0 1 auto;
+      margin-right: 24px;
+    }
+  }
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-rank-by-number-layout{
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: variables.$desktop-layout-delimiter + 1) {
+  .cf-rank-by-number-layout--multi-columns {
+    display: -ms-grid;
+    display: grid;
+
+    grid-auto-flow: column;
+    grid-column-gap: 5%;
+
+
+    .cf-rank-by-number-layout__row {
+      min-width: 0;
+    }
+
+    .cf-rank-by-number-layou__row-control {
+      margin-right: 10px;
+    }
+  }
+}
+
+.cf-rank-by-number-layout--rtl .cf-rank-by-number-layout__row-control {
+  margin-right: 0;
+  margin-left: 24px;
+}

@@ -1,5 +1,7 @@
 import Question from '../base/question';
 import Utils from 'utils.js';
+import ValidationTypes from '../validation/validation-types';
+import RuleValidationResult from '../validation/rule-validation-result';
 
 /**
  * @desc VideoUploadQuestion.
@@ -9,8 +11,9 @@ export default class VideoUploadQuestion extends Question {
     /**
      *
      * @param {object} model - Raw question model.
+     * @param {MediaUploader} uploader - Video uploader
      */
-    constructor(model) {
+    constructor(model, uploader) {
         super(model);
 
         this._videoId = model.videoId;
@@ -19,6 +22,16 @@ export default class VideoUploadQuestion extends Question {
 
         this._minDurationInSeconds = model.minDurationInSeconds;
         this._maxDurationInSeconds = model.maxDurationInSeconds;
+
+        this._uploader = uploader;
+    }
+
+    /**
+     * Media uploader. Using to help you to upload video on server during web interview.
+     * @returns {MediaUploader}
+     */
+    get uploader() {
+        return this._uploader;
     }
 
     /**
@@ -79,6 +92,10 @@ export default class VideoUploadQuestion extends Question {
     }
 
     _setValue(videoId, previewUrl, duration) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         const newVideoId = Utils.isEmpty(videoId) ? null : videoId.toString();
         const newPreviewUrl = Utils.isEmpty(previewUrl) ? null : previewUrl.toString();
 
@@ -109,5 +126,19 @@ export default class VideoUploadQuestion extends Question {
         this._duration = null;
 
         return true;
+    }
+
+    _validateRule(validationType) {
+        switch (validationType) {
+            case ValidationTypes.Required:
+                return this._validateRequired();
+        }
+    }
+
+    _validateRequired() {
+        if (!this.required) return new RuleValidationResult(true);
+
+        let isValid = !Utils.isEmpty(this._videoId);
+        return new RuleValidationResult(isValid);
     }
 }

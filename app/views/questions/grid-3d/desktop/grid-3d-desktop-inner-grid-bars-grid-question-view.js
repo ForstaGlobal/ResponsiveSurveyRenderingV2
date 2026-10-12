@@ -1,5 +1,5 @@
-import Grid3DDesktopInnerQuestionView from "./grid-3d-desktop-inner-question-view";
-import Utils from "../../../../utils";
+import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
+import Utils from '../../../../utils';
 
 export default class Grid3DDesktopInnerGridBarsGridQuestionView extends Grid3DDesktopInnerQuestionView {
     constructor(parentQuestion, question, settings = null) {
@@ -9,21 +9,19 @@ export default class Grid3DDesktopInnerGridBarsGridQuestionView extends Grid3DDe
     }
 
     _getSelectedControlClass() {
-        return  'cf-grid-bars-item--selected';
+        return 'cf-grid-bars-item--selected';
     }
 
     _attachHandlersToDOM() {
         const mouseOver = (answerCode, scaleCode) => {
-            if (this._question.values[answerCode])
-                return; // don't handle if already answered
+            if (this._question.values[answerCode]) return; // don't handle if already answered
 
             this._clearAnswerHoverStyles(answerCode);
             this._setAnswerHoverStyles(answerCode, scaleCode);
         };
 
-        const mouseOut = (answerCode) => {
-            if (this._question.values[answerCode])
-                return; // don't handle if already answered
+        const mouseOut = answerCode => {
+            if (this._question.values[answerCode]) return; // don't handle if already answered
 
             this._clearAnswerHoverStyles(answerCode);
         };
@@ -38,9 +36,8 @@ export default class Grid3DDesktopInnerGridBarsGridQuestionView extends Grid3DDe
         });
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             this._question.scales.forEach(scale => {
@@ -59,7 +56,7 @@ export default class Grid3DDesktopInnerGridBarsGridQuestionView extends Grid3DDe
 
     _selectScaleControlNode(answerCode, scaleCode) {
         const selectedScaleIndex = this._question.scaleItems.findIndex(item => item.code === scaleCode);
-        if(selectedScaleIndex > -1) {
+        if (selectedScaleIndex > -1) {
             this._question.scaleItems.forEach((scale, scaleIndex) => {
                 if (scaleIndex <= selectedScaleIndex) {
                     const controlNode = this._getScaleControlNode(answerCode, scale.code);
@@ -69,8 +66,7 @@ export default class Grid3DDesktopInnerGridBarsGridQuestionView extends Grid3DDe
                             .css('background-color', scale.backgroundColor)
                             .css('border-color', scale.backgroundColor);
                     } else {
-                        controlNode
-                            .css('opacity', (scaleIndex + 2) / (this._question.scaleItems.length + 1));
+                        controlNode.css('opacity', (scaleIndex + 2) / (this._question.scaleItems.length + 1));
                     }
                 }
             });
@@ -79,15 +75,12 @@ export default class Grid3DDesktopInnerGridBarsGridQuestionView extends Grid3DDe
             controlNode.addClass(this._getSelectedControlClass(scaleCode));
             const scale = this._question.getScale(scaleCode);
             if (!Utils.isEmpty(scale.backgroundColor)) {
-                controlNode
-                    .css('background-color', scale.backgroundColor)
-                    .css('border-color', scale.backgroundColor);
+                controlNode.css('background-color', scale.backgroundColor).css('border-color', scale.backgroundColor);
             }
         }
 
-        this._getScaleControlNode(answerCode, scaleCode)
-            .attr('aria-checked', 'true');
-            //.attr('tabindex', '0');
+        this._getScaleControlNode(answerCode, scaleCode).attr('aria-checked', 'true');
+        //.attr('tabindex', '0');
     }
 
     _clearScaleControlNode(answerCode, scaleCode) {
@@ -127,16 +120,13 @@ export default class Grid3DDesktopInnerGridBarsGridQuestionView extends Grid3DDe
         controlNode.addClass('cf-grid-bars-item--hover');
 
         if (!Utils.isEmpty(scale.backgroundColor)) {
-            controlNode
-                .css('background-color', scale.backgroundColor)
-                .css('border-color', scale.backgroundColor);
+            controlNode.css('background-color', scale.backgroundColor).css('border-color', scale.backgroundColor);
         } else {
-            controlNode
-                .css('opacity', (scaleIndex + 2) / (this._question.scaleItems.length + 1));
+            controlNode.css('opacity', (scaleIndex + 2) / (this._question.scaleItems.length + 1));
         }
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerScaleNodes(changes);
     }
 

@@ -16,9 +16,9 @@ export default class SearchableSingleQuestion extends SearchableQuestionMixin(Si
     }
 
     _updateSelectedAnswers(changes) {
-        if(changes.value !== undefined) {
+        if (changes.value !== undefined) {
             this._selectedAnswers = [];
-            if(this.value !== null) {
+            if (this.value !== null) {
                 this._selectedAnswers.push(this.getAnswer(this.value));
             }
         }

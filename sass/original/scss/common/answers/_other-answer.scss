@@ -1,0 +1,6 @@
+@mixin other-answer {
+  width: 15em;
+  &[size], &[cols] {
+    width: auto;
+  }
+}

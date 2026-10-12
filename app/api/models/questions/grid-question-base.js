@@ -115,7 +115,7 @@ export default class GridQuestionBase extends QuestionWithAnswers {
             return null;
         }
         code = code.toString();
-        return this._scales.find((scale) => scale.code === code);
+        return this._scales.find(scale => scale.code === code);
     }
 
     /**
@@ -124,8 +124,8 @@ export default class GridQuestionBase extends QuestionWithAnswers {
      * @return {Scale[]} - Scales array.
      */
     getScales(codes) {
-        codes = codes.map((item) => item.toString());
-        return this._scales.filter((answer) => codes.includes(answer.code));
+        codes = codes.map(item => item.toString());
+        return this._scales.filter(answer => codes.includes(answer.code));
     }
 
     /**
@@ -138,7 +138,7 @@ export default class GridQuestionBase extends QuestionWithAnswers {
             return null;
         }
         code = code.toString();
-        return this._scaleGroups.find((group) => group.code === code);
+        return this._scaleGroups.find(group => group.code === code);
     }
 
     _parseScaleGroups({ scaleGroups }) {
@@ -146,7 +146,7 @@ export default class GridQuestionBase extends QuestionWithAnswers {
             return;
         }
         // create empty groups to populate them in _parseScales method
-        this._scaleGroups = scaleGroups.map((group) => new HeadGroup(group));
+        this._scaleGroups = scaleGroups.map(group => new HeadGroup(group));
     }
 
     _parseScales({ scales }) {
@@ -154,7 +154,7 @@ export default class GridQuestionBase extends QuestionWithAnswers {
             return;
         }
 
-        scales.forEach((scaleModel) => {
+        scales.forEach(scaleModel => {
             let scale;
             if (scaleModel.groupCode) {
                 let group = this.getScaleGroup(scaleModel.groupCode);
@@ -168,6 +168,10 @@ export default class GridQuestionBase extends QuestionWithAnswers {
     }
 
     _setValue(answerCode, scaleCode) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         answerCode = answerCode.toString();
 
         const answer = this.getAnswer(answerCode);
@@ -194,7 +198,7 @@ export default class GridQuestionBase extends QuestionWithAnswers {
     }
 
     _clearValues() {
-        if (this._values === {}) {
+        if (Object.keys(this._values).length === 0) {
             return false;
         }
 
@@ -218,7 +222,7 @@ export default class GridQuestionBase extends QuestionWithAnswers {
 
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isNormalAnswer = !answer.isOther;
             let isEmpty = Utils.isEmpty(this.values[answer.code]);
             if (isNormalAnswer && isEmpty) invalidAnswers.push(answer.code);
@@ -231,7 +235,7 @@ export default class GridQuestionBase extends QuestionWithAnswers {
     _validateOther() {
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isOtherAnswer = answer.isOther;
             let isNotEmpty = !Utils.isEmpty(this.values[answer.code]);
             let otherIsEmpty = Utils.isEmpty(this.otherValues[answer.code]);

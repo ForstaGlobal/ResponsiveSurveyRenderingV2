@@ -1,8 +1,8 @@
-import QuestionWithAnswersView from 'views/questions/base/question-with-answers-view.js'
+import QuestionWithAnswersView from 'views/questions/base/question-with-answers-view.js';
 import HorizontalSlider from 'views/controls/slider/horizontal-slider.js';
 import HorizontalRtlSlider from 'views/controls/slider/horizontal-rtl-slider.js';
-import FloatingPanel from "../controls/floating-panel";
-import ValidationTypes from "../../api/models/validation/validation-types";
+import FloatingPanel from '../controls/floating-panel';
+import ValidationTypes from '../../api/models/validation/validation-types';
 
 export default class SliderGridQuestionView extends QuestionWithAnswersView {
     /**
@@ -18,7 +18,7 @@ export default class SliderGridQuestionView extends QuestionWithAnswersView {
         this._init();
     }
 
-    detach(){
+    detach() {
         super.detach();
         this._sliders.forEach(slider => slider.detach());
         this._floatingPanel.detach();
@@ -26,8 +26,10 @@ export default class SliderGridQuestionView extends QuestionWithAnswersView {
 
     _init() {
         const sliderValues = this._question.scales.map(scale => scale.code);
-        const sliderTextValueHandler = (sliderValue) => {
-            return sliderValue === null ? this._settings.messages.noResponse : this._question.getScale(sliderValue).text;
+        const sliderTextValueHandler = sliderValue => {
+            return sliderValue === null
+                ? this._settings.messages.noResponse
+                : this._question.getScale(sliderValue).text;
         };
 
         this._question.answers.forEach(answer => {
@@ -68,9 +70,8 @@ export default class SliderGridQuestionView extends QuestionWithAnswersView {
         return new HorizontalSlider(sliderNode, sliderValues, sliderValue, textValueHandler, false, readOnly);
     }
 
-    _updateSliders({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateSliders({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             this._sliders.get(answerCode).value = this._question.values[answerCode] || null;
@@ -78,17 +79,33 @@ export default class SliderGridQuestionView extends QuestionWithAnswersView {
     }
 
     _showAnswerError(validationResult) {
+        let hasNormalAnswerError = false;
+        let hasOtherAnswerError = false;
+        let errorMessages = [];
+        validationResult.errors.forEach(error => {
+            errorMessages.push(error.message);
+            if (error.type === ValidationTypes.OtherRequired) {
+                hasOtherAnswerError = true;
+            } else {
+                hasNormalAnswerError = true;
+            }
+        });
 
         const answer = this._question.getAnswer(validationResult.answerCode);
         const targetNode = answer.isOther
             ? this._getAnswerOtherNode(answer.code)
             : this._getAnswerTextNode(answer.code);
         const errorBlockId = this._getAnswerErrorBlockId(answer.code);
-        const errors = validationResult.errors.map(error => error.message);
-        this._answerErrorBlockManager.showErrors(errorBlockId, targetNode, errors);
+        this._answerErrorBlockManager.showErrors(errorBlockId, targetNode, errorMessages);
 
-        const otherErrors = validationResult.errors.filter(error => error.type === ValidationTypes.OtherRequired);
-        if (otherErrors.length > 0) {
+        if (hasNormalAnswerError) {
+            this._sliders
+                .get(validationResult.answerCode)
+                .handleNode.attr('aria-errormessage', errorBlockId)
+                .attr('aria-invalid', 'true');
+        }
+
+        if (hasOtherAnswerError) {
             this._getAnswerOtherNode(validationResult.answerCode)
                 .attr('aria-errormessage', errorBlockId)
                 .attr('aria-invalid', 'true');
@@ -98,12 +115,14 @@ export default class SliderGridQuestionView extends QuestionWithAnswersView {
     _hideErrors() {
         super._hideErrors();
 
-        this._container.find('.cf-text-box')
-            .removeAttr('aria-errormessage')
-            .removeAttr('aria-invalid');
+        this._container.find('.cf-text-box').removeAttr('aria-errormessage').removeAttr('aria-invalid');
+
+        this._question.answers.forEach(answer => {
+            this._sliders.get(answer.code).handleNode.removeAttr('aria-errormessage').removeAttr('aria-invalid');
+        });
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateSliders(changes);
         this._updateAnswerOtherNodes(changes);
     }

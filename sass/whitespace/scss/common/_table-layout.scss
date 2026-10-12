@@ -1,0 +1,220 @@
+@use "../variables";
+
+$cf-table-layout-border-radius: 2px;
+
+.cf-table-layout {
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  // TODO: bem violation
+  .cf-table-layout__row--head + .cf-table-layout__row--head {
+    .cf-table-layout-cell {
+      padding-top: 0;
+    }
+  }
+
+  &__cell {
+    vertical-align: middle;
+    font-weight: normal;
+    text-align: center;
+    padding: 0;
+
+    &--empty {
+      background-color: transparent;
+      border: none;
+    }
+
+    &--row-head {
+      max-width: 50vw;
+    }
+
+    &--column-head {
+    }
+
+    &--column-group {
+    }
+  }
+
+  // GROUP
+  &__row-group-start {
+    height: 20px;
+  }
+
+  &__row-group-title {
+    display: inline-block;
+    background: variables.$question-bg-color;
+    padding: 0 4px;
+    position: relative;
+    bottom: -10px;
+    font-weight: normal;
+  }
+
+  &__row-group-end {
+    height: 20px;
+  }
+
+  &__row--first-in-group .cf-table-layout__cell {
+    border-top: 1px solid variables.$primary-shade-4;
+    padding-top: 24px;
+  }
+
+  &__row--last-in-group .cf-table-layout__cell {
+    border-bottom: 1px solid variables.$primary-shade-4;
+    padding-bottom: 24px;
+  }
+}
+
+.cf-table-layout:not(.cf-table-layout--rtl) {
+  text-align: left;
+
+  .cf-table-layout {
+    &__cell {
+      text-align: center;
+    }
+
+    &__cell--row-head {
+      text-align: left;
+
+      &:first-child {
+        padding-right: 8px;
+      }
+
+      &:last-child {
+        padding-left: 8px;
+      }
+    }
+
+    &__row-group-title {
+      left: 5px;
+    }
+
+    &__row--in-group .cf-table-layout__cell {
+      &:first-child {
+        border-left: 1px solid variables.$primary-shade-4;
+      }
+
+      &:last-child {
+        border-right: 1px solid variables.$primary-shade-4;
+      }
+    }
+
+    &__row--first-in-group .cf-table-layout__cell {
+      &:first-child {
+        border-top-left-radius: $cf-table-layout-border-radius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $cf-table-layout-border-radius;
+      }
+    }
+
+    &__row--last-in-group .cf-table-layout__cell {
+      &:first-child {
+        border-bottom-left-radius: $cf-table-layout-border-radius;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: $cf-table-layout-border-radius;
+      }
+    }
+  }
+}
+
+.cf-table-layout--rtl {
+  text-align: right;
+  direction: rtl;
+
+  .cf-table-layout {
+    &__cell {
+      text-align: center;
+    }
+
+    &__cell--row-head {
+      text-align: right;
+
+      &:first-child {
+        padding-left: 8px;
+      }
+
+      &:last-child {
+        padding-right: 8px;
+      }
+    }
+
+    &__row-group-title {
+      right: 5px;
+    }
+
+    &__row--in-group .cf-table-layout__cell {
+      &:first-child {
+        border-right: 1px solid variables.$primary-shade-4;
+      }
+      &:last-child {
+        border-left: 1px solid variables.$primary-shade-4;
+      }
+    }
+
+    &__row--first-in-group .cf-table-layout__cell {
+      &:first-child {
+        border-top-right-radius: $cf-table-layout-border-radius;
+      }
+      &:last-child {
+        border-top-left-radius: $cf-table-layout-border-radius;
+      }
+    }
+
+    &__row--last-in-group .cf-table-layout__cell {
+      &:first-child {
+        border-bottom-right-radius: $cf-table-layout-border-radius;
+      }
+      &:last-child {
+        border-bottom-left-radius: $cf-table-layout-border-radius;
+      }
+    }
+  }
+}
+
+.cf-table-layout-cell {
+  padding: 0.5em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+  }
+}
+
+.cf-table-layout-cell--stretch {
+  justify-content: stretch;
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+  }
+}
+
+.cf-table-layout-cell--row-head {
+  justify-content: stretch;
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+  }
+}
+
+.cf-table-layout-cell--column-head {
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+.cf-table-layout-cell--column-group {
+  padding: 0.5em 0 0 0;
+
+  .cf-table-layout-cell__content {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}

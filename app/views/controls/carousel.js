@@ -1,9 +1,8 @@
 import $ from 'jquery';
-import KEYS from "../helpers/keyboard-keys";
-import Event from "../../event";
+import KEYS from '../helpers/keyboard-keys';
+import Event from '../../event';
 
 export default class Carousel {
-
     /**
      * @param {jQuery} carousel container;
      * @param {CarouselItem[]} items - array of carousel items;
@@ -11,7 +10,7 @@ export default class Carousel {
     constructor(container, items) {
         this._items = items;
 
-        this._moveEvent = new Event("carousel:move");
+        this._moveEvent = new Event('carousel:move');
 
         this._currentItemIndex = this._getInitialCurrentIndex();
         this._container = container;
@@ -54,7 +53,7 @@ export default class Carousel {
     }
 
     moveToItemByIndex(index) {
-        if (index >= this._items.length  || index < 0 ) {
+        if (index >= this._items.length || index < 0) {
             return;
         }
 
@@ -64,14 +63,14 @@ export default class Carousel {
         this._moveEvent.trigger();
     }
 
-    moveToItemById(itemId){
+    moveToItemById(itemId) {
         const index = this._items.findIndex(item => item.id === itemId);
         this.moveToItemByIndex(index);
     }
 
-    _getInitialCurrentIndex(){
+    _getInitialCurrentIndex() {
         const index = this._items.findIndex(item => !item.isComplete);
-        return index !== -1 ? index :  this._items.length - 1;
+        return index !== -1 ? index : this._items.length - 1;
     }
 
     _getPagingNode(item) {
@@ -102,12 +101,11 @@ export default class Carousel {
     }
 
     _updateText() {
-        this._container.find('.cf-carousel__text')
+        this._container
+            .find('.cf-carousel__text')
             .removeClass('cf-carousel__text--current')
             .attr('aria-hidden', 'true');
-        this.currentTextNode
-            .addClass('cf-carousel__text--current')
-            .attr('aria-hidden', 'false');
+        this.currentTextNode.addClass('cf-carousel__text--current').attr('aria-hidden', 'false');
         this._updateTextListHeight();
     }
 
@@ -135,13 +133,14 @@ export default class Carousel {
     _updatePaging() {
         this._items.forEach(item => {
             const element = this._getPagingNode(item);
-            element.removeClass('cf-carousel__paging-item--complete cf-carousel__paging-item--error cf-carousel__paging-item--current');
+            element.removeClass(
+                'cf-carousel__paging-item--complete cf-carousel__paging-item--error cf-carousel__paging-item--current'
+            );
             element.attr('aria-pressed', 'false');
 
             if (item.isError) {
                 element.addClass('cf-carousel__paging-item--error');
-            }
-            else if (item.isComplete) {
+            } else if (item.isComplete) {
                 element.addClass('cf-carousel__paging-item--complete');
             }
 
@@ -153,14 +152,12 @@ export default class Carousel {
     }
 
     _updateContent() {
-        this._container.find('.cf-carousel__content-item')
+        this._container
+            .find('.cf-carousel__content-item')
             .attr('aria-hidden', 'true')
             .removeClass('cf-carousel__content-item--current');
-        this.currentContentNode
-            .addClass('cf-carousel__content-item--current')
-            .attr('aria-hidden', 'false');
+        this.currentContentNode.addClass('cf-carousel__content-item--current').attr('aria-hidden', 'false');
     }
-
 
     _onSelectKeyPress(event, callback) {
         if ([KEYS.SpaceBar, KEYS.Enter].includes(event.keyCode) === false) {
@@ -176,9 +173,8 @@ export default class Carousel {
     _onItemChange(item, changes) {
         this._updatePaging();
 
-        if(changes.isError === true && item === this.currentItem){
+        if (changes.isError === true && item === this.currentItem) {
             this._updateTextListHeight();
         }
     }
 }
-

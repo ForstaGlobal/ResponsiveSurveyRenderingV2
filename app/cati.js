@@ -1,12 +1,12 @@
-export default class Cati{
-    constructor(page){
+export default class Cati {
+    constructor(page) {
         this._page = page;
     }
 
     /**
      * Abandons the interview in progress.
      */
-    terminate(){
+    terminate() {
         this._page.serverVariables.add('__btnExit', '1');
         this._page.next(false);
     }
@@ -14,7 +14,7 @@ export default class Cati{
     /**
      * Allows making an appointment. Displays the Appointment dialog window.
      */
-    appointment(){
+    appointment() {
         this._page.serverVariables.add('__its', '1');
         this._page.next(false);
     }

@@ -8,7 +8,7 @@ import ProcessMonitor from '../process-monitor.js';
 import Event from 'event.js';
 import QuestionTypes from 'api/question-types.js';
 import HiddenInputs from './hidden-inputs';
-import SurveyReviewer from './survey-reviewer';
+import SurveyReviewer from './reviewer/survey-reviewer';
 import $ from 'jquery';
 
 export default class PageView {
@@ -33,6 +33,8 @@ export default class PageView {
         this._questionViewFactory = new QuestionViewFactory(this._questionViewSettings);
         this._registeredCustomQuestions = {};
         this._registeredCustomQuestionViews = {};
+
+        this._allowFocusFirstInvalidQuestionInAccessibleMode = true;
 
         this._pageForm = $('#page_form');
 
@@ -83,8 +85,8 @@ export default class PageView {
 
     _registerCustomQuestions() {
         this._page.questions
-            .filter((question) => question.customQuestion !== null)
-            .forEach((question) => {
+            .filter(question => question.customQuestion !== null)
+            .forEach(question => {
                 this._registerCustomQuestion(question);
             });
     }
@@ -106,7 +108,7 @@ export default class PageView {
     }
 
     _attachQuestionViews() {
-        this._page.questions.forEach((model) => this._attachQuestionView(model));
+        this._page.questions.forEach(model => this._attachQuestionView(model));
     }
 
     _attachQuestionView(model) {
@@ -152,17 +154,17 @@ export default class PageView {
 
     _detachQuestionView(questionId) {
         this._questionViews
-            .filter((view) => (view.questionId || view.id) === questionId)
-            .forEach((view) => {
+            .filter(view => (view.questionId || view.id) === questionId)
+            .forEach(view => {
                 view.detach();
             });
 
-        this._questionViews = this._questionViews.filter((view) => (view.questionId || view.id) !== questionId);
-        this._hiddenViews = this._hiddenViews.filter((view) => (view.questionId || view.id) !== questionId);
+        this._questionViews = this._questionViews.filter(view => (view.questionId || view.id) !== questionId);
+        this._hiddenViews = this._hiddenViews.filter(view => (view.questionId || view.id) !== questionId);
     }
 
     _attachModelHandlers() {
-        this._page.validationCompleteEvent.on((validationResult) => this._onValidationComplete(validationResult));
+        this._page.validationCompleteEvent.on(validationResult => this._onValidationComplete(validationResult));
         this._page.navigateEvent.on(({ next }) => this._navigate(next));
 
         this._page.dynamicQuestionTriggerChangedEvent.on(() => this._processMonitor.addProcess('dynamic_manager'));
@@ -199,12 +201,22 @@ export default class PageView {
     }
 
     _scrollToFirstInvalidQuestion(validationResult) {
-        const invalidQuestion = validationResult.questionValidationResults.find((question) => !question.isValid);
+        const invalidQuestion = validationResult.questionValidationResults.find(question => !question.isValid);
         if (!invalidQuestion) {
             return;
         }
 
         $(`#${invalidQuestion.questionId}`)[0].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    _focusFirstInvalidQuestion(validationResult) {
+        const invalidQuestion = validationResult.questionValidationResults.find(question => !question.isValid);
+        if (!invalidQuestion) {
+            return;
+        }
+
+        $(`#${invalidQuestion.questionId}`).attr('tabindex', '-1');
+        $(`#${invalidQuestion.questionId}`)[0].focus();
     }
 
     _navigate(next) {
@@ -214,7 +226,7 @@ export default class PageView {
 
         this._processMonitor.addProcess('navigation');
 
-        this._hiddenViews.forEach((view) => view.render());
+        this._hiddenViews.forEach(view => view.render());
         this._renderNavigationHiddenView(next);
 
         this._pageForm.submit();
@@ -224,7 +236,7 @@ export default class PageView {
         let textInputs =
             'input[type=text], input[type=number], input[type=date], input[type=password], input[type=email]';
 
-        this._pageForm.on('keypress', textInputs, (e) => {
+        this._pageForm.on('keypress', textInputs, e => {
             if (e.keyCode === 13 || e.keyCode === 10) {
                 e.preventDefault();
                 $(e.target).blur();
@@ -287,9 +299,19 @@ export default class PageView {
     }
 
     _onValidationComplete(validationResult) {
+        // Clean up tabindex for questions containers
+        if (this._page.surveyInfo.isAccessible) {
+            $('.cf-question[tabindex="-1"]').removeAttr('tabindex');
+        }
+
         if (!validationResult.isValid) {
             this._showErrors([this._page.surveyInfo.messages.toastErrorMessage]);
-            this._scrollToFirstInvalidQuestion(validationResult);
+
+            if (this._page.surveyInfo.isAccessible && this._allowFocusFirstInvalidQuestionInAccessibleMode) {
+                this._focusFirstInvalidQuestion(validationResult);
+            } else {
+                this._scrollToFirstInvalidQuestion(validationResult);
+            }
         } else {
             this._hideErrors();
         }
@@ -298,7 +320,7 @@ export default class PageView {
     _onDynamicQuestionChangeComplete(models) {
         this._processMonitor.removeProcess('dynamic_manager');
 
-        models.forEach((model) => {
+        models.forEach(model => {
             if (model.type === QuestionTypes.DynamicQuestionPlaceholder) {
                 this._processMonitor.removeProcess(`question_view_${model.id}`);
             }

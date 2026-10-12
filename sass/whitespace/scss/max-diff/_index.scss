@@ -1,0 +1,59 @@
+@use "../_mixins/visually-hidden";
+@use "../variables";
+
+.cf-max-diff {
+  &__progress {
+    font-weight: bold;
+    color: variables.$primary-color;
+    margin-bottom: 16px;
+  }
+
+  &__table {
+    border-collapse: collapse;
+  }
+
+  &__answer {
+    border-bottom: 1px solid variables.$primary-shade-4;
+
+    &:last-child {
+      border:none;
+    }
+  }
+}
+
+
+.cf-max-diff-answer {
+  &__header {
+    &--center {
+      text-align: center;
+    }
+  }
+
+  &__text, &__other-input {
+    text-align: inherit;
+  }
+
+  &__other-input {
+    min-width: 100px;
+    max-width: 240px;
+    width: 100%;
+  }
+}
+
+.cf-max-diff-status {
+  @include visually-hidden.visually-hidden;
+}
+
+.cf-max-diff-answer--rtl {
+  .cf-max-diff-answer {
+    &__header {
+      &--center {
+        text-align: center;
+      }
+    }
+
+    &__text, &__other-input {
+      text-align: inherit;
+    }
+  }
+}

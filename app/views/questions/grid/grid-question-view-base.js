@@ -1,6 +1,6 @@
-import QuestionWithAnswerView from "../base/question-with-answers-view";
-import KEYS from "../../helpers/keyboard-keys";
-import ValidationTypes from "../../../api/models/validation/validation-types";
+import QuestionWithAnswerView from '../base/question-with-answers-view';
+import KEYS from '../../helpers/keyboard-keys';
+import ValidationTypes from '../../../api/models/validation/validation-types';
 
 export default class GridQuestionViewBase extends QuestionWithAnswerView {
     /**
@@ -42,11 +42,11 @@ export default class GridQuestionViewBase extends QuestionWithAnswerView {
         throw 'Not implemented';
     }
 
-    _getSelectedScaleClass(scale){
-        if(this._question.answerButtons) {
+    _getSelectedScaleClass(scale) {
+        if (this._question.answerButtons) {
             return 'cf-button-answer--selected';
         }
-        if(scale.imagesSettings !== null) {
+        if (scale.imagesSettings !== null) {
             return 'cf-image-answer--selected';
         }
 
@@ -54,10 +54,10 @@ export default class GridQuestionViewBase extends QuestionWithAnswerView {
     }
 
     _getSelectedControlClass(scale) {
-        if(this._question.answerButtons) {
+        if (this._question.answerButtons) {
             return 'cf-button--selected';
         }
-        if(scale.imagesSettings !== null) {
+        if (scale.imagesSettings !== null) {
             return 'cf-image--selected';
         }
 
@@ -71,39 +71,44 @@ export default class GridQuestionViewBase extends QuestionWithAnswerView {
     _attachToDOM() {
         this._answers.forEach((answer, answerIndex) => {
             this._scales.forEach((scale, scaleIndex) => {
-                this._getScaleNode(answer.code, scale.code)
-                    .on('click', event => this._onScaleNodeClick(event, answer, scale));
-                this._getScaleControlNode(answer.code, scale.code)
-                    .on('focus', this._onScaleControlNodeFocus.bind(this, answerIndex, scaleIndex));
+                this._getScaleNode(answer.code, scale.code).on('click', event =>
+                    this._onScaleNodeClick(event, answer, scale)
+                );
+                this._getScaleControlNode(answer.code, scale.code).on(
+                    'focus',
+                    this._onScaleControlNodeFocus.bind(this, answerIndex, scaleIndex)
+                );
             });
 
             if (answer.isOther) {
-                this._getAnswerOtherNode(answer.code)
-                    .on('input', event => this._onAnswerOtherNodeValueChange(answer, event.target.value));
+                this._getAnswerOtherNode(answer.code).on('input', event =>
+                    this._onAnswerOtherNodeValueChange(answer, event.target.value)
+                );
             }
         });
 
         if (!this._settings.disableKeyboardSupport) {
             this._answers.forEach(answer => {
-                this._getScaleGroupNode(answer.code)
-                    .on('keydown', this._onGroupNodeKeyDown.bind(this));
+                this._getScaleGroupNode(answer.code).on('keydown', this._onGroupNodeKeyDown.bind(this));
 
                 if (answer.isOther) {
                     this._getAnswerOtherNode(answer.code).on('keydown', event =>
-                        this._onAnswerOtherNodeKeyDown(event, answer));
+                        this._onAnswerOtherNodeKeyDown(event, answer)
+                    );
                 }
 
                 this._scales.forEach(scale => {
-                    this._getScaleControlNode(answer.code, scale.code)
-                        .on('keydown', this._onScaleControlNodeKeyDown.bind(this));
+                    this._getScaleControlNode(answer.code, scale.code).on(
+                        'keydown',
+                        this._onScaleControlNodeKeyDown.bind(this)
+                    );
                 });
             });
         }
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             this._scales.forEach(scale => {
@@ -130,19 +135,15 @@ export default class GridQuestionViewBase extends QuestionWithAnswerView {
             .css('border-color', '');
     }
 
-
     _selectScaleNode(answerCode, scaleCode) {
         const scale = this._question.getScale(scaleCode);
 
         this._getScaleNode(answerCode, scaleCode).addClass(this._getSelectedScaleClass(scale));
 
         const controlNode = this._getScaleControlNode(answerCode, scaleCode);
-        controlNode
-            .addClass(this._getSelectedControlClass(scale))
-            .attr('aria-checked', 'true')
-            .attr('tabindex', '0');
+        controlNode.addClass(this._getSelectedControlClass(scale)).attr('aria-checked', 'true').attr('tabindex', '0');
         if (scale.backgroundColor !== null) {
-            controlNode.css({backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor});
+            controlNode.css({ backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor });
         }
     }
 
@@ -172,9 +173,11 @@ export default class GridQuestionViewBase extends QuestionWithAnswerView {
 
         const answerHasNotOnlyOtherErrors = validationResult.errors.length > otherErrors.length;
         if (answerHasNotOnlyOtherErrors) {
-            this._getScaleGroupNode(answer.code)
-                .attr("aria-invalid", "true")
-                .attr("aria-errormessage", errorBlockId);
+            this._getScaleGroupNode(answer.code).attr('aria-invalid', 'true').attr('aria-errormessage', errorBlockId);
+
+            this._scales.forEach(scale => {
+                this._getScaleControlNode(answer.code, scale.code).attr('aria-describedby', errorBlockId);
+            });
         }
     }
 
@@ -182,17 +185,17 @@ export default class GridQuestionViewBase extends QuestionWithAnswerView {
         this._answerErrorBlockManager.removeAllErrors();
 
         this._answers.forEach(answer => {
-            this._getScaleGroupNode(answer.code)
-                .removeAttr("aria-invalid")
-                .removeAttr("aria-errormessage");
+            this._getScaleGroupNode(answer.code).removeAttr('aria-invalid').removeAttr('aria-errormessage');
+
+            this._scales.forEach(scale => {
+                this._getScaleControlNode(answer.code, scale.code).removeAttr('aria-describedby');
+            });
         });
 
-        this._container.find('.cf-text-box')
-            .removeAttr('aria-errormessage')
-            .removeAttr('aria-invalid');
+        this._container.find('.cf-text-box').removeAttr('aria-errormessage').removeAttr('aria-invalid');
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerScaleNodes(changes);
         this._updateAnswerOtherNodes(changes);
     }

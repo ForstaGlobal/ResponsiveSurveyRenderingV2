@@ -1,6 +1,6 @@
 import QuestionWithAnswersView from './base/question-with-answers-view.js';
 import KEYS from 'views/helpers/keyboard-keys.js';
-import Utils from "../../utils";
+import Utils from '../../utils';
 
 export default class HorizontalRatingSingleQuestionView extends QuestionWithAnswersView {
     /**
@@ -27,11 +27,11 @@ export default class HorizontalRatingSingleQuestionView extends QuestionWithAnsw
     }
 
     _getSelectedControlClass(answerCode) {
-        return this._isItemInScale(answerCode) ? "cf-horizontal-rating-item--selected" : "cf-radio--selected";
+        return this._isItemInScale(answerCode) ? 'cf-horizontal-rating-item--selected' : 'cf-radio--selected';
     }
 
     _getClickableAnswerNode(answerCode) {
-        if(this._isItemInScale(answerCode)) {
+        if (this._isItemInScale(answerCode)) {
             return this._getAnswerControlNode(answerCode);
         }
         return this._getAnswerNode(answerCode);
@@ -58,17 +58,17 @@ export default class HorizontalRatingSingleQuestionView extends QuestionWithAnsw
 
     _updateAnswerNodes() {
         this._question.answers.forEach(answer => {
-            if(!this._isItemInScale(answer.code)) {
+            if (!this._isItemInScale(answer.code)) {
                 this._clearAnswerNode(answer.code);
             }
             this._clearAnswerControlNode(answer.code);
         });
 
         const answerCode = this._question.value;
-        if(answerCode === null) {
+        if (answerCode === null) {
             this._getAnswerControlNode(this.answers[0].code).attr('tabindex', '0');
         } else {
-            if(!this._isItemInScale(answerCode)) {
+            if (!this._isItemInScale(answerCode)) {
                 this._selectAnswerNode(answerCode);
             }
             this._selectAnswerControlNode(answerCode);
@@ -76,7 +76,7 @@ export default class HorizontalRatingSingleQuestionView extends QuestionWithAnsw
     }
 
     _clearAnswerNode(answerCode) {
-        this._getAnswerNode(answerCode).removeClass('cf-radio-answer--selected')
+        this._getAnswerNode(answerCode).removeClass('cf-radio-answer--selected');
     }
 
     _clearAnswerControlNode(answerCode) {
@@ -100,7 +100,7 @@ export default class HorizontalRatingSingleQuestionView extends QuestionWithAnsw
             .attr('tabindex', '0');
         const answer = this._question.getAnswer(answerCode);
         if (answer.backgroundColor !== null) {
-            controlNode.css({backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor});
+            controlNode.css({ backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor });
         }
     }
 
@@ -111,11 +111,27 @@ export default class HorizontalRatingSingleQuestionView extends QuestionWithAnsw
     _showErrors(validationResult) {
         super._showErrors(validationResult);
         this._groupNode.attr('aria-invalid', 'true');
+        this._addReferenceToErrorForAnswers(validationResult);
+    }
+
+    _addReferenceToErrorForAnswers(validationResult) {
+        if (validationResult.isValid || validationResult.errors.length === 0) {
+            return;
+        }
+
+        this._question.answers.forEach(answer => {
+            const controlNode = this._getAnswerControlNode(answer.code);
+            controlNode.attr('aria-describedby', this._getQuestionErrorNodeId());
+        });
     }
 
     _hideErrors() {
         super._hideErrors();
         this._groupNode.attr('aria-invalid', 'false');
+
+        this._question.answers.forEach(answer => {
+            this._getAnswerControlNode(answer.code).removeAttr('aria-describedby');
+        });
     }
 
     _getPreviousAnswerIndex() {
@@ -134,12 +150,12 @@ export default class HorizontalRatingSingleQuestionView extends QuestionWithAnsw
         }
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
     }
 
     _onAnswerNodeClick(answer) {
-       this._selectAnswer(answer);
+        this._selectAnswer(answer);
     }
 
     _onKeyPress(event) {

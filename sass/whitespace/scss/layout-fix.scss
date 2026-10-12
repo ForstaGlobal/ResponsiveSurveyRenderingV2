@@ -1,0 +1,7 @@
+/* Clean up fixes on new major version of bundle */
+
+/* fix focus outline for V2, next major should be part of the SR styles */
+.cf-page--accessible .cf-star-rating-scale__item:has(> .cf-star-rating-item:focus) {
+  outline: 1px #666 dotted;
+  outline-offset: 2px;
+}

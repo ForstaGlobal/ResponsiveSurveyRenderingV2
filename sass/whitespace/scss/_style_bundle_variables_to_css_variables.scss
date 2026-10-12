@@ -1,0 +1,16 @@
+@use "variables";
+
+:root {
+  --cf-desktop-layout-delimiter: #{variables.$desktop-layout-delimiter};
+
+  --cf-page-font: #{variables.$page-font};
+  --cf-page-bg-color: #{variables.$page-bg-color};
+  --cf-question-bg-color: #{variables.$question-bg-color};
+  --cf-primary-color: #{variables.$primary-color};
+  --cf-control-active-color: #{variables.$control-active-color};
+  --cf-error-color: #{variables.$error-color};
+
+  --cf-header-bg-color: #{variables.$header-bg-color};
+  --cf-header-alignment: #{variables.$header-alignment};
+  --cf-header-text-color: #{variables.$header-text-color};
+}

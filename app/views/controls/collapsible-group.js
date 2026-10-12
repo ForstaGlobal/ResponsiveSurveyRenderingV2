@@ -1,5 +1,5 @@
 import CollapsingPanel from './collapsing-panel';
-import $ from "jquery";
+import $ from 'jquery';
 
 export default class CollapsibleGroup {
     /**
@@ -33,12 +33,18 @@ export default class CollapsibleGroup {
     _onValidationComplete(validationResult) {
         const answerCodes = this._group.items.map(answer => answer.code);
 
-        if (validationResult.answerValidationResults.some(answerValidationResult => answerCodes.includes(answerValidationResult.answerCode))) {
+        if (
+            validationResult.answerValidationResults.some(answerValidationResult =>
+                answerCodes.includes(answerValidationResult.answerCode)
+            )
+        ) {
             this._panel.open();
         }
     }
 
     _onToggleEvent() {
-        this._container.find('.cf-collapsible-group__short-info').toggleClass('cf-collapsible-group__short-info--hidden', this._panel.isOpen);
+        this._container
+            .find('.cf-collapsible-group__short-info')
+            .toggleClass('cf-collapsible-group__short-info--hidden', this._panel.isOpen);
     }
 }

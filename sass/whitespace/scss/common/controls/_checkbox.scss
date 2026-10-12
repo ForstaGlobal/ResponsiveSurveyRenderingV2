@@ -1,0 +1,31 @@
+@use "../../variables";
+
+.cf-checkbox {
+  height: variables.$control-size;
+  width: variables.$control-size;
+  padding-top: 1px;
+  cursor: pointer;
+  border: 2px solid;
+  border-radius: 3px;
+  background-color: variables.$question-bg-color;
+
+  &--selected {
+    background-color: variables.$control-active-color;
+    border-color: variables.$control-active-color;
+
+    &:before {
+      content: "";
+      display: block;
+      border-right: 2px solid variables.$question-bg-color;
+      border-bottom: 2px solid variables.$question-bg-color;
+      transform: rotate(45deg);
+      width: 8px;
+      height: 14px;
+      margin: auto;
+    }
+  }
+}
+
+.cf-checkbox--small {
+  transform: scale(0.8);
+}

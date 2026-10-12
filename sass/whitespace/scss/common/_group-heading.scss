@@ -1,0 +1,36 @@
+@use "../variables";
+
+.cf-group-heading {
+  margin-left: -10px;
+  margin-right: -10px;
+  position: relative;
+  margin-top: 8px;
+
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    position: absolute;
+    color: variables.$control-primary-color;
+    background-color: variables.$question-bg-color;
+    left: 4px + 1px;
+    top: -(variables.$font-size - 4px);
+    padding: 0 4px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 9px;
+    border: 1px solid variables.$primary-shade-4;
+    border-radius: 2px;
+  }
+}
+
+.cf-group-heading--rtl {
+  .cf-group-heading__title {
+    left: auto;
+    right: 4px + 1px;
+  }
+}

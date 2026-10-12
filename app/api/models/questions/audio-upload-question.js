@@ -1,5 +1,7 @@
 import Question from '../base/question';
-import Utils from 'utils.js';
+import Utils from 'utils';
+import ValidationTypes from '../validation/validation-types';
+import RuleValidationResult from '../validation/rule-validation-result';
 
 /**
  * @desc AudioUploadQuestion.
@@ -8,8 +10,9 @@ import Utils from 'utils.js';
 export default class AudioUploadQuestion extends Question {
     /**
      * @param {object} model - Raw question model.
+     * @param {MediaUploader} uploader - Audio uploader
      */
-    constructor(model) {
+    constructor(model, uploader) {
         super(model);
 
         this._audioId = model.audioId;
@@ -18,6 +21,16 @@ export default class AudioUploadQuestion extends Question {
 
         this._minDurationInSeconds = model.minDurationInSeconds;
         this._maxDurationInSeconds = model.maxDurationInSeconds;
+
+        this._uploader = uploader;
+    }
+
+    /**
+     * Media uploader. Using to help you to upload audio on server during web interview.
+     * @returns {MediaUploader}
+     */
+    get uploader() {
+        return this._uploader;
     }
 
     /**
@@ -78,6 +91,10 @@ export default class AudioUploadQuestion extends Question {
     }
 
     _setValue(audioId, previewUrl, duration) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         const newAudioId = Utils.isEmpty(audioId) ? null : audioId.toString();
         const newPreviewUrl = Utils.isEmpty(previewUrl) ? null : previewUrl.toString();
 
@@ -108,5 +125,19 @@ export default class AudioUploadQuestion extends Question {
         this._duration = null;
 
         return true;
+    }
+
+    _validateRule(validationType) {
+        switch (validationType) {
+            case ValidationTypes.Required:
+                return this._validateRequired();
+        }
+    }
+
+    _validateRequired() {
+        if (!this.required) return new RuleValidationResult(true);
+
+        let isValid = !Utils.isEmpty(this._audioId);
+        return new RuleValidationResult(isValid);
     }
 }

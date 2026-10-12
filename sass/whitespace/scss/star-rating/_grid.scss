@@ -1,0 +1,39 @@
+.cf-mobile-sr-grid {
+  &__answer {
+    &--first {
+      .cf-mobile-sr-grid__answer-label-panel {
+        display: flex;
+      }
+    }
+  }
+
+  &__answer-label-panel {
+    display: none;
+    margin-bottom: 4px;
+  }
+
+  &__answer-scale-container {
+    max-width: 100%;
+  }
+
+  &__answer-rating-scale {
+    margin-bottom: 16px;
+  }
+}
+
+.cf-desktop-sr-grid {
+  &__answer-other {
+    max-width: 260px;
+    width: 100%;
+  }
+}
+.cf-desktop-sr-grid:not(.cf-desktop-sr-grid--rtl) {
+  .cf-desktop-sr-grid__non-scored-scale-cell {
+    padding-left: 16px;
+  }
+}
+.cf-desktop-sr-grid.cf-desktop-sr-grid--rtl {
+  .cf-desktop-sr-grid__non-scored-scale-cell {
+    padding-right: 16px;
+  }
+}

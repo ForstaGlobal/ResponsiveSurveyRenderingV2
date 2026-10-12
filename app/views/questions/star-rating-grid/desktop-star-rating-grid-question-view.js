@@ -1,5 +1,5 @@
-import DesktopQuestionIdProvider from "../../helpers/desktop-question-id-provider";
-import StarRatingGridQuestionViewBase from "./star-rating-grid-question-view-base";
+import DesktopQuestionIdProvider from '../../helpers/desktop-question-id-provider';
+import StarRatingGridQuestionViewBase from './star-rating-grid-question-view-base';
 
 export default class DesktopStarRatingGridQuestionView extends StarRatingGridQuestionViewBase {
     /**
@@ -15,6 +15,6 @@ export default class DesktopStarRatingGridQuestionView extends StarRatingGridQue
     }
 
     _getSelectedControlClass(scaleCode) {
-        return this._isItemInScale(scaleCode) ? "cf-star-rating-item--selected" : "cf-non-scored-rating-item--selected";
+        return this._isItemInScale(scaleCode) ? 'cf-star-rating-item--selected' : 'cf-non-scored-rating-item--selected';
     }
 }

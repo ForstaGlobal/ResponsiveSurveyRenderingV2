@@ -1,0 +1,40 @@
+@use "../../functions";
+@use "../../variables";
+
+.cf-dropdown {
+  width: 400px;
+  max-width: 100%;
+  height: variables.$control-size;
+  line-height: variables.$control-size - 4px;
+  padding: 0 32px 3px 0;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid variables.$primary-shade-3;
+
+  font-family: inherit;
+  font-size: inherit;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  &::-ms-expand { display: none; }
+
+  background-color: transparent;
+  background-image: functions.svg-url('<svg width="10px" height="5px" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 5,5 10,0" fill="#{variables.$primary-shade-3}"></polygon></svg>');
+
+  background-position: right 4px center;
+  background-size: auto;
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+
+  &--error {
+    border-bottom: 1px solid variables.$error-border-color;
+  }
+}
+
+.cf-dropdown--rtl {
+    padding: 0 0 3px 32px;
+    background-position: left 4px center;
+}

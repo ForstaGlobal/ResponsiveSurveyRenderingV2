@@ -17,7 +17,10 @@ export default class DynamicQuestionsTransport {
         }
 
         let timeout = question.type.includes('Open') ? this._openTimeoutMs : this._inputTimeoutMs;
-        this._timers[question.id] = setTimeout(() => this._runAjax(question.id, formAction, formMethod, formValues, callback), timeout);
+        this._timers[question.id] = setTimeout(
+            () => this._runAjax(question.id, formAction, formMethod, formValues, callback),
+            timeout
+        );
     }
 
     _runAjax(questionId, formAction, formMethod, formValues, callback) {
@@ -31,7 +34,7 @@ export default class DynamicQuestionsTransport {
             type: formMethod.toUpperCase(),
             url: this._buildUrl(formAction, questionId),
             data: $.param(formValues),
-            dataType: "json"
+            dataType: 'json',
         };
 
         this._xhr = $.ajax(settings)
@@ -42,27 +45,26 @@ export default class DynamicQuestionsTransport {
 
     _buildUrl(formAction, questionId) {
         let queryString = `__dynamicUpdate=true&__dqtrigger=${questionId}&__triggerhasupdated=${this._hasUpdated}&__islistsearch=false`;
-        return formAction + (formAction.indexOf("?") > -1 ? "&" : "?") + queryString;
+        return formAction + (formAction.indexOf('?') > -1 ? '&' : '?') + queryString;
     }
 
-    _processResponse(result, callback){
-        if (result && result.questions){
+    _processResponse(result, callback) {
+        if (result && result.questions) {
             this._hasUpdated = true;
 
             callback(result);
         }
     }
 
-    _handleError(status, error){
-        if (status === 'cancel pending dynamic update')
-            return;
+    _handleError(status, error) {
+        if (status === 'cancel pending dynamic update') return;
 
         // TODO: find a way to show global error banner or another way of handling
         // eslint-disable-next-line no-console
-        console.error("Dynamic question load failed: " + error);
+        console.error('Dynamic question load failed: ' + error);
     }
 
-    _cleanup(){
+    _cleanup() {
         this._xhr = null;
     }
 }

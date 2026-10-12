@@ -1,4 +1,4 @@
-import Event from "../../event";
+import Event from '../../event';
 
 export default class CarouselItem {
     constructor(itemId, isComplete = false) {
@@ -30,7 +30,7 @@ export default class CarouselItem {
         }
 
         this._isError = value;
-        this._changeEvent.trigger({isError: value});
+        this._changeEvent.trigger({ isError: value });
     }
 
     set isComplete(value) {
@@ -39,6 +39,6 @@ export default class CarouselItem {
         }
 
         this._isComplete = value;
-        this._changeEvent.trigger({isComplete: value});
+        this._changeEvent.trigger({ isComplete: value });
     }
 }

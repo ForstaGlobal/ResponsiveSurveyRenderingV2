@@ -1,6 +1,6 @@
-import MobileQuestionIdProvider from "../../helpers/mobile-question-id-provider";
-import StarRatingGridQuestionViewBase from "./star-rating-grid-question-view-base";
-import FloatingPanel from "../../controls/floating-panel";
+import MobileQuestionIdProvider from '../../helpers/mobile-question-id-provider';
+import StarRatingGridQuestionViewBase from './star-rating-grid-question-view-base';
+import FloatingPanel from '../../controls/floating-panel';
 
 export default class MobileStarRatingGridQuestionView extends StarRatingGridQuestionViewBase {
     /**
@@ -15,8 +15,8 @@ export default class MobileStarRatingGridQuestionView extends StarRatingGridQues
         this._initFloatingLabels();
     }
 
-    detach(){
-        super.detach()
+    detach() {
+        super.detach();
         this._floatingPanel.detach();
     }
 
@@ -29,21 +29,20 @@ export default class MobileStarRatingGridQuestionView extends StarRatingGridQues
     }
 
     _getClickableScaleNode(answer, scale) {
-        if(this._isItemInScale(scale.code)) {
+        if (this._isItemInScale(scale.code)) {
             return this._getScaleControlNode(answer.code, scale.code);
         }
         return this._getScaleNode(answer.code, scale.code);
     }
 
     _getSelectedControlClass(scaleCode) {
-        return this._isItemInScale(scaleCode) ? "cf-star-rating-item--selected" : "cf-radio--selected";
+        return this._isItemInScale(scaleCode) ? 'cf-star-rating-item--selected' : 'cf-radio--selected';
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
-        super._updateAnswerScaleNodes({values});
+        super._updateAnswerScaleNodes({ values });
 
         values.forEach(answerCode => {
             this._scales
@@ -51,7 +50,7 @@ export default class MobileStarRatingGridQuestionView extends StarRatingGridQues
                 .forEach(scale => this._getScaleNode(answerCode, scale.code).removeClass('cf-radio-answer--selected'));
 
             const scaleCode = this._question.values[answerCode];
-            if(!this._isItemInScale(scaleCode)) {
+            if (!this._isItemInScale(scaleCode)) {
                 this._getScaleNode(answerCode, scaleCode).addClass('cf-radio-answer--selected');
             }
         });

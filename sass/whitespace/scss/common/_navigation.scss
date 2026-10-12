@@ -1,0 +1,60 @@
+@use "../variables";
+
+
+.cf-navigation {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+
+  &__button {
+    min-width: 140px;
+    max-width: 200px;
+    width: 25%;
+    min-height: 40px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    content: '';
+    color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:first-child {
+      margin-left: auto;
+    }
+  }
+}
+
+.cf-navigation-next {
+  color: variables.$question-bg-color;
+  background: variables.$control-active-color;
+  border-radius: 3px;
+}
+
+.cf-navigation-back {
+  color: variables.$control-active-color;
+  background: none;
+  border-radius: 3px;
+}
+
+.cf-navigation-ok {
+  @extend .cf-navigation-next;
+}
+
+.cf-navigation--disabled {
+  pointer-events: none;
+  user-select: none;
+}
+
+.cf-navigation--rtl {
+  .cf-navigation__button:first-child {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}

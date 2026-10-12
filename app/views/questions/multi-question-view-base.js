@@ -57,7 +57,7 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
         const prepareCollapsibleGroupShortInfo = (question, group) => {
             return group.items
                 .filter(answer => this._getSelectedAnswerCodes().includes(answer.code))
-                .map(answer => answer.isOther ? question.otherValues[answer.code] : answer.text)
+                .map(answer => (answer.isOther ? question.otherValues[answer.code] : answer.text))
                 .filter(shortInfoText => !Utils.isEmpty(shortInfoText));
         };
 
@@ -84,24 +84,24 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
         }
     }
 
-    _getSelectedControlClass(answer){
-        if(answer.imagesSettings !== null){
+    _getSelectedControlClass(answer) {
+        if (answer.imagesSettings !== null) {
             return 'cf-image--selected';
         }
 
-        if(answer.isExclusive){
+        if (answer.isExclusive) {
             return 'cf-radio--selected';
         }
 
-        return'cf-checkbox--selected';
+        return 'cf-checkbox--selected';
     }
 
     _getSelectedAnswerClass(answer) {
-        if(answer.imagesSettings !== null){
+        if (answer.imagesSettings !== null) {
             return 'cf-image-answer--selected';
         }
 
-        if(answer.isExclusive){
+        if (answer.isExclusive) {
             return 'cf-radio-answer--selected';
         }
 
@@ -109,7 +109,7 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
     }
 
     _getDisabledAnswerClass(answer) {
-        if(answer.imagesSettings !== null) {
+        if (answer.imagesSettings !== null) {
             return 'cf-image-answer--disabled';
         }
 
@@ -120,19 +120,17 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
         return 'cf-checkbox-answer--disabled';
     }
 
-    _selectAnswerNode(answer){
+    _selectAnswerNode(answer) {
         this._getAnswerNode(answer.code).addClass(this._getSelectedAnswerClass(answer));
         const controlNode = this._getAnswerControlNode(answer.code);
-        controlNode
-            .addClass(this._getSelectedControlClass(answer))
-            .attr('aria-checked', true);
+        controlNode.addClass(this._getSelectedControlClass(answer)).attr('aria-checked', true);
 
         if (answer.backgroundColor !== null) {
-            controlNode.css({backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor});
+            controlNode.css({ backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor });
         }
     }
 
-    _clearAnswerNode(answer){
+    _clearAnswerNode(answer) {
         this._getAnswerNode(answer.code)
             .removeClass(this._getSelectedAnswerClass(answer))
             .removeClass(this._getDisabledAnswerClass(answer));
@@ -140,19 +138,21 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
         this._getAnswerControlNode(answer.code)
             .removeClass(this._getSelectedControlClass(answer))
             .attr('aria-checked', false)
-            .css({backgroundColor: "", borderColor: ""});
+            .css({ backgroundColor: '', borderColor: '' });
     }
 
-    _updateAnswerNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         const selectedAnswerCodes = this._getSelectedAnswerCodes();
 
         this._question.answers.forEach(answer => {
             this._clearAnswerNode(answer);
 
-            const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(this._getSelectedAnswerCodes().length, this._question.multiCount);
+            const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(
+                this._getSelectedAnswerCodes().length,
+                this._question.multiCount
+            );
             if (isMaxMultiCountReached && !answer.isExclusive && !selectedAnswerCodes.includes(answer.code)) {
                 this._getAnswerNode(answer.code).addClass(this._getDisabledAnswerClass(answer));
             }
@@ -161,7 +161,7 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
         selectedAnswerCodes.forEach(answerCode => this._selectAnswerNode(this._question.getAnswer(answerCode)));
     }
 
-    _updateAnswerOtherNodes({values = [], otherValues = []}) {
+    _updateAnswerOtherNodes({ values = [], otherValues = [] }) {
         if (values.length > 0) {
             const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(
                 this._getSelectedAnswerCodes().length,
@@ -169,8 +169,8 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
             );
 
             this._question.answers
-                .filter((answer) => answer.isOther)
-                .forEach((answer) => {
+                .filter(answer => answer.isOther)
+                .forEach(answer => {
                     const isSelected = this._isSelected(answer);
 
                     const answerOtherNode = this._getAnswerOtherNode(answer.code);
@@ -184,7 +184,7 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
                 });
         }
 
-        super._updateAnswerOtherNodes({otherValues});
+        super._updateAnswerOtherNodes({ otherValues });
     }
 
     _isSelected(answer) {
@@ -222,6 +222,14 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
     _showErrors(validationResult) {
         super._showErrors(validationResult);
         this._updateGroupAriaInvalidState(validationResult);
+
+        // Linking all checkboxes to question level errors.
+        if (validationResult.errors.length > 0) {
+            this._question.answers.forEach(answer => {
+                const controlNode = this._getAnswerControlNode(answer.code);
+                controlNode.attr('aria-describedby', this._getQuestionErrorNodeId());
+            });
+        }
     }
 
     /**
@@ -245,9 +253,7 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
 
         const errorBlockId = this._getAnswerErrorBlockId(validationResult.answerCode);
         const otherNode = this._getAnswerOtherNode(validationResult.answerCode);
-        otherNode
-            .attr('aria-errormessage', errorBlockId)
-            .attr('aria-invalid', 'true');
+        otherNode.attr('aria-errormessage', errorBlockId).attr('aria-invalid', 'true');
     }
 
     _updateGroupAriaInvalidState(validationResult) {
@@ -255,8 +261,10 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
             return;
         }
 
-        const hasNotOnlyOtherErrors = validationResult.errors.length > 0
-            || validationResult.answerValidationResults.filter(result => result.isValid === false)
+        const hasNotOnlyOtherErrors =
+            validationResult.errors.length > 0 ||
+            validationResult.answerValidationResults
+                .filter(result => result.isValid === false)
                 .some(result => result.errors.some(error => error.type !== ValidationTypes.OtherRequired));
         if (hasNotOnlyOtherErrors === false) {
             return;
@@ -270,14 +278,16 @@ export default class MultiQuestionViewBase extends QuestionWithAnswersView {
 
         this._container.find('.cf-list').attr('aria-invalid', 'false');
 
-        this._question.answers.filter(answer => answer.isOther).forEach(answer => {
-            this._getAnswerOtherNode(answer.code)
-                .removeAttr('aria-errormessage')
-                .removeAttr('aria-invalid');
+        this._question.answers.forEach(answer => {
+            if (answer.isOther) {
+                this._getAnswerOtherNode(answer.code).removeAttr('aria-errormessage').removeAttr('aria-invalid');
+            }
+
+            this._getAnswerControlNode(answer.code).removeAttr('aria-describedby');
         });
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
         this._updateAnswerOtherNodes(changes);
     }

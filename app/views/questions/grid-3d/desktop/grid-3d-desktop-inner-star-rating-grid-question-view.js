@@ -1,4 +1,4 @@
-import Grid3DDesktopInnerQuestionView from "./grid-3d-desktop-inner-question-view";
+import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
 
 export default class Grid3DDesktopInnerStarRatingGridQuestionView extends Grid3DDesktopInnerQuestionView {
     constructor(parentQuestion, question, settings = null) {
@@ -8,7 +8,7 @@ export default class Grid3DDesktopInnerStarRatingGridQuestionView extends Grid3D
     }
 
     _getSelectedControlClass() {
-        return  'cf-star-rating-item--selected';
+        return 'cf-star-rating-item--selected';
     }
 
     _isItemInScale(scaleCode) {
@@ -18,15 +18,16 @@ export default class Grid3DDesktopInnerStarRatingGridQuestionView extends Grid3D
     _attachHandlersToDOM() {
         this._question.answers.forEach(answer => {
             this._question.scales.forEach(scale => {
-                this._getScaleNode(answer.code, scale.code)
-                    .on('click', this._onScaleNodeClick.bind(this, answer, scale));
+                this._getScaleNode(answer.code, scale.code).on(
+                    'click',
+                    this._onScaleNodeClick.bind(this, answer, scale)
+                );
             });
         });
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             this._question.scales.forEach(scale => {
@@ -55,11 +56,10 @@ export default class Grid3DDesktopInnerStarRatingGridQuestionView extends Grid3D
 
     _selectScaleControlNode(answerCode, scaleCode) {
         this._selectScaleControlVisually(answerCode, scaleCode);
-        this._getScaleControlNode(answerCode, scaleCode)
-            .attr('aria-checked', 'true');
-            //.attr('tabindex', '0');
+        this._getScaleControlNode(answerCode, scaleCode).attr('aria-checked', 'true');
+        //.attr('tabindex', '0');
 
-        if(this._isItemInScale(scaleCode)) {
+        if (this._isItemInScale(scaleCode)) {
             const scaleIndex = this._question.scaleItems.findIndex(item => item.code === scaleCode);
             if (scaleIndex !== -1) {
                 this._question.scaleItems.forEach((scale, index) => {
@@ -76,11 +76,15 @@ export default class Grid3DDesktopInnerStarRatingGridQuestionView extends Grid3D
         controlNode.addClass(this._getSelectedControlClass(scaleCode));
         const scale = this._question.getScale(scaleCode);
         if (scale.backgroundColor !== null) {
-            controlNode.css({backgroundColor: scale.backgroundColor, color: scale.backgroundColor, borderColor: scale.backgroundColor});
+            controlNode.css({
+                backgroundColor: scale.backgroundColor,
+                color: scale.backgroundColor,
+                borderColor: scale.backgroundColor,
+            });
         }
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerScaleNodes(changes);
     }
 

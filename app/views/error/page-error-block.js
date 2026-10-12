@@ -14,7 +14,7 @@ export default class PageErrorBlock {
 
     showErrors(errors) {
         clearTimeout(this._timeout);
-        this._timeout = setTimeout(()=> this.hideErrors(), 5000);
+        this._timeout = setTimeout(() => this.hideErrors(), 5000);
 
         this._errorList.clean();
         this._errorList.addErrors(errors);

@@ -152,6 +152,10 @@ export default class RankingQuestion extends QuestionWithAnswers {
     }
 
     _setValue(answerCode, answerValue) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         answerCode = answerCode.toString();
 
         const answer = this.getAnswer(answerCode);
@@ -186,7 +190,7 @@ export default class RankingQuestion extends QuestionWithAnswers {
     }
 
     _clearValues() {
-        if (this._values === {}) {
+        if (Object.keys(this._values).length === 0) {
             return false;
         }
 
@@ -224,7 +228,7 @@ export default class RankingQuestion extends QuestionWithAnswers {
 
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isNormalAnswer = !answer.isOther;
             let isEmpty = Utils.isEmpty(this.values[answer.code]);
 
@@ -238,7 +242,7 @@ export default class RankingQuestion extends QuestionWithAnswers {
     _validateOther() {
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isOtherAnswer = answer.isOther;
             let isNotEmpty = !Utils.isEmpty(this.values[answer.code]);
             let otherIsEmpty = Utils.isEmpty(this.otherValues[answer.code]);

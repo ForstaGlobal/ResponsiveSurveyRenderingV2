@@ -12,7 +12,7 @@ export default class GridBarsGridQuestionView extends CompositeQuestionView {
             question,
             [
                 new MobileGridBarsGridQuestionView(question, settings),
-                new DesktopGridBarsGridQuestionView(question, settings)
+                new DesktopGridBarsGridQuestionView(question, settings),
             ],
             settings
         );

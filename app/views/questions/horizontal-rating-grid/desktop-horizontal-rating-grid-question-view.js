@@ -1,4 +1,4 @@
-import DesktopQuestionIdProvider from "../../helpers/desktop-question-id-provider";
+import DesktopQuestionIdProvider from '../../helpers/desktop-question-id-provider';
 import RatingGridQuestionViewBase from 'views/questions/base/rating-grid-question-view-base';
 
 export default class DesktopHorizontalRatingGridQuestionView extends RatingGridQuestionViewBase {
@@ -15,6 +15,8 @@ export default class DesktopHorizontalRatingGridQuestionView extends RatingGridQ
     }
 
     _getSelectedControlClass(scaleCode) {
-        return this._isItemInScale(scaleCode) ? "cf-horizontal-rating-item--selected" : "cf-non-scored-rating-item--selected";
+        return this._isItemInScale(scaleCode)
+            ? 'cf-horizontal-rating-item--selected'
+            : 'cf-non-scored-rating-item--selected';
     }
 }

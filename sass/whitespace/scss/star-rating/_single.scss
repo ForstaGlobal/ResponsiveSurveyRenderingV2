@@ -1,0 +1,24 @@
+.cf-sr-single {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 1px;
+
+  &__scale-container {
+    max-width: 100%;
+  }
+
+  &__scale-label-panel {
+    margin-bottom: 8px;
+  }
+
+  &__scale {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  &__non-scored-list {
+    margin-top: 16px;
+    max-width: 100%;
+  }
+}

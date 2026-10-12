@@ -1,0 +1,47 @@
+.cf-mobile-gb-grid {
+  &__answer {
+    &--first {
+      .cf-mobile-gb-grid__answer-label-panel {
+        display: flex;
+      }
+    }
+  }
+
+  &__answer-label-panel {
+    display: none;
+    margin-bottom: 16px;
+  }
+
+  &__scale-texts-panel {
+    margin-bottom: 16px;
+  }
+
+  &__answer-scale {
+  }
+
+  &__non-scored-list {
+    margin-top: 16px;
+  }
+}
+
+.cf-desktop-gb-grid {
+  &__answer-other {
+    max-width: 260px;
+    width: 100%;
+  }
+
+  &__scale-texts-cell-element {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+.cf-desktop-gb-grid:not(.cf-desktop-gb-grid--rtl) {
+  .cf-desktop-gb-grid__non-scored-scale-cell {
+    padding-left: 16px;
+  }
+}
+.cf-desktop-gb-grid.cf-desktop-gb-grid--rtl {
+  .cf-desktop-gb-grid__non-scored-scale-cell {
+    padding-right: 16px;
+  }
+}

@@ -1,8 +1,8 @@
-import QuestionWithAnswerView from "../base/question-with-answers-view";
-import QuestionIdProvider from "../../helpers/question-id-provider";
-import MultiGridQuestionHelper from "../../helpers/multi-grid-question-helper";
-import KEYS from "../../helpers/keyboard-keys";
-import Utils from "../../../utils";
+import QuestionWithAnswerView from '../base/question-with-answers-view';
+import QuestionIdProvider from '../../helpers/question-id-provider';
+import MultiGridQuestionHelper from '../../helpers/multi-grid-question-helper';
+import KEYS from '../../helpers/keyboard-keys';
+import Utils from '../../../utils';
 
 export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
     /**
@@ -12,7 +12,8 @@ export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
     constructor(question, settings = null) {
         super(question, settings);
 
-        this._isAnswerButtons =  question.innerQuestions[0] !== undefined && question.innerQuestions[0].answerButtons || false;
+        this._isAnswerButtons =
+            (question.innerQuestions[0] !== undefined && question.innerQuestions[0].answerButtons) || false;
 
         this._currentQuestionIndex = null;
         this._currentAnswerIndex = null;
@@ -79,7 +80,7 @@ export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
     }
 
     _toggleAnswer(question, answer) {
-        if(this._isSelected(question, answer)) {
+        if (this._isSelected(question, answer)) {
             this._unselectAnswer(question, answer);
         } else {
             this._selectAnswer(question, answer);
@@ -94,8 +95,8 @@ export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
         this._question.getInnerQuestion(question.id).setValue(answer.code, false);
     }
 
-    _updateQuestionAnswerNodes({questions = {}}) {
-        Object.entries(questions).forEach(([questionId, {values = []}]) => {
+    _updateQuestionAnswerNodes({ questions = {} }) {
+        Object.entries(questions).forEach(([questionId, { values = [] }]) => {
             if (values.length === 0) {
                 return;
             }
@@ -104,7 +105,8 @@ export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
                 const answer = this._question.getAnswer(value);
                 const isSelected = this._question.getInnerQuestion(questionId).values.includes(value);
 
-                this._mgHelper.getInnerQuestionAnswerNode(questionId, value)
+                this._mgHelper
+                    .getInnerQuestionAnswerNode(questionId, value)
                     .toggleClass(this._getSelectedAnswerClass(answer), isSelected);
 
                 const controlNode = this._mgHelper.getInnerQuestionAnswerControlNode(questionId, value);
@@ -112,10 +114,13 @@ export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
                     .toggleClass(this._getSelectedControlClass(answer), isSelected)
                     .attr('aria-checked', isSelected ? 'true' : 'false');
                 if (answer.backgroundColor !== null) {
-                    if(isSelected) {
-                        controlNode.css({backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor});
+                    if (isSelected) {
+                        controlNode.css({
+                            backgroundColor: answer.backgroundColor,
+                            borderColor: answer.backgroundColor,
+                        });
                     } else {
-                        controlNode.css({backgroundColor: "", borderColor: ""});
+                        controlNode.css({ backgroundColor: '', borderColor: '' });
                     }
                 }
             });
@@ -128,16 +133,30 @@ export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
     }
 
     _showInnerQuestionErrors(validationResult) {
-        validationResult.questionValidationResults.filter(result => !result.isValid).forEach(validationResult => {
-            const questionTextNode = this._mgHelper.getInnerQuestionTextNode(validationResult.questionId);
-            const errorBlockId = this._mgHelper.getInnerQuestionErrorNodeId(validationResult.questionId);
-            const errors = validationResult.errors.map(error => error.message);
+        validationResult.questionValidationResults
+            .filter(result => !result.isValid)
+            .forEach(questionValidationResult => {
+                const questionTextNode = this._mgHelper.getInnerQuestionTextNode(questionValidationResult.questionId);
+                const errorBlockId = this._mgHelper.getInnerQuestionErrorNodeId(questionValidationResult.questionId);
+                const errors = questionValidationResult.errors.map(error => error.message);
 
-            this._answerErrorBlockManager.showErrors(errorBlockId, questionTextNode, errors);
-            this._getQuestionGroupNode(validationResult.questionId)
-                .attr('aria-invalid', 'true')
-                .attr('aria-errormessage', errorBlockId);
-        });
+                this._answerErrorBlockManager.showErrors(errorBlockId, questionTextNode, errors);
+                this._getQuestionGroupNode(questionValidationResult.questionId)
+                    .attr('aria-invalid', 'true')
+                    .attr('aria-errormessage', errorBlockId)
+                    .attr('aria-describedby', errorBlockId);
+
+                // Linking all checkboxes to question level errors.
+                if (questionValidationResult.errors.length > 0) {
+                    this._question.answers.forEach(answer => {
+                        const controlNode = this._mgHelper.getInnerQuestionAnswerControlNode(
+                            questionValidationResult.questionId,
+                            answer.code
+                        );
+                        controlNode.attr('aria-describedby', errorBlockId);
+                    });
+                }
+            });
     }
 
     _hideErrors() {
@@ -146,15 +165,20 @@ export default class MultiGridQuestionViewBase extends QuestionWithAnswerView {
         this._question.innerQuestions.forEach(innerQuestion => {
             this._getQuestionGroupNode(innerQuestion.id)
                 .removeAttr('aria-invalid')
-                .removeAttr('aria-errormessage');
+                .removeAttr('aria-errormessage')
+                .removeAttr('aria-describedby');
+
+            this._question.answers.forEach(answer => {
+                this._mgHelper
+                    .getInnerQuestionAnswerControlNode(innerQuestion.id, answer.code)
+                    .removeAttr('aria-describedby');
+            });
         });
 
-        this._container.find('.cf-text-box')
-            .removeAttr('aria-errormessage')
-            .removeAttr('aria-invalid');
+        this._container.find('.cf-text-box').removeAttr('aria-errormessage').removeAttr('aria-invalid');
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateQuestionAnswerNodes(changes);
         this._updateAnswerOtherNodes(changes);
     }

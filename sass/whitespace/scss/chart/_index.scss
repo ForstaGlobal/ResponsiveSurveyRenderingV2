@@ -1,0 +1,79 @@
+@use "../_mixins/visually-hidden";
+@use "../variables";
+
+$chart-max-width: 665px;
+$chart-progress-height: 10px;
+$chart-progress-border-radius: 5px;
+
+.cf-chart {
+  width: 100%;
+  max-width: $chart-max-width;
+
+  &__answer-header {
+    width: 100%;
+    padding: 8px 0;
+    margin-top: 16px;
+    border-bottom: 1px solid variables.$primary-shade-3;
+  }
+
+  &__total {
+    margin: 24px 0;
+  }
+}
+
+.cf-chart-scale {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 665px;
+
+  &__text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  &__text-content {
+    color: variables.$primary-color;
+    font-size: 16px;
+
+    &:last-child {
+      opacity: 0.5;
+      margin-left: 4px;
+      white-space: nowrap;
+    }
+  }
+
+  &__progress {
+    position: relative;
+    height: $chart-progress-height;
+    border-radius: $chart-progress-border-radius;
+    background: variables.$primary-shade-5;
+  }
+
+  &__progress-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: $chart-progress-height;
+    border-radius: $chart-progress-border-radius;
+    background: variables.$control-active-color;
+  }
+}
+
+.cf-chart-status {
+  @include visually-hidden.visually-hidden;
+}
+
+.cf-chart--rtl {
+  .cf-chart-scale__progress-indicator {
+    right: 0;
+  }
+
+  .cf-chart-scale__text-content {
+    &:last-child {
+      margin-left: 0;
+      margin-right: 4px;
+    }
+  }
+}

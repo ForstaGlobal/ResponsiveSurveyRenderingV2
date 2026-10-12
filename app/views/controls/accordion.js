@@ -12,20 +12,20 @@ export default class Accordion {
         return this._panels.findIndex(panel => panel.isOpen);
     }
 
-    openPanel(panelIndex) {
+    async openPanel(panelIndex) {
         if (panelIndex >= this._panels.length && panelIndex < 0) {
             return;
         }
 
-        this._panels[panelIndex].open();
+        await this._panels[panelIndex].open();
     }
 
-    closePanel(panelIndex) {
+    async closePanel(panelIndex) {
         if (panelIndex >= this._panels.length && panelIndex < 0) {
             return;
         }
 
-        this._panels[panelIndex].close();
+        await this._panels[panelIndex].close();
     }
 
     _onPanelToggle(currentPanel) {

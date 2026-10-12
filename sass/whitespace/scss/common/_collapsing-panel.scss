@@ -1,0 +1,54 @@
+@use "../functions";
+@use "../variables";
+
+.cf-collapsing-panel {
+  flex-direction: column;
+  align-items: flex-start;
+  &__title {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    &:before {
+      content: '';
+      display: flex;
+      flex-shrink: 0;
+      background: functions.svg-url('<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><polyline points="1,0 6,5 1,10" fill="#{variables.$primary-shade-0}" stroke="none"/></svg>') center center no-repeat;
+      width: 24px;
+      height: 24px;
+      background-size: 8px;
+      margin-right: 8px;
+    }
+  }
+
+  &__body {
+    padding-left: 32px;
+    height: 0;
+    overflow: hidden;
+    &--collapsing {
+      transition: height .6s ease;
+    }
+  }
+
+  &--open {
+    .cf-collapsing-panel__title:before {
+      background-image: functions.svg-url('<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><polyline points="0,2 5,7 10,2" fill="#{variables.$primary-shade-1}" stroke="none"/></svg>');
+    }
+
+    .cf-collapsing-panel__body {
+      height: auto;
+    }
+  }
+}
+
+.cf-collapsing-panel--rtl {
+  .cf-collapsing-panel__title:before {
+    margin-right: 0;
+    margin-left: 8px;
+    transform: scale(-1, 1);
+  }
+
+  .cf-collapsing-panel__body{
+    padding-left: 0;
+    padding-right: 32px;
+  }
+}

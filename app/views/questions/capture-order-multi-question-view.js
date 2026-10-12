@@ -1,8 +1,8 @@
 import Utils from './../../utils';
 import MultiQuestionViewBase from './multi-question-view-base';
 import MultiCountHelper from '../helpers/multi-count-helper';
-import StoredOtherValuesMixin from "./base/stored-other-values-mixin";
-import {RankingOtherValuesKeeper} from "../helpers/other-values-keeper";
+import StoredOtherValuesMixin from './base/stored-other-values-mixin';
+import { RankingOtherValuesKeeper } from '../helpers/other-values-keeper';
 
 export default class CaptureOrderMultiQuestionView extends MultiQuestionViewBase {
     /**
@@ -28,7 +28,10 @@ export default class CaptureOrderMultiQuestionView extends MultiQuestionViewBase
      * @override
      */
     _selectAnswer(answer) {
-        const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(this._getSelectedAnswerCodes().length, this._question.multiCount);
+        const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(
+            this._getSelectedAnswerCodes().length,
+            this._question.multiCount
+        );
         if (isMaxMultiCountReached && !answer.isExclusive) {
             return;
         }
@@ -58,7 +61,9 @@ export default class CaptureOrderMultiQuestionView extends MultiQuestionViewBase
     }
 }
 
-export class CaptureOrderMultiQuestionViewWithStoredOtherValues extends StoredOtherValuesMixin(CaptureOrderMultiQuestionView) {
+export class CaptureOrderMultiQuestionViewWithStoredOtherValues extends StoredOtherValuesMixin(
+    CaptureOrderMultiQuestionView
+) {
     constructor(question, settings) {
         super(question, settings, new RankingOtherValuesKeeper(question, settings));
     }

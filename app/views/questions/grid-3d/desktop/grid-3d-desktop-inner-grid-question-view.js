@@ -1,4 +1,4 @@
-import Grid3DDesktopInnerQuestionView from "./grid-3d-desktop-inner-question-view";
+import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
 
 export default class Grid3DDesktopInnerGridQuestionView extends Grid3DDesktopInnerQuestionView {
     constructor(parentQuestion, question, settings = null) {
@@ -7,11 +7,11 @@ export default class Grid3DDesktopInnerGridQuestionView extends Grid3DDesktopInn
         this._attachHandlersToDOM();
     }
 
-    _getSelectedScaleClass(scale){
-        if(this._question.answerButtons) {
+    _getSelectedScaleClass(scale) {
+        if (this._question.answerButtons) {
             return 'cf-button-answer--selected';
         }
-        if(scale.imagesSettings !== null) {
+        if (scale.imagesSettings !== null) {
             return 'cf-image-answer--selected';
         }
 
@@ -19,10 +19,10 @@ export default class Grid3DDesktopInnerGridQuestionView extends Grid3DDesktopInn
     }
 
     _getSelectedControlClass(scale) {
-        if(this._question.answerButtons) {
+        if (this._question.answerButtons) {
             return 'cf-button--selected';
         }
-        if(scale.imagesSettings !== null) {
+        if (scale.imagesSettings !== null) {
             return 'cf-image--selected';
         }
 
@@ -30,17 +30,15 @@ export default class Grid3DDesktopInnerGridQuestionView extends Grid3DDesktopInn
     }
 
     _attachHandlersToDOM() {
-        this._question.answers.forEach((answer) => {
-            this._question.scales.forEach((scale) => {
-                this._getScaleNode(answer.code, scale.code)
-                    .on('click', () => this._onScaleNodeClick(answer, scale));
+        this._question.answers.forEach(answer => {
+            this._question.scales.forEach(scale => {
+                this._getScaleNode(answer.code, scale.code).on('click', () => this._onScaleNodeClick(answer, scale));
             });
         });
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             this._question.scales.forEach(scale => {
@@ -67,23 +65,20 @@ export default class Grid3DDesktopInnerGridQuestionView extends Grid3DDesktopInn
             .css('border-color', '');
     }
 
-
     _selectScaleNode(answerCode, scaleCode) {
         const scale = this._question.getScale(scaleCode);
 
         this._getScaleNode(answerCode, scaleCode).addClass(this._getSelectedScaleClass(scale));
 
         const controlNode = this._getScaleControlNode(answerCode, scaleCode);
-        controlNode
-            .addClass(this._getSelectedControlClass(scale))
-            .attr('aria-checked', 'true');
-            //.attr('tabindex', '0');
+        controlNode.addClass(this._getSelectedControlClass(scale)).attr('aria-checked', 'true');
+        //.attr('tabindex', '0');
         if (scale.backgroundColor !== null) {
-            controlNode.css({backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor});
+            controlNode.css({ backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor });
         }
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerScaleNodes(changes);
     }
 

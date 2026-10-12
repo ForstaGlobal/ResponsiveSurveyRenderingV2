@@ -1,8 +1,9 @@
-import QuestionView from './base/question-view.js'
+import QuestionView from './base/question-view.js';
+import AllowForNoResponseViewMixin from './base/allow-for-no-response-view-mixin';
 
-export default class NumericQuestionView extends QuestionView {
-    constructor(question) {
-        super(question);
+export class NumericQuestionView extends QuestionView {
+    constructor(question, settings) {
+        super(question, settings);
 
         this._nanCode = 'NOT_A_NUMBER';
 
@@ -38,9 +39,11 @@ export default class NumericQuestionView extends QuestionView {
 
     _onQuestionInputNodeValueChange(event) {
         let value = event.target.value;
-        if(value === '' && !event.target.validity.valid) {
+        if (value === '' && !event.target.validity.valid) {
             value = this._nanCode;
         }
         this._question.setValue(value);
     }
 }
+
+export default AllowForNoResponseViewMixin(NumericQuestionView);

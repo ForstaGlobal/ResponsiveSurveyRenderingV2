@@ -1,4 +1,5 @@
 import QuestionWithAnswers from './../base/question-with-answers.js';
+import AllowForNoResponseMixin from '../base/allow-for-no-response-mixin';
 import ValidationTypes from '../validation/validation-types.js';
 import RuleValidationResult from '../validation/rule-validation-result.js';
 import Utils from 'utils.js';
@@ -6,7 +7,7 @@ import Utils from 'utils.js';
 /**
  * @extends {QuestionWithAnswers}
  */
-export default class OpenTextListQuestion extends QuestionWithAnswers {
+export class OpenTextListQuestion extends QuestionWithAnswers {
     /**
      * Create instance.
      * @param {object} model - The instance of the model.
@@ -19,6 +20,8 @@ export default class OpenTextListQuestion extends QuestionWithAnswers {
         this._layoutColumns = model.layoutColumns || 0;
         this._layoutRows = model.layoutRows || 0;
         this._answersHaveRightText = model.answersHaveRightText || false;
+        this._rows = model.rows;
+        this._columns = model.columns;
 
         this._values = { ...model.values };
         this._otherValues = { ...model.otherValues };
@@ -85,6 +88,24 @@ export default class OpenTextListQuestion extends QuestionWithAnswers {
      */
     get answersHaveRightText() {
         return this._answersHaveRightText;
+    }
+
+    /**
+     * Text input rows.
+     * @type {number}
+     * @readonly
+     */
+    get rows() {
+        return this._rows;
+    }
+
+    /**
+     * Text input columns.
+     * @type {number}
+     * @readonly
+     */
+    get columns() {
+        return this._columns;
     }
 
     /**
@@ -156,7 +177,7 @@ export default class OpenTextListQuestion extends QuestionWithAnswers {
     }
 
     _clearValues() {
-        if (this._values === {}) {
+        if (Object.keys(this._values).length === 0) {
             return false;
         }
 
@@ -189,7 +210,7 @@ export default class OpenTextListQuestion extends QuestionWithAnswers {
 
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isNormalAnswer = !answer.isOther;
             let isEmpty = Utils.isEmpty(this.values[answer.code]);
 
@@ -203,7 +224,7 @@ export default class OpenTextListQuestion extends QuestionWithAnswers {
     _validateOther() {
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isOtherAnswer = answer.isOther;
             let isNotEmpty = !Utils.isEmpty(this.values[answer.code]);
             let otherIsEmpty = Utils.isEmpty(this.otherValues[answer.code]);
@@ -244,5 +265,18 @@ export default class OpenTextListQuestion extends QuestionWithAnswers {
 
         let isValid = answers.length === 0;
         return new RuleValidationResult(isValid, answers);
+    }
+}
+
+export default class AllowForNoResponseOpenTextListQuestion extends AllowForNoResponseMixin(OpenTextListQuestion) {
+    constructor(rawModel) {
+        super(rawModel, () => Object.keys(this._values).length === 0);
+    }
+
+    _validateMultiCount() {
+        if (this._isAllowedForNoResponseAndHasNoResponseValue()) {
+            return new RuleValidationResult(true);
+        }
+        return super._validateMultiCount();
     }
 }

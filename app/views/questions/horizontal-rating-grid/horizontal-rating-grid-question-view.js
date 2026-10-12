@@ -12,7 +12,7 @@ export default class HorizontalRatingGridQuestionView extends CompositeQuestionV
             question,
             [
                 new MobileHorizontalGridQuestionView(question, settings),
-                new DesktopHorizontalRatingGridQuestionView(question, settings)
+                new DesktopHorizontalRatingGridQuestionView(question, settings),
             ],
             settings
         );

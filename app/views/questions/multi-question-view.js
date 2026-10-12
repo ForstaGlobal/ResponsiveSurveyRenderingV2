@@ -1,7 +1,7 @@
 import MultiQuestionViewBase from './multi-question-view-base';
 import MultiCountHelper from '../helpers/multi-count-helper';
-import StoredOtherValuesMixin from "./base/stored-other-values-mixin";
-import {MultiOtherValuesKeeper} from "../helpers/other-values-keeper";
+import StoredOtherValuesMixin from './base/stored-other-values-mixin';
+import { MultiOtherValuesKeeper } from '../helpers/other-values-keeper';
 
 export default class MultiQuestionView extends MultiQuestionViewBase {
     /**
@@ -27,7 +27,10 @@ export default class MultiQuestionView extends MultiQuestionViewBase {
      * @override
      */
     _selectAnswer(answer) {
-        const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(this._getSelectedAnswerCodes().length, this._question.multiCount);
+        const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(
+            this._getSelectedAnswerCodes().length,
+            this._question.multiCount
+        );
         if (isMaxMultiCountReached && !answer.isExclusive) {
             return;
         }

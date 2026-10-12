@@ -1,5 +1,5 @@
-import Grid3dMobileInnerQuestionViewMixin from "./grid-3d-mobile-inner-question-view-mixin";
-import MultiQuestionView from "../../multi-question-view";
+import Grid3dMobileInnerQuestionViewMixin from './grid-3d-mobile-inner-question-view-mixin';
+import MultiQuestionView from '../../multi-question-view';
 
 export default class Grid3DMobileInnerMultiQuestionView extends Grid3dMobileInnerQuestionViewMixin(MultiQuestionView) {
     constructor(parentQuestion, question, settings = null) {

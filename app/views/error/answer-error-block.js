@@ -2,7 +2,6 @@ import ErrorList from './error-list.js';
 import $ from 'jquery';
 
 export default class AnswerErrorBlock {
-
     constructor(id, target, { top = false, absolute = false } = {}) {
         this._container = null;
         this._errorList = null;
@@ -17,8 +16,7 @@ export default class AnswerErrorBlock {
     }
 
     showErrors(errors) {
-        if (errors.length === 0)
-            return;
+        if (errors.length === 0) return;
 
         this._errorList.clean();
         this._errorList.addErrors(errors);
@@ -28,7 +26,7 @@ export default class AnswerErrorBlock {
 
     remove() {
         this._container.remove();
-        if(this._targetIsInput) {
+        if (this._targetIsInput) {
             this._removeErrorClassFromTarget();
         }
     }
@@ -38,16 +36,16 @@ export default class AnswerErrorBlock {
         this._errorList = new ErrorList(this._container.find(this._container.find('.cf-error-list')));
         this._append();
 
-        if(this._targetIsInput) {
+        if (this._targetIsInput) {
             this._addErrorClassToTarget();
         }
     }
 
     _append() {
-        if(this._positionAbsolute) {
+        if (this._positionAbsolute) {
             this._target.append(this._container);
         } else {
-            if(this._positionTop) {
+            if (this._positionTop) {
                 this._target.before(this._container);
             } else {
                 this._target.after(this._container);
@@ -64,20 +62,19 @@ export default class AnswerErrorBlock {
     }
 
     _getPositionModifier() {
-        if(this._targetIsInput) {
+        if (this._targetIsInput) {
             return '';
         }
 
-        let modifier = 'cf-error-block--bottom'; // default
-
-        if(!this._positionAbsolute) {
-            if(this._positionTop) {
+        let modifier;
+        if (!this._positionAbsolute) {
+            if (this._positionTop) {
                 modifier = 'cf-error-block--top';
             } else {
-                modifier = 'cf-error-block--bottom';
+                modifier = 'cf-error-block--bottom'; // default
             }
         } else {
-            if(this._positionTop) {
+            if (this._positionTop) {
                 modifier = 'cf-error-block--absolute-top';
             } else {
                 modifier = 'cf-error-block__absolute-bottom';
@@ -92,10 +89,10 @@ export default class AnswerErrorBlock {
     }
 
     _addErrorClassToTarget() {
-        if(this._target.hasClass('cf-text-box')) {
+        if (this._target.hasClass('cf-text-box')) {
             this._target.addClass('cf-text-box--error');
         }
-        if(this._target.hasClass('cf-dropdown')) {
+        if (this._target.hasClass('cf-dropdown')) {
             this._target.addClass('cf-dropdown--error');
         }
     }

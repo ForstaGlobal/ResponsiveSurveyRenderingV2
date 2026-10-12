@@ -1,0 +1,34 @@
+@use "../../variables";
+
+.cf-radio {
+  height: variables.$control-size;
+  width: variables.$control-size;
+  border-radius: 50%;
+  border: 2px solid variables.$control-primary-color;
+  cursor: pointer;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 4px variables.$question-bg-color;
+  }
+
+
+  &--selected {
+    background-color: variables.$control-active-color;
+    border-color: variables.$control-active-color;
+  }
+}
+
+
+.cf-radio--small {
+  height: variables.$control-size - 6px;
+  width: variables.$control-size - 6px;
+
+  &:before {
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+}

@@ -1,5 +1,5 @@
 import MultiQuestionBase from './multi-question-base.js';
-import SearchableQuestionMixin from "./searchable-question-mixin.js";
+import SearchableQuestionMixin from './searchable-question-mixin.js';
 
 /**
  * @extends {MultiQuestionBase}
@@ -16,7 +16,7 @@ export default class SearchableMultiQuestion extends SearchableQuestionMixin(Mul
     }
 
     _updateSelectedAnswers(changes) {
-        if(changes.values !== undefined) {
+        if (changes.values !== undefined) {
             // remove
             this._selectedAnswers = this._selectedAnswers.filter(answer => this.values.includes(answer.code));
             //add

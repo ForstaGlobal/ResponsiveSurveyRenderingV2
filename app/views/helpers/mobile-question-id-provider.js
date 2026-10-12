@@ -69,12 +69,16 @@ export default class MobileQuestionIdProvider extends QuestionIdProvider {
         return 'mobile_' + super.getAnswerControlNodeId(answerCode);
     }
 
-    getScaleControlNodeId(answerCode, scaleCode){
+    getScaleControlNodeId(answerCode, scaleCode) {
         return 'mobile_' + super.getScaleControlNodeId(answerCode, scaleCode);
     }
 
     getScaleNodeId(answerCode, scaleCode) {
         return 'mobile_' + super.getScaleNodeId(answerCode, scaleCode);
+    }
+
+    getCommonScaleTextNodeId(scaleCode) {
+        return 'mobile_' + super.getCommonScaleTextNodeId(scaleCode);
     }
 
     getScaleTextNodeId(answerCode, scaleCode) {

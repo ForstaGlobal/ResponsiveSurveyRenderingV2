@@ -1,8 +1,8 @@
 import Page from './models/page.js';
-import PageView from './../views/page-view.js'
+import PageView from './../views/page-view.js';
 import PageViewProxy from '../views/page-view-proxy';
-import DynamicQuestionsManager from "./dynamic-questions-manager";
-import DynamicQuestionsTransport from "./dynamic-questions-transport";
+import DynamicQuestionsManager from './dynamic-questions-manager';
+import DynamicQuestionsTransport from './dynamic-questions-transport';
 import Cati from '../cati';
 import Capi from '../capi';
 
@@ -49,15 +49,15 @@ export default class cfApi {
     /**
      * Cati specific actions
      */
-    get Cati(){
+    get Cati() {
         return this._cati;
     }
 
     /**
      * Capi specific actions
      */
-    get Capi(){
-        return this._capi
+    get Capi() {
+        return this._capi;
     }
     /**
      * Get debug state.
@@ -73,36 +73,37 @@ export default class cfApi {
      */
     set debug(value) {
         value = !!value;
-        if(this._debug === value) {
+        if (this._debug === value) {
             return;
         }
 
         this._debug = value;
 
-        this._page.questions.filter(question => question.changeEvent !== undefined).forEach(question => {
-            if(this._debug) {
-                question.changeEvent.on(this._onQuestionChangeDebugHandler.bind(this));
-            } else {
-                question.changeEvent.off(this._onQuestionChangeDebugHandler.bind(this))
-            }
-        });
+        this._page.questions
+            .filter(question => question.changeEvent !== undefined)
+            .forEach(question => {
+                if (this._debug) {
+                    question.changeEvent.on(this._onQuestionChangeDebugHandler.bind(this));
+                } else {
+                    question.changeEvent.off(this._onQuestionChangeDebugHandler.bind(this));
+                }
+            });
     }
 
-    _onQuestionChangeDebugHandler({model}) {
-        if(model.value !== undefined) {
+    _onQuestionChangeDebugHandler({ model }) {
+        if (model.value !== undefined) {
             const otherValues = Object.entries(model.otherValues).map(([key, value]) => `${key}:${value}`);
             // eslint-disable-next-line no-console
             console.log(`Q(${model.id}) value: ${model.value}; others: ${otherValues}`);
-        } else if  (model.values !== undefined) {
+        } else if (model.values !== undefined) {
             const values = Object.keys(model.values).map(key => `${key}:${model.values[key]}`);
             const otherValues = Object.entries(model.otherValues).map(([key, value]) => `${key}:${value}`);
             // eslint-disable-next-line no-console
             console.log(`Q(${model.id}) values:[${values}]; others:[${otherValues}];`);
-        } else if(model.innerQuestions !== undefined) {
+        } else if (model.innerQuestions !== undefined) {
             model.innerQuestions.forEach(question => {
                 this._onQuestionChangeDebugHandler({ model: question });
                 //const innerValues = Object.entries(question.values).map(([key, value]) => `${key}:${value}`);
-                // eslint-disable-next-line no-console
                 //console.log(`Q(${model.id}) inner(${question.id} values: [${innerValues}]`);
             });
             const otherValues = Object.entries(model.otherValues).map(([key, value]) => `${key}:${value}`);
@@ -110,8 +111,7 @@ export default class cfApi {
             console.log(`Q(${model.id}) others:[${otherValues}];`);
         } else {
             // eslint-disable-next-line no-console
-            console.log("Q(${model.id}): undefined question type is changed.");
+            console.log('Q(${model.id}): undefined question type is changed.');
         }
-
     }
 }

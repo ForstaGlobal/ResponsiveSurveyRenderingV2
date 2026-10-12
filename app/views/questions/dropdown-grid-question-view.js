@@ -1,5 +1,5 @@
 import QuestionWithAnswersView from './base/question-with-answers-view.js';
-import ValidationTypes from "../../api/models/validation/validation-types";
+import ValidationTypes from '../../api/models/validation/validation-types';
 
 export default class DropdownGridQuestionView extends QuestionWithAnswersView {
     constructor(question) {
@@ -22,14 +22,13 @@ export default class DropdownGridQuestionView extends QuestionWithAnswersView {
         });
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
         this._updateAnswerOtherNodes(changes);
     }
 
-    _updateAnswerNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             const scaleCode = this._question.values[answerCode];
@@ -52,18 +51,14 @@ export default class DropdownGridQuestionView extends QuestionWithAnswersView {
         if (answerErrors.length > 0) {
             const answerNode = this._getAnswerInputNode(validationResult.answerCode);
             const errorBlockId = this._getAnswerErrorBlockId(validationResult.answerCode);
-            answerNode
-                .attr('aria-errormessage', errorBlockId)
-                .attr('aria-invalid', 'true');
+            answerNode.attr('aria-errormessage', errorBlockId).attr('aria-invalid', 'true');
             this._answerErrorBlockManager.showErrors(errorBlockId, answerNode, answerErrors);
         }
 
         if (otherErrors.length > 0) {
             const otherNode = this._getAnswerOtherNode(validationResult.answerCode);
             const otherErrorBlockId = this._getAnswerOtherErrorBlockId(validationResult.answerCode);
-            otherNode
-                .attr('aria-errormessage', otherErrorBlockId)
-                .attr('aria-invalid', 'true');
+            otherNode.attr('aria-errormessage', otherErrorBlockId).attr('aria-invalid', 'true');
             this._answerErrorBlockManager.showErrors(otherErrorBlockId, otherNode, otherErrors);
         }
     }
@@ -71,9 +66,7 @@ export default class DropdownGridQuestionView extends QuestionWithAnswersView {
     _hideErrors() {
         super._hideErrors();
 
-        this._container.find('.cf-dropdown, .cf-text-box')
-            .removeAttr('aria-errormessage')
-            .removeAttr('aria-invalid');
+        this._container.find('.cf-dropdown, .cf-text-box').removeAttr('aria-errormessage').removeAttr('aria-invalid');
     }
 
     _onAnswerChangedHandler(answer, value) {

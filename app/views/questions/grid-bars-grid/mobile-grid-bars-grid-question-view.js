@@ -1,6 +1,6 @@
-import MobileQuestionIdProvider from "../../helpers/mobile-question-id-provider";
-import GridBarsGridQuestionViewBase from "./grid-bars-grid-question-view-base";
-import FloatingPanel from "../../controls/floating-panel";
+import MobileQuestionIdProvider from '../../helpers/mobile-question-id-provider';
+import GridBarsGridQuestionViewBase from './grid-bars-grid-question-view-base';
+import FloatingPanel from '../../controls/floating-panel';
 
 export default class MobileGridBarsGridQuestionView extends GridBarsGridQuestionViewBase {
     /**
@@ -15,8 +15,8 @@ export default class MobileGridBarsGridQuestionView extends GridBarsGridQuestion
         this._initFloatingLabels();
     }
 
-    detach(){
-        super.detach()
+    detach() {
+        super.detach();
         this._floatingPanel.detach();
     }
 
@@ -29,14 +29,13 @@ export default class MobileGridBarsGridQuestionView extends GridBarsGridQuestion
     }
 
     _getSelectedControlClass(scaleCode) {
-        return this._isItemInScale(scaleCode) ? "cf-grid-bars-item--selected" : "cf-radio--selected";
+        return this._isItemInScale(scaleCode) ? 'cf-grid-bars-item--selected' : 'cf-radio--selected';
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
-        super._updateAnswerScaleNodes({values});
+        super._updateAnswerScaleNodes({ values });
 
         values.forEach(answerCode => {
             this._scales
@@ -54,11 +53,12 @@ export default class MobileGridBarsGridQuestionView extends GridBarsGridQuestion
         super._selectScaleControlNode(answerCode, scaleCode);
 
         const selectedScaleIndex = this._question.scaleItems.findIndex(item => item.code === scaleCode);
-        if(selectedScaleIndex > -1) {
+        if (selectedScaleIndex > -1) {
             this._question.scaleItems.forEach((scale, scaleIndex) => {
                 if (scaleIndex <= selectedScaleIndex) {
-                    this._getScaleTextNode(answerCode, scale.code)
-                        .addClass('cf-grid-bars-scale-texts-panel__item--selected');
+                    this._getScaleTextNode(answerCode, scale.code).addClass(
+                        'cf-grid-bars-scale-texts-panel__item--selected'
+                    );
                 }
             });
         }
@@ -75,7 +75,8 @@ export default class MobileGridBarsGridQuestionView extends GridBarsGridQuestion
     _clearAnswerHoverStyles(answerCode) {
         super._clearAnswerHoverStyles(answerCode);
 
-        this._getAnswerNode(answerCode).find('.cf-grid-bars-scale-texts-panel__item')
+        this._getAnswerNode(answerCode)
+            .find('.cf-grid-bars-scale-texts-panel__item')
             .removeClass('cf-grid-bars-scale-texts-panel__item--hover');
     }
 

@@ -13,6 +13,8 @@ export default class ValidationError {
         this._type = type;
         this._message = message;
         this._data = data;
+
+        this._processSubstitutions();
     }
 
     /**
@@ -35,10 +37,20 @@ export default class ValidationError {
 
     /**
      * Data object with extra information about validation result.
-     * @type {object}
+     * @type { object }
      * @readonly
      */
     get data() {
         return this._data;
+    }
+
+    _processSubstitutions() {
+        if (this._message === undefined || this._data.substitutions === undefined) {
+            return;
+        }
+
+        for (const [key, value] of Object.entries(this._data.substitutions)) {
+            this._message = this._message.replaceAll(`^${key}^`, value);
+        }
     }
 }

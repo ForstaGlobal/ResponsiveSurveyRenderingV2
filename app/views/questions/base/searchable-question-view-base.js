@@ -1,5 +1,5 @@
-import QuestionWithAnswersView from "./question-with-answers-view";
-import $ from "jquery";
+import QuestionWithAnswersView from './question-with-answers-view';
+import $ from 'jquery';
 
 export default class SearchableQuestionViewBase extends QuestionWithAnswersView {
     /**
@@ -12,12 +12,16 @@ export default class SearchableQuestionViewBase extends QuestionWithAnswersView 
 
         this._searchableQuestionNode = this._container.find('.cf-searchable-question');
         this._selectedAnswerListNode = this._container.find(`#${this._question.id}_selected_answers`);
-        this._searchableAnswerScrollWrapperNode = this._container.find(`.cf-searchable-question__answer-list-wrapper--filtered-answers`);
+        this._searchableAnswerScrollWrapperNode = this._container.find(
+            `.cf-searchable-question__answer-list-wrapper--filtered-answers`
+        );
         this._searchableAnswerListNode = this._container.find(`#${this._question.id}_searchable_answers`);
         this._searchInputNode = this._container.find('.cf-searchable-question__search');
         this._loadMoreNode = this._container.find('.cf-searchable-question__load-more');
         this._counterNodes = this._container.find('.cf-searchable-question__selected-count');
-        this._counterInSearchPanelNode = this._container.find('.cf-searchable-question__selected-count--in-search-panel');
+        this._counterInSearchPanelNode = this._container.find(
+            '.cf-searchable-question__selected-count--in-search-panel'
+        );
         this._expandNode = this._container.find('.cf-searchable-question__expand');
         this._collapseNode = this._container.find('.cf-searchable-question__collapse');
 
@@ -53,7 +57,7 @@ export default class SearchableQuestionViewBase extends QuestionWithAnswersView 
 
     _attachHandlerToSelectedAnswers(answers) {
         answers.forEach(answer => {
-            this._getSelectedAnswerRemoveButtonNode(answer.code).on('click', () => this._unselectAnswer(answer))
+            this._getSelectedAnswerRemoveButtonNode(answer.code).on('click', () => this._unselectAnswer(answer));
         });
     }
 
@@ -72,16 +76,22 @@ export default class SearchableQuestionViewBase extends QuestionWithAnswersView 
             this._getAnswerNode(answer.code).on('click', () => this._onAnswerNodeClick(answer));
         });
 
-        this._searchableQuestionNode.toggleClass('cf-searchable-question--has-more-answers', this._question.hasMoreAnswers);
+        this._searchableQuestionNode.toggleClass(
+            'cf-searchable-question--has-more-answers',
+            this._question.hasMoreAnswers
+        );
         this._searchableQuestionNode.toggleClass('cf-searchable-question--no-result', answers.length === 0);
         this._scrollToBottomOfSearchableList();
     }
 
     _scrollToBottomOfSearchableList() {
         // TODO: mb can be replaced by CSS animation.
-        this._searchableAnswerScrollWrapperNode.animate({
-            scrollTop: this._searchableAnswerScrollWrapperNode[0].scrollHeight
-        }, 1000);
+        this._searchableAnswerScrollWrapperNode.animate(
+            {
+                scrollTop: this._searchableAnswerScrollWrapperNode[0].scrollHeight,
+            },
+            1000
+        );
     }
 
     _updateSelectedAnswersCounter() {
@@ -100,11 +110,13 @@ export default class SearchableQuestionViewBase extends QuestionWithAnswersView 
     }
 
     _expandSelectedAnswersPanel() {
-        this._container.find('.cf-searchable-question').addClass('cf-searchable-question--selected-answers-expanded')
+        this._container.find('.cf-searchable-question').addClass('cf-searchable-question--selected-answers-expanded');
     }
 
     _collapseSelectedAnswersPanel() {
-        this._container.find('.cf-searchable-question').removeClass('cf-searchable-question--selected-answers-expanded');
+        this._container
+            .find('.cf-searchable-question')
+            .removeClass('cf-searchable-question--selected-answers-expanded');
     }
 
     /**

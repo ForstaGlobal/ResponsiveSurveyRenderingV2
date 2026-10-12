@@ -1,6 +1,6 @@
-import MobileQuestionIdProvider from "../../helpers/mobile-question-id-provider";
+import MobileQuestionIdProvider from '../../helpers/mobile-question-id-provider';
 import RatingGridQuestionViewBase from 'views/questions/base/rating-grid-question-view-base';
-import FloatingPanel from "../../controls/floating-panel";
+import FloatingPanel from '../../controls/floating-panel';
 
 export default class MobileHorizontalRatingGridQuestionView extends RatingGridQuestionViewBase {
     /**
@@ -15,8 +15,8 @@ export default class MobileHorizontalRatingGridQuestionView extends RatingGridQu
         this._initFloatingLabels();
     }
 
-    detach(){
-        super.detach()
+    detach() {
+        super.detach();
         this._floatingPanel.detach();
     }
 
@@ -29,14 +29,13 @@ export default class MobileHorizontalRatingGridQuestionView extends RatingGridQu
     }
 
     _getSelectedControlClass(scaleCode) {
-        return this._isItemInScale(scaleCode) ? "cf-horizontal-rating-item--selected" : "cf-radio--selected";
+        return this._isItemInScale(scaleCode) ? 'cf-horizontal-rating-item--selected' : 'cf-radio--selected';
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
-        super._updateAnswerScaleNodes({values});
+        super._updateAnswerScaleNodes({ values });
 
         values.forEach(answerCode => {
             this._scales
@@ -44,7 +43,7 @@ export default class MobileHorizontalRatingGridQuestionView extends RatingGridQu
                 .forEach(scale => this._getScaleNode(answerCode, scale.code).removeClass('cf-radio-answer--selected'));
 
             const scaleCode = this._question.values[answerCode];
-            if(!this._isItemInScale(scaleCode)) {
+            if (!this._isItemInScale(scaleCode)) {
                 this._getScaleNode(answerCode, scaleCode).addClass('cf-radio-answer--selected');
             }
         });

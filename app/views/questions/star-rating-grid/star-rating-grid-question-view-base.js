@@ -11,11 +11,9 @@ export default class StarRatingGridQuestionViewBase extends RatingGridQuestionVi
 
     _selectScaleControlNode(answerCode, scaleCode) {
         this._selectScaleControlVisually(answerCode, scaleCode);
-        this._getScaleControlNode(answerCode, scaleCode)
-            .attr('aria-checked', 'true')
-            .attr('tabindex', '0');
+        this._getScaleControlNode(answerCode, scaleCode).attr('aria-checked', 'true').attr('tabindex', '0');
 
-        if(this._isItemInScale(scaleCode)) {
+        if (this._isItemInScale(scaleCode)) {
             const scaleIndex = this._question.scaleItems.findIndex(item => item.code === scaleCode);
             if (scaleIndex !== -1) {
                 this._question.scaleItems.forEach((scale, index) => {
@@ -32,10 +30,10 @@ export default class StarRatingGridQuestionViewBase extends RatingGridQuestionVi
         controlNode.addClass(this._getSelectedControlClass(scaleCode));
         const scale = this._question.getScale(scaleCode);
         if (scale.backgroundColor !== null) {
-            controlNode.css({backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor});
+            controlNode.css({ backgroundColor: scale.backgroundColor, borderColor: scale.backgroundColor });
 
-            if(this._isItemInScale(scaleCode)){
-                controlNode.css('color', scale.backgroundColor)
+            if (this._isItemInScale(scaleCode)) {
+                controlNode.css('color', scale.backgroundColor);
             }
         }
     }
@@ -43,9 +41,8 @@ export default class StarRatingGridQuestionViewBase extends RatingGridQuestionVi
     _clearScaleControlNode(answerCode, scaleCode) {
         super._clearScaleControlNode(answerCode, scaleCode);
 
-        if(this._isItemInScale(scaleCode)) {
-            this._getScaleControlNode(answerCode, scaleCode)
-                .css('color', '');
+        if (this._isItemInScale(scaleCode)) {
+            this._getScaleControlNode(answerCode, scaleCode).css('color', '');
         }
     }
 }

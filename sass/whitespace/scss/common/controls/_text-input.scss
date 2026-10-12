@@ -1,0 +1,72 @@
+@use "../../_mixins/placeholder";
+@use "../../variables";
+
+@mixin text_input_common {
+  max-width: 100%;
+  width: 400px;
+
+  border: none;
+  border-bottom: 1px solid variables.$primary-shade-3;
+  border-radius: 0;
+  background-color: transparent;
+
+  font-size: inherit;
+  text-overflow: ellipsis;
+
+  &--error {
+    border-color: variables.$error-border-color;
+  }
+
+  &--no-limit {
+    width: auto;
+  }
+}
+
+.cf-text-box {
+  height: variables.$control-size;
+  line-height: variables.$control-size - 4px;
+  padding: 0 0 3px 0;
+
+  @include text_input_common;
+  @include placeholder.placeholder {
+    color: inherit;
+    opacity: 0.5;
+  }
+
+  &:focus {
+    border-color: variables.$control-active-color;
+  }
+
+  &--number {
+    text-align: right;
+    width: 200px;
+  }
+
+  &--date {
+    width: auto;
+    min-width: 8em;
+  }
+
+  &--rank-by-number {
+    width: 45px;
+    text-align: right;
+  }
+}
+
+.cf-text-area {
+  padding: 0;
+  resize: both;
+
+  @include text_input_common;
+
+  &:focus {
+    border-color: variables.$control-active-color;
+  }
+}
+
+.cf-text-box--rtl {
+  &.cf-text-box--number {
+      text-align: left;
+  }
+}
+

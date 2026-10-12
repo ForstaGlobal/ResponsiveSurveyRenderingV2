@@ -71,7 +71,7 @@ export default class GridQuestion extends GridQuestionBase {
      * @type {boolean}
      * @readonly
      */
-    get ranking(){
+    get ranking() {
         return this._ranking;
     }
 
@@ -134,7 +134,7 @@ export default class GridQuestion extends GridQuestionBase {
      * @type {boolean}
      * @readonly
      */
-    get cardSortLayout(){
+    get cardSortLayout() {
         return this._cardSortLayout;
     }
 

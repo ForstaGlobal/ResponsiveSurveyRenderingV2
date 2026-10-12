@@ -1,4 +1,5 @@
 import Question from './../base/question.js';
+import AllowForNoResponseMixin from '../base/allow-for-no-response-mixin';
 import ValidationTypes from '../validation/validation-types.js';
 import RuleValidationResult from '../validation/rule-validation-result.js';
 import Utils from 'utils.js';
@@ -6,7 +7,7 @@ import Utils from 'utils.js';
 /**
  * @extends {Question}
  */
-export default class OpenTextQuestion extends Question {
+export class OpenTextQuestion extends Question {
     /**
      * Create instance.
      * @param {object} model - The instance of the model.
@@ -15,7 +16,8 @@ export default class OpenTextQuestion extends Question {
         super(model);
 
         this._maxLength = model.maxLength;
-
+        this._rows = model.rows;
+        this._columns = model.columns;
         this._value = model.value || null;
     }
 
@@ -35,6 +37,24 @@ export default class OpenTextQuestion extends Question {
      */
     get maxLength() {
         return this._maxLength;
+    }
+
+    /**
+     * Text input rows.
+     * @type {number}
+     * @readonly
+     */
+    get rows() {
+        return this._rows;
+    }
+
+    /**
+     * Text input columns.
+     * @type {number}
+     * @readonly
+     */
+    get columns() {
+        return this._columns;
     }
 
     /**
@@ -106,5 +126,11 @@ export default class OpenTextQuestion extends Question {
 
         const isValid = this.value.length <= this.maxLength;
         return new RuleValidationResult(isValid);
+    }
+}
+
+export default class AllowForNoResponseOpenTextQuestion extends AllowForNoResponseMixin(OpenTextQuestion) {
+    constructor(rawModel) {
+        super(rawModel, () => this._value === null);
     }
 }

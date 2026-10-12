@@ -1,5 +1,7 @@
 import Question from '../base/question';
 import Utils from '../../../utils';
+import ValidationTypes from '../validation/validation-types';
+import RuleValidationResult from '../validation/rule-validation-result';
 
 export default class LoginPageQuestion extends Question {
     /**
@@ -8,6 +10,7 @@ export default class LoginPageQuestion extends Question {
      */
     constructor(model) {
         super(model);
+        this._onlyUserId = model.onlyUserId || false;
         this._loginFieldName = model.loginFieldName;
         this._passwordFieldName = model.passwordFieldName;
 
@@ -67,5 +70,24 @@ export default class LoginPageQuestion extends Question {
         this._password = null;
 
         return true;
+    }
+
+    _validateRule(validationType) {
+        switch (validationType) {
+            case ValidationTypes.Login:
+                return this._validateLogin();
+        }
+    }
+
+    _validateLogin() {
+        if (!this.required) return new RuleValidationResult(true);
+
+        const { userName, password } = this.value;
+        const validationData = {
+            isUserNameValid: !Utils.isEmpty(userName),
+            isPasswordValid: this._onlyUserId ? true : !Utils.isEmpty(password),
+        };
+        const isValid = validationData.isUserNameValid && validationData.isPasswordValid;
+        return new RuleValidationResult(isValid, [], validationData);
     }
 }

@@ -7,9 +7,9 @@ const ROTATE_270_FLIP_X = 7;
 const ROTATE_270 = 8;
 
 //markers
-const START_JPEG_MARKER = 0xFFD8;
-const START_JFIF_MARKER = 0xFFE0;
-const EXIF_HEADER = 0xFFE1;
+const START_JPEG_MARKER = 0xffd8;
+const START_JFIF_MARKER = 0xffe0;
+const EXIF_HEADER = 0xffe1;
 const START_EXIF_MARKER = 0x45786966;
 const INTEL_FORMAT_MARKER = 0x4949; //marker shows has littleEndian or not
 const EXIF_ORIENTATION_MARKER = 0x0112;
@@ -27,14 +27,17 @@ export default class ImageProcessor {
 
         const scaleRatio = this._getScaleRatio(canvas.height, canvas.width, maxImageHeight, maxImageWidth);
         if (scaleRatio < 1) {
-            /* eslint-disable-next-line require-atomic-updates */
             canvas = await this._downScaleCanvas(canvas, scaleRatio);
         }
 
         return new Promise(resolve => {
-            canvas.toBlob(blob => {
-                resolve(blob);
-            }, 'image/jpeg', 0.8);
+            canvas.toBlob(
+                blob => {
+                    resolve(blob);
+                },
+                'image/jpeg',
+                0.8
+            );
         });
     }
 
@@ -56,8 +59,8 @@ export default class ImageProcessor {
         }
 
         let byteOffset = 2;
-        let currentMarker = null;
-        let orientation = null;
+        let currentMarker;
+        let orientation;
 
         while (byteOffset < dataView.byteLength) {
             currentMarker = dataView.getUint16(byteOffset, false);
@@ -82,9 +85,9 @@ export default class ImageProcessor {
                 byteOffset += 2;
 
                 for (let i = 0; i < exifTags; i++) {
-                    if (dataView.getUint16(byteOffset + (i * 12), littleEndian) === EXIF_ORIENTATION_MARKER) {
-                        orientation = dataView.getUint16(byteOffset + (i * 12) + 8, littleEndian);
-                        dataView.setUint16(byteOffset + (i * 12) + 8, littleEndian, 0); // need for avoid browser rotation;
+                    if (dataView.getUint16(byteOffset + i * 12, littleEndian) === EXIF_ORIENTATION_MARKER) {
+                        orientation = dataView.getUint16(byteOffset + i * 12 + 8, littleEndian);
+                        dataView.setUint16(byteOffset + i * 12 + 8, littleEndian, 0); // need for avoid browser rotation;
                         return orientation;
                     }
                 }
@@ -98,7 +101,7 @@ export default class ImageProcessor {
 
     _loadImage(arrayBuffer, type) {
         return new Promise(resolve => {
-            const blob = new Blob([arrayBuffer],{type});
+            const blob = new Blob([arrayBuffer], { type });
             const image = new Image();
 
             image.onload = () => {
@@ -114,7 +117,10 @@ export default class ImageProcessor {
         const sourceHeight = image.height;
         const canvas = document.createElement('canvas');
 
-        if (orientation !== null && [ROTATE_90_FLIP_X, ROTATE_90, ROTATE_270_FLIP_X, ROTATE_270].indexOf(orientation) > -1) {
+        if (
+            orientation !== null &&
+            [ROTATE_90_FLIP_X, ROTATE_90, ROTATE_270_FLIP_X, ROTATE_270].indexOf(orientation) > -1
+        ) {
             canvas.width = sourceHeight;
             canvas.height = sourceWidth;
         } else {
@@ -153,10 +159,7 @@ export default class ImageProcessor {
     }
 
     _getScaleRatio(sourceHeight, sourceWidth, maxWidth, maxHeight) {
-        return Math.min(
-            (maxHeight || sourceHeight) / sourceHeight,
-            (maxWidth || sourceWidth) / sourceWidth
-        );
+        return Math.min((maxHeight || sourceHeight) / sourceHeight, (maxWidth || sourceWidth) / sourceWidth);
     }
 
     _downScaleCanvas(canvas, downscaleRation) {
@@ -164,17 +167,34 @@ export default class ImageProcessor {
         let sourceWidth = sourceCanvas.width;
         let sourceHeight = sourceCanvas.height;
 
-        let destinationCanvas = null;
+        let destinationCanvas;
         const destinationWidth = downscaleRation * sourceWidth;
         const destinationHeight = downscaleRation * sourceHeight;
 
-        if (this._downsamplingRatio > 0 && this._downsamplingRatio < 1 && destinationWidth < sourceWidth && destinationHeight < sourceHeight) {
+        if (
+            this._downsamplingRatio > 0 &&
+            this._downsamplingRatio < 1 &&
+            destinationWidth < sourceWidth &&
+            destinationHeight < sourceHeight
+        ) {
             while (sourceWidth * this._downsamplingRatio > destinationWidth) {
                 destinationCanvas = document.createElement('canvas');
                 destinationCanvas.width = sourceWidth * this._downsamplingRatio;
                 destinationCanvas.height = sourceHeight * this._downsamplingRatio;
 
-                destinationCanvas.getContext('2d').drawImage(sourceCanvas, 0, 0, sourceWidth, sourceHeight, 0, 0, destinationCanvas.width, destinationCanvas.height);
+                destinationCanvas
+                    .getContext('2d')
+                    .drawImage(
+                        sourceCanvas,
+                        0,
+                        0,
+                        sourceWidth,
+                        sourceHeight,
+                        0,
+                        0,
+                        destinationCanvas.width,
+                        destinationCanvas.height
+                    );
 
                 sourceCanvas = destinationCanvas;
                 sourceWidth = destinationCanvas.width;
@@ -186,7 +206,9 @@ export default class ImageProcessor {
         destinationCanvas.width = destinationWidth;
         destinationCanvas.height = destinationHeight;
 
-        destinationCanvas.getContext('2d').drawImage(sourceCanvas, 0, 0, sourceWidth, sourceHeight, 0, 0, destinationWidth, destinationHeight);
+        destinationCanvas
+            .getContext('2d')
+            .drawImage(sourceCanvas, 0, 0, sourceWidth, sourceHeight, 0, 0, destinationWidth, destinationHeight);
 
         return destinationCanvas;
     }
@@ -205,8 +227,8 @@ if (!HTMLCanvasElement.prototype.toBlob) {
                 for (let i = 0; i < len; i++) {
                     arr[i] = binStr.charCodeAt(i);
                 }
-                callback(new Blob([arr], {type: type || 'image/png'}));
+                callback(new Blob([arr], { type: type || 'image/png' }));
             });
-        }
+        },
     });
 }

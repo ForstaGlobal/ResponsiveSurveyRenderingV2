@@ -1,0 +1,45 @@
+@use "_style_bundle_variables.scss" as sb_variables;
+@forward "_style_bundle_variables.scss";
+
+
+/* Color palette */
+$primary-shade-0: rgba(sb_variables.$primary-color,0.9);
+$primary-shade-1: rgba(sb_variables.$primary-color,0.8);
+$primary-shade-2: rgba(sb_variables.$primary-color,0.54);
+$primary-shade-3: rgba(sb_variables.$primary-color,0.4);
+$primary-shade-4: rgba(sb_variables.$primary-color,0.2);
+$primary-shade-5: rgba(sb_variables.$primary-color,0.05);
+
+/* Layout */
+$min-width: 320px;
+$max-width: 1280px;
+
+$font-size: 16px;
+$control-size: 24px;
+
+$question-text-font-color: sb_variables.$primary-color;
+$question-instruction-font-color: $primary-shade-2;
+
+$control-primary-color: $primary-shade-2;
+
+$progress-color: $primary-shade-4;
+$progress-indicator-color: sb_variables.$control-active-color;
+
+$error-text-color: sb_variables.$error-color;
+$error-border-color: sb_variables.$error-color;
+$error-toast-bg-color: sb_variables.$error-color;
+$error-toast-font-color: sb_variables.$question-bg-color;
+
+:root {
+  --cf-primary-shade-0: #{$primary-shade-0};
+  --cf-primary-shade-1: #{$primary-shade-1};
+  --cf-primary-shade-2: #{$primary-shade-2};
+  --cf-primary-shade-3: #{$primary-shade-3};
+  --cf-primary-shade-4: #{$primary-shade-4};
+  --cf-primary-shade-5: #{$primary-shade-5};
+
+  --cf-question-text-font-color: #{$question-text-font-color};
+  --cf-question-instruction-font-color: #{$question-instruction-font-color};
+
+  --cf-control-primary-color: #{$control-primary-color};
+}

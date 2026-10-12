@@ -1,4 +1,5 @@
 import Question from './../base/question.js';
+import AllowForNoResponseMixin from '../base/allow-for-no-response-mixin';
 import ValidationTypes from '../validation/validation-types.js';
 import RuleValidationResult from '../validation/rule-validation-result.js';
 import Utils from 'utils.js';
@@ -14,7 +15,7 @@ import Utils from 'utils.js';
  * @desc Date question model.
  * @extends {Question}
  */
-export default class DateQuestion extends Question {
+export class DateQuestion extends Question {
     /**
      * Create instance.
      * @param {object} model - The instance of the model.
@@ -84,6 +85,10 @@ export default class DateQuestion extends Question {
     }
 
     _setValue(value) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         value = Utils.isEmpty(value) ? null : value.toString();
         if (this._value === value) {
             return false;
@@ -133,5 +138,11 @@ export default class DateQuestion extends Question {
 
         let isValid = new Date(this.value) >= new Date(this.minValue);
         return new RuleValidationResult(isValid);
+    }
+}
+
+export default class AllowForNoResponseDateQuestion extends AllowForNoResponseMixin(DateQuestion) {
+    constructor(rawModel) {
+        super(rawModel, () => this._value === null);
     }
 }

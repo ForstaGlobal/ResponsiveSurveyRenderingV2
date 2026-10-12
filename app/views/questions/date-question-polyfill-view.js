@@ -14,7 +14,7 @@ export default class DateQuestionPolyfillView extends QuestionView {
         this._container.find('.cf-text-box--date').hide(); // hide default input
 
         this._parseDateFormat().forEach(c => {
-            switch(c){
+            switch (c) {
                 case 'y':
                     this._renderYear();
                     break;
@@ -31,7 +31,7 @@ export default class DateQuestionPolyfillView extends QuestionView {
         this._onModelValueChange();
     }
 
-    _parseDateFormat(){
+    _parseDateFormat() {
         let { dateFormat } = this._question.culture;
         dateFormat = dateFormat.replace(/y+/gi, 'y');
         dateFormat = dateFormat.replace(/m+/gi, 'm');
@@ -39,8 +39,7 @@ export default class DateQuestionPolyfillView extends QuestionView {
         dateFormat = dateFormat.replace(/[^ymd]*/gi, '');
 
         // if doesn't
-        if(dateFormat.length !== 3 || [...dateFormat].sort().join('') !== 'dmy')
-            dateFormat = 'mdy'; // unrecognized pattern, switch to default
+        if (dateFormat.length !== 3 || [...dateFormat].sort().join('') !== 'dmy') dateFormat = 'mdy'; // unrecognized pattern, switch to default
 
         return [...dateFormat];
     }
@@ -51,8 +50,8 @@ export default class DateQuestionPolyfillView extends QuestionView {
             years = Array.from(new Array(maxYear - minYear + 1), (val, idx) => minYear + idx),
             select = $('<select/>', {
                 id: `${this._question.id}__year`,
-                class:  'cf-date-answer__year',
-                style: 'margin-right: 1em'
+                class: 'cf-date-answer__year',
+                style: 'margin-right: 1em',
             });
 
         select.append($('<option/>')); // empty (not answered) option
@@ -68,8 +67,8 @@ export default class DateQuestionPolyfillView extends QuestionView {
         let { monthNames } = this._question.culture,
             select = $('<select/>', {
                 id: `${this._question.id}__month`,
-                class:  'cf-date-answer__month',
-                style: 'margin-right: 1em'
+                class: 'cf-date-answer__month',
+                style: 'margin-right: 1em',
             });
 
         select.append($('<option/>')); // empty (not answered) option
@@ -87,8 +86,8 @@ export default class DateQuestionPolyfillView extends QuestionView {
         let days = Array.from(new Array(31), (val, idx) => ('0' + (idx + 1)).slice(-2)), //make it 1-base double-digit
             select = $('<select/>', {
                 id: `${this._question.id}__day`,
-                class:  'cf-date-answer__day',
-                style: 'margin-right: 1em'
+                class: 'cf-date-answer__day',
+                style: 'margin-right: 1em',
             });
 
         select.append($('<option/>')); // empty (not answered) option
@@ -101,11 +100,9 @@ export default class DateQuestionPolyfillView extends QuestionView {
     }
 
     _onModelValueChange() {
-        if(Utils.isEmpty(this._question.value))
-        {
+        if (Utils.isEmpty(this._question.value)) {
             this._container.find('.cf-date-answer__day, .cf-date-answer__month, .cf-date-answer__year').val(null);
-        }
-        else {
+        } else {
             let [year, month, day] = this._question.value.split('-');
 
             this._container.find('.cf-date-answer__year').val(year);
@@ -117,16 +114,15 @@ export default class DateQuestionPolyfillView extends QuestionView {
     /* Control handlers */
     _attachControlHandlers() {
         this._container.find('.cf-date-answer__day, .cf-date-answer__month, .cf-date-answer__year').on('change', () => {
-           let year = this._container.find('.cf-date-answer__year').val(),
-               month = this._container.find('.cf-date-answer__month').val(),
-               day = this._container.find('.cf-date-answer__day').val();
+            let year = this._container.find('.cf-date-answer__year').val(),
+                month = this._container.find('.cf-date-answer__month').val(),
+                day = this._container.find('.cf-date-answer__day').val();
 
-           if ([year, month, day].every(Utils.isEmpty)){
-               this._question.setValue(null);
-           }
-           else {
-               this._question.setValue([year, month, day].join('-'));
-           }
+            if ([year, month, day].every(Utils.isEmpty)) {
+                this._question.setValue(null);
+            } else {
+                this._question.setValue([year, month, day].join('-'));
+            }
         });
     }
 }

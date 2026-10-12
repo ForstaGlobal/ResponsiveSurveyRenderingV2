@@ -1,0 +1,84 @@
+@use "../variables";
+
+$outline-gap: 4px;
+
+.cf-question {
+  padding: 24px 16px 32px;
+  background-color: variables.$question-bg-color;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__title,
+  &__text,
+  &__instruction,
+  &__error {
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    margin-top: 16px;
+    font-size: 32px;
+    line-height: 32px;
+    font-weight: bold;
+  }
+
+  &__text {
+    font-weight: bold;
+    color: variables.$question-text-font-color;
+  }
+
+  &__instruction {
+    color: variables.$question-instruction-font-color;
+  }
+
+  &__error {
+    margin-top: -8px;
+  }
+
+  &__content {
+    overflow: auto;
+    margin: (32px - $outline-gap) (-$outline-gap) (-$outline-gap) (-$outline-gap);
+    padding: $outline-gap (10px + $outline-gap) $outline-gap (10px + $outline-gap);
+
+    &--no-padding {
+      padding-left: $outline-gap;
+      padding-right: $outline-gap;
+    }
+  }
+
+  &--error {
+    border-color: variables.$error-border-color;
+  }
+}
+
+@media (max-width: variables.$max-width) {
+  .cf-question {
+    margin-bottom: 4px;
+  }
+}
+
+@media (min-width: variables.$max-width + 1) {
+  .cf-question {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-question__content--mobile {
+    display: block;
+  }
+  .cf-question__content--desktop {
+    display: none;
+  }
+}
+
+@media (min-width: variables.$desktop-layout-delimiter + 1) {
+  .cf-question__content--mobile {
+    display: none;
+  }
+  .cf-question__content--desktop {
+    display: block;
+  }
+}

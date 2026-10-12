@@ -1,0 +1,109 @@
+@use "../variables";
+
+.cf-page, input, textarea, select, button {
+  font-family: variables.$page-font;
+  font-size: variables.$font-size;
+  line-height: variables.$font-size + 4;
+  color: variables.$control-primary-color;
+}
+
+.cf-page {
+  margin: 0;
+  min-width: variables.$min-width;
+  background-color: variables.$page-bg-color;
+
+  -webkit-text-size-adjust: none;
+
+  * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  &__main {
+    max-width: variables.$max-width - (2 * 4px);
+    padding: 0;
+    overflow: auto;
+    height: auto;
+  }
+
+  &__question-list {
+    margin-bottom: 8px;
+  }
+
+  &__navigation {
+    padding: 24px 16px;
+    background-color: variables.$question-bg-color;
+  }
+
+  &__progress {
+    &-inner {
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: variables.$max-width) {
+  .cf-page {
+    &__header {
+      margin-bottom: 32px;
+    }
+
+    &__main {
+      margin: 0 auto;
+    }
+
+    &__navigation {
+      margin-bottom: 24px;
+    }
+
+    &__powered-by-confirmit {
+      margin-bottom: 24px;
+    }
+  }
+}
+
+@media (min-width: variables.$desktop-layout-delimiter + 1) and (max-width: variables.$max-width) {
+  .cf-page {
+    &__header {
+      margin-bottom: 4px;
+    }
+
+    &__main {
+      margin: 0 4px 4px 4px;
+    }
+  }
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-page {
+    &__header {
+      margin-bottom: 4px;
+    }
+
+    &__main {
+      margin-bottom: 4px;
+    }
+  }
+}
+
+.cf-page--accessible {
+  * {
+    -webkit-tap-highlight-color: initial;
+  }
+
+  :focus {
+    outline: 1px variables.$control-active-color dotted;
+    outline-offset: 2px;
+  }
+
+  .cf-powered-by-confirmit__link {
+    opacity: 1;
+    background-position: top center;
+    transition: none;
+  }
+}

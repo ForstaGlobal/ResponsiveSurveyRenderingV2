@@ -37,7 +37,7 @@ export default class HiddenInputs {
         this._getInputNode(name).attr('value', value);
     }
 
-    _onChangeServerVariables({type, name, value = null}) {
+    _onChangeServerVariables({ type, name, value = null }) {
         switch (type) {
             case 'add':
                 this._addHiddenInputNode(name, value);

@@ -17,9 +17,11 @@ export default class SingleQuestion extends QuestionWithAnswers {
         this._defaultValue = model.defaultValue;
         this._refusedValue = model.refusedValue;
         this._answerButtons = model.answerButtons || false;
+        this._boolean = model.boolean || false;
         this._slider = model.slider || false;
         this._sliderIsVertical = model.sliderIsVertical || false;
         this._dropdown = model.dropdown || false;
+        this._thumbRating = model.thumbRating || false;
         this._layoutColumns = model.layoutColumns || 0;
         this._layoutRows = model.layoutRows || 0;
 
@@ -34,6 +36,15 @@ export default class SingleQuestion extends QuestionWithAnswers {
      */
     get answerButtons() {
         return this._answerButtons;
+    }
+
+    /**
+     * Is it boolean question.
+     * @type {boolean}
+     * @readonly
+     */
+    get boolean() {
+        return this._boolean;
     }
 
     /**
@@ -61,6 +72,15 @@ export default class SingleQuestion extends QuestionWithAnswers {
      */
     get dropdown() {
         return this._dropdown;
+    }
+
+    /**
+     * Is it thumb rating.
+     * @type {boolean}
+     * @readonly
+     */
+    get thumbRating() {
+        return this._thumbRating;
     }
 
     /**
@@ -161,6 +181,10 @@ export default class SingleQuestion extends QuestionWithAnswers {
     }
 
     _setValue(value) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         value = Utils.isEmpty(value) ? null : value.toString();
         if (this._value === value) {
             return false;

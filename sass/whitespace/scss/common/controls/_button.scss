@@ -1,0 +1,34 @@
+@use "../../_mixins/old-browsers-wrappers";
+@use "../../variables";
+
+.cf-button {
+  max-width: 100%;
+  min-height: 38px;
+  padding: 6px 8px;
+  border: 1px solid variables.$control-primary-color;
+  border-radius: 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+
+  text-overflow: ellipsis;
+  color: variables.$control-active-color;
+}
+
+@include old-browsers-wrappers.ie-only-wrapper {
+  .cf-button::before {
+    content: "";
+    visibility: hidden;
+    width: 0;
+    height: 38px;
+  }
+}
+
+.cf-button--selected {
+  color: variables.$question-bg-color;
+  border-color: variables.$control-active-color;
+  background-color: variables.$control-active-color;
+}

@@ -6,7 +6,7 @@ export default class ErrorBlockManager {
     }
 
     showErrors(blockId, targetNode, errors) {
-        if(errors.length === 0) {
+        if (errors.length === 0) {
             return;
         }
 
@@ -18,7 +18,7 @@ export default class ErrorBlockManager {
         this._answerErrorBlocks = [];
     }
 
-    _showErrorBlock(blockId, targetNode, errors)  {
+    _showErrorBlock(blockId, targetNode, errors) {
         this._createBlock(blockId, targetNode).showErrors(errors);
     }
 

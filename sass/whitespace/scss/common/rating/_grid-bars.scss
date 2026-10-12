@@ -1,0 +1,87 @@
+@use "../../variables";
+
+.cf-grid-bars-item {
+  width: variables.$control-size + 16px;
+  height: variables.$control-size + 16px;
+  border-radius: 3px;
+  border: 2px solid variables.$control-primary-color;
+  cursor: pointer;
+
+  transition: all 0.4s linear;
+
+  &--hover,
+  &--selected {
+    border-color: variables.$control-active-color;
+    background: variables.$control-active-color;
+  }
+
+  &--selected {
+    transition: none;
+  }
+}
+
+.cf-grid-bars-scale {
+  display: flex;
+
+  &__item {
+    flex: 0 1 auto;
+    width: variables.$control-size + 24px;
+
+    &:last-child {
+      width: variables.$control-size + 16px;
+    }
+  }
+}
+
+.cf-grid-bars-scale-texts-panel {
+  display: flex;
+  justify-content: space-between;
+
+  &__item {
+    text-align: center;
+    width: variables.$control-size + 16px;
+
+    &--selected,
+    &--hover {
+      color: variables.$control-active-color;
+    }
+  }
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-grid-bars-item {
+    width: variables.$control-size + 8px;
+    height: variables.$control-size + 8px;
+  }
+
+  .cf-grid-bars-scale {
+    &__item {
+      width: variables.$control-size + 24px;
+
+      &:last-child {
+        width: variables.$control-size + 8px;
+      }
+    }
+  }
+
+  .cf-grid-bars-scale-texts-panel {
+    &__item {
+      width: variables.$control-size + 8px;
+    }
+  }
+}
+
+
+// Reset hover styles for touch devices
+@media (hover: none) and (pointer: coarse) {
+  .cf-grid-bars-scale-texts-panel__item--hover {
+    color: variables.$control-primary-color;
+  }
+
+  .cf-grid-bars-item--hover {
+    border-color: variables.$control-primary-color !important;
+    background-color: variables.$question-bg-color !important;
+    opacity: unset !important;
+  }
+}
+

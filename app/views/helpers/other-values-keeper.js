@@ -1,4 +1,4 @@
-import Utils from "../../utils";
+import Utils from '../../utils';
 
 /**
  * @abstract
@@ -6,14 +6,16 @@ import Utils from "../../utils";
 export class OtherValuesKeeper {
     constructor(question) {
         this._question = question;
-        this._storedOtherValues = {...this._question.otherValues};
+        this._storedOtherValues = {};
 
         this._question.changeEvent.on(changes => {
             this._syncStoredOtherValuesWithModel(this._getChangedAnswerCodes(changes), this._getSelectedAnswerCodes());
         });
     }
 
-    get storedOtherValues() { return this._storedOtherValues; }
+    get storedOtherValues() {
+        return this._storedOtherValues;
+    }
 
     /**
      * @abstract
@@ -52,8 +54,8 @@ export class OtherValuesKeeper {
 }
 
 export class SingleOtherValuesKeeper extends OtherValuesKeeper {
-    _getChangedAnswerCodes({previousState: {value = null}}) {
-        return (value !== null ? [this._question.value, value] : [this._question.value]);
+    _getChangedAnswerCodes({ previousState: { value = null } }) {
+        return value !== null ? [this._question.value, value] : [this._question.value];
     }
 
     _getSelectedAnswerCodes() {
@@ -62,7 +64,7 @@ export class SingleOtherValuesKeeper extends OtherValuesKeeper {
 }
 
 export class MultiOtherValuesKeeper extends OtherValuesKeeper {
-    _getChangedAnswerCodes({changes}) {
+    _getChangedAnswerCodes({ changes }) {
         return changes.values;
     }
 
@@ -72,8 +74,8 @@ export class MultiOtherValuesKeeper extends OtherValuesKeeper {
 }
 
 export class RankingOtherValuesKeeper extends OtherValuesKeeper {
-    _getChangedAnswerCodes({changes}) {
-        return changes.values
+    _getChangedAnswerCodes({ changes }) {
+        return changes.values;
     }
 
     _getSelectedAnswerCodes() {

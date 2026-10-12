@@ -125,7 +125,7 @@ export default class HierarchyQuestion extends QuestionWithAnswers {
      * @param {string} value - Extended Answer code.
      */
     setValue(value) {
-        if (this.readOnly) {
+        if (this.readOnly || this._isCatiReviewingMode) {
             return;
         }
 
@@ -167,7 +167,7 @@ export default class HierarchyQuestion extends QuestionWithAnswers {
         let currentNode;
         while ((currentNode = queue.shift())) {
             yield currentNode;
-            currentNode.children.forEach((childNode) => queue.push(childNode));
+            currentNode.children.forEach(childNode => queue.push(childNode));
         }
     }
 
@@ -246,7 +246,7 @@ export default class HierarchyQuestion extends QuestionWithAnswers {
         if (currentNode.answer === null) {
             currentNode.children.length = 0;
         } else {
-            currentNode.parent.children.forEach((childNode) => {
+            currentNode.parent.children.forEach(childNode => {
                 childNode.children.length = 0;
             });
         }
@@ -256,19 +256,17 @@ export default class HierarchyQuestion extends QuestionWithAnswers {
             return;
         }
 
-        const rawChildNodes = await this._hierarchyService
-            .getHierarchySubLevel(this._id, this._value)
-            .catch((error) => {
-                // TODO: find a way to show global error banner or another way of handling
-                // eslint-disable-next-line no-console
-                console.error("Can't update hierarchy: " + error);
-            });
+        const rawChildNodes = await this._hierarchyService.getHierarchySubLevel(this._id, this._value).catch(error => {
+            // TODO: find a way to show global error banner or another way of handling
+            // eslint-disable-next-line no-console
+            console.error("Can't update hierarchy: " + error);
+        });
         if (!rawChildNodes) {
             return;
         }
 
         // build up current branch
-        rawChildNodes.forEach((rawChildNode) => {
+        rawChildNodes.forEach(rawChildNode => {
             currentNode.children.push(new HierarchyNode(rawChildNode, currentNode));
         });
     }

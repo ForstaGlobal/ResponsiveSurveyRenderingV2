@@ -35,7 +35,7 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
                 node: this._container.find('.cf-card-sort-drop-zone--non-selected'),
                 coordinates: {},
             },
-            ...this._question.scales.map((scale) => {
+            ...this._question.scales.map(scale => {
                 const node = this._getScaleNode(scale.code);
                 return { scaleCode: scale.code, node, coordinates: {} };
             }),
@@ -46,12 +46,12 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
 
     _attachHandlersToDOM() {
         this.answers
-            .filter((answer) => answer.isOther)
-            .forEach((answer) =>
+            .filter(answer => answer.isOther)
+            .forEach(answer =>
                 this._getAnswerOtherNode(answer.code)
-                    .on('input', (e) => this._onAnswerOtherNodeValueChange(answer, e.target.value))
-                    .on('mousedown', (e) => e.stopPropagation())
-                    .on('touchstart', (e) => e.stopPropagation())
+                    .on('input', e => this._onAnswerOtherNodeValueChange(answer, e.target.value))
+                    .on('mousedown', e => e.stopPropagation())
+                    .on('touchstart', e => e.stopPropagation())
             );
 
         //mouse
@@ -59,8 +59,8 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
         this._onDocumentMouseMove = this._onDocumentMouseMove.bind(this);
         this._onDocumentMouseUp = this._onDocumentMouseUp.bind(this);
 
-        this.answers.forEach((answer) =>
-            this._getAnswerNode(answer.code).on('mousedown', (event) => this._onAnswerMouseDown(event, answer))
+        this.answers.forEach(answer =>
+            this._getAnswerNode(answer.code).on('mousedown', event => this._onAnswerMouseDown(event, answer))
         );
         $(window).on('mousemove', this._onDocumentMouseMove);
         $(window).on('mouseup', this._onDocumentMouseUp);
@@ -70,8 +70,8 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
         this._onDocumentTouchMove = this._onDocumentTouchMove.bind(this);
         this._onDocumentTouchEnd = this._onDocumentTouchEnd.bind(this);
 
-        this.answers.forEach((answer) =>
-            this._getAnswerNode(answer.code).on('touchstart', (event) => this._onAnswerTouchStart(event, answer))
+        this.answers.forEach(answer =>
+            this._getAnswerNode(answer.code).on('touchstart', event => this._onAnswerTouchStart(event, answer))
         );
         $(window).on('touchmove', this._onDocumentTouchMove);
         $(window).on('touchend', this._onDocumentTouchEnd);
@@ -82,7 +82,7 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
     detach() {
         super.detachModelHandlers();
 
-        this._question.answers.forEach((answer) => {
+        this._question.answers.forEach(answer => {
             this._getAnswerNode(answer.code)
                 .off('mousedown', this._onAnswerMouseDown)
                 .off('touchstart', this._onAnswerTouchStart);
@@ -144,8 +144,8 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
     _showAnswerErrors(validationResult) {
         let lastNonSelectedResult = null;
         validationResult.answerValidationResults
-            .filter((result) => !result.isValid)
-            .forEach((result) => {
+            .filter(result => !result.isValid)
+            .forEach(result => {
                 if (this._isSelected(result.answerCode)) {
                     this._showAnswerError(result);
                     return;
@@ -168,7 +168,7 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
         const answerNode = this._getAnswerNode(validationResult.answerCode);
         const target = answerNode.parent();
         const errorBlockId = this._getAnswerErrorBlockId(validationResult.answerCode);
-        const errors = validationResult.errors.map((error) => error.message);
+        const errors = validationResult.errors.map(error => error.message);
         this._answerErrorBlockManager.showErrors(errorBlockId, target, errors);
     }
 
@@ -182,7 +182,7 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
             return;
         }
 
-        values.forEach((answerCode) => {
+        values.forEach(answerCode => {
             const answerNode = this._getAnswerNode(answerCode);
             if (this._isSelected(answerCode)) {
                 const scaleNode = this._getScaleNode(this._question.values[answerCode]);
@@ -199,13 +199,11 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
 
     _updateSelectedListCounters(values, previousValues) {
         const changedScaleCodes = [
-            ...values
-                .filter((answerCode) => previousValues[answerCode])
-                .map((answerCode) => previousValues[answerCode]),
-            ...values.map((answerCode) => this._question.values[answerCode]),
+            ...values.filter(answerCode => previousValues[answerCode]).map(answerCode => previousValues[answerCode]),
+            ...values.map(answerCode => this._question.values[answerCode]),
         ];
 
-        changedScaleCodes.forEach((scaleCode) => {
+        changedScaleCodes.forEach(scaleCode => {
             this._getScaleNode(scaleCode)
                 .find('.cf-card-sort-answer-list__counter')
                 .text(this._getSelectedAnswersCountInScale(scaleCode));
@@ -230,8 +228,8 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
 
     _updateDropZonesErrorState(dropZones, onMove = false) {
         dropZones
-            .filter((dropZone) => dropZone.scaleCode !== null)
-            .forEach((dropZone) => {
+            .filter(dropZone => dropZone.scaleCode !== null)
+            .forEach(dropZone => {
                 let dropZoneAnswersCount = this._getSelectedAnswersCountInScale(dropZone.scaleCode);
                 if (onMove) {
                     if (dropZone === this._activeDropZone) {
@@ -269,7 +267,7 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
     }
 
     _updateDropZonesCoordinates() {
-        this._dropZones.forEach((dropZone) => {
+        this._dropZones.forEach(dropZone => {
             dropZone.coordinates = this._getNodeCoordinates(dropZone.node);
         });
     }
@@ -299,7 +297,7 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
     }
 
     _getSelectedAnswersCountInScale(scaleCode) {
-        return Object.values(this._question.values).filter((value) => value === scaleCode).length;
+        return Object.values(this._question.values).filter(value => value === scaleCode).length;
     }
 
     _selectAnswer(answerCode, scaleCode) {
@@ -468,7 +466,7 @@ export default class CardSortGridQuestionView extends QuestionWithAnswersView {
 
         if (this._isRanking && activeDropZoneBeforeUpdate !== activeDropZoneAfterUpdate) {
             const dropZones = [activeDropZoneBeforeUpdate, activeDropZoneAfterUpdate].filter(
-                (dropZone) => dropZone !== null
+                dropZone => dropZone !== null
             );
             this._updateDropZonesErrorState(dropZones, true);
         }

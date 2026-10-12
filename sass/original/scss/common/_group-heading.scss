@@ -1,0 +1,86 @@
+@use "../variables";
+
+.cf-group-heading {
+  margin-left: -(variables.$padding-desktop + variables.$answer-group-border-width);
+
+  &:not(:last-child) {
+    margin-top: 0.5em;
+    margin-bottom: 2.4em;
+  }
+
+  &__title {
+    color: variables.$control-head-color;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 4px;
+    border-width: variables.$answer-group-border-width;
+    border-color: variables.$control-head-color;
+    border-left-style: solid;
+    padding-left: (variables.$padding-desktop - 4px);
+  }
+}
+
+@media (max-width: variables.$delimiter-tablet) {
+  .cf-group-heading {
+    margin-left: -(variables.$padding-tablet + variables.$answer-group-border-width);
+
+    &__content {
+      padding-left: (variables.$padding-tablet - variables.$answer-group-border-width * 0.5);
+      border-width: variables.$answer-group-border-width * 0.5;
+    }
+  }
+}
+
+@media (max-width: variables.$delimiter-mobile) {
+  .cf-group-heading {
+    margin-left: -(variables.$padding-mobile + variables.$answer-group-border-width);
+
+    &__content {
+      padding-left: (variables.$padding-mobile - variables.$answer-group-border-width * 0.5);
+    }
+  }
+}
+
+.cf-group-heading--rtl {
+  margin-left: 0;
+  margin-right: -(variables.$padding-desktop + variables.$answer-group-border-width);
+  .cf-group-heading__content {
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 4px;
+    border-left-style: none;
+    border-right-style: solid;
+    padding-right: (variables.$padding-desktop - 4px);
+  }
+
+  @media (max-width: variables.$delimiter-tablet) {
+    margin-left: 0;
+    margin-right: -(variables.$padding-tablet + variables.$answer-group-border-width);
+
+    .cf-group-heading__content__content {
+      padding-left: 0;
+      padding-right: (variables.$padding-tablet - variables.$answer-group-border-width * 0.5);
+    }
+  }
+
+  @media (max-width: variables.$delimiter-mobile) {
+
+    margin-left: 0;
+    margin-right: -(variables.$padding-mobile + variables.$answer-group-border-width);
+
+    .cf-group-heading__content {
+      padding-left: 0;
+      padding-right: (variables.$padding-mobile - variables.$answer-group-border-width * 0.5);
+    }
+  }
+}
+
+
+
+
+

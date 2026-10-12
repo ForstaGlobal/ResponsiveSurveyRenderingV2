@@ -77,7 +77,7 @@ export default class Grid3DQuestion extends QuestionWithAnswers {
     get formValues() {
         let formValues = {};
 
-        this._innerQuestions.forEach((question) => {
+        this._innerQuestions.forEach(question => {
             formValues = { ...formValues, ...question.formValues };
         });
 
@@ -156,14 +156,14 @@ export default class Grid3DQuestion extends QuestionWithAnswers {
             return null;
         }
         id = id.toString();
-        return this._innerQuestions.find((question) => question.id === id);
+        return this._innerQuestions.find(question => question.id === id);
     }
 
     /**
      * Clear question values.
      */
     clearValues() {
-        this._innerQuestions.forEach((question) => question.clearValues());
+        this._innerQuestions.forEach(question => question.clearValues());
         this._clearValuesInternal('otherValues', () => {
             if (Object.keys(this.otherValues).length === 0) {
                 return false;
@@ -175,21 +175,21 @@ export default class Grid3DQuestion extends QuestionWithAnswers {
     }
 
     _parseQuestions({ questions }) {
-        questions.forEach((questionModel) => {
+        questions.forEach(questionModel => {
             const question = this._questionFactory.create(questionModel);
             this._innerQuestions.push(question);
         });
     }
 
     _parseAnswers({ answers }) {
-        answers.forEach((answer) => {
+        answers.forEach(answer => {
             this._answers.push(new Answer(answer, null));
         });
     }
 
     _subscribeToQuestions() {
-        this._innerQuestions.forEach((question) => {
-            question.changeEvent.on((data) => {
+        this._innerQuestions.forEach(question => {
+            question.changeEvent.on(data => {
                 this._onChange({ questions: { [question.id]: data.changes } });
             });
         });
@@ -198,7 +198,7 @@ export default class Grid3DQuestion extends QuestionWithAnswers {
     _validate(validationRuleFilter = null) {
         const validationResult = new Grid3dQuestionValidationResult(this._id);
 
-        const innerQuestionValidationResults = this._innerQuestions.map((q) => q.validate(true, validationRuleFilter));
+        const innerQuestionValidationResults = this._innerQuestions.map(q => q.validate(true, validationRuleFilter));
         validationResult.questionValidationResults.push(...innerQuestionValidationResults);
 
         const ownValidationResult = super._validate(validationRuleFilter);
@@ -219,9 +219,9 @@ export default class Grid3DQuestion extends QuestionWithAnswers {
     _validateOther() {
         const invalidAnswers = [];
         this.answers
-            .filter((answer) => answer.isOther)
-            .forEach((answer) => {
-                const isNotEmpty = this._innerQuestions.some((question) =>
+            .filter(answer => answer.isOther)
+            .forEach(answer => {
+                const isNotEmpty = this._innerQuestions.some(question =>
                     this._isAnswerInQuestionValue(question, answer.code)
                 );
                 const otherIsEmpty = Utils.isEmpty(this.otherValues[answer.code]);

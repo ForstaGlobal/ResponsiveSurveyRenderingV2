@@ -1,0 +1,148 @@
+@use "../../_mixins/old-browsers-wrappers";
+@use "../../functions";
+@use "../../variables";
+
+.cf-star-rating-item {
+  width: variables.$control-size + 16px;
+  height: variables.$control-size + 16px;
+  clip-path: polygon(50% 1%, 64% 37%, 100% 40%, 72% 63%, 83% 99%, 50% 77%, 18% 99%, 29% 63%, 1% 40%, 37% 37%);
+  background-color: variables.$control-primary-color;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s linear;
+
+  &::after {
+    content: '';
+    clip-path: polygon(50% 13%, 60% 41%, 90% 43%, 66% 62%, 76% 90%, 50% 71%, 25% 90%, 35% 62%, 11% 43%, 40% 41%);
+    background-color: variables.$question-bg-color;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  &--selected {
+    background-color: variables.$control-active-color;
+
+    &::after {
+      content: none;
+    }
+  }
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-star-rating-item {
+    width: variables.$control-size + 8px;
+    height: variables.$control-size + 8px;
+  }
+}
+
+.cf-star-rating-scale {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  &__item {
+    flex: 0 1 auto;
+  }
+}
+
+@media (min-width: variables.$desktop-layout-delimiter) {
+  .cf-star-rating-scale__item {
+    width: variables.$control-size + 24px;
+    min-width: variables.$control-size + 16px;
+
+    &:last-child {
+      width: variables.$control-size + 16px;
+    }
+  }
+}
+
+
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-star-rating-scale__item {
+    width: variables.$control-size + 24px;
+    min-width: variables.$control-size + 8px;
+
+    &:last-child {
+      width: variables.$control-size + 8px;
+    }
+  }
+}
+
+//fallbacks for old browsers
+@include old-browsers-wrappers.ie-only-wrapper {
+  .cf-star-rating-item {
+    background-color: transparent !important; /* need to avoid flicking background with answer colors*/
+    clip-path: none;
+    overflow: hidden;
+
+    &:before, &:after {
+      font-size: variables.$control-size + 24px;
+      color: inherit;
+      position: absolute;
+      top: 6px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+
+    &::before {
+      content: functions.unicode('2606');
+    }
+
+    &::after {
+      content: functions.unicode('2605');
+      clip-path: none;
+      opacity: 0;
+      transition: color, opacity .2s linear;
+    }
+
+    &--selected {
+      color: variables.$control-active-color;
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@include old-browsers-wrappers.edge-only-wrapper {
+  .cf-star-rating-item {
+    background-color: transparent !important; /* need to avoid flicking background with answer colors*/
+    clip-path: none;
+    overflow: hidden;
+
+    &:before, &:after {
+      font-size: variables.$control-size + 24px;
+      color: inherit;
+      position: absolute;
+      top: 6px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+
+    &::before {
+      content: functions.unicode('2606');
+    }
+
+    &::after {
+      content: functions.unicode('2605');
+      clip-path: none;
+      opacity: 0;
+      transition: color, opacity .2s linear;
+    }
+
+    &--selected {
+      color: variables.$control-active-color;
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}

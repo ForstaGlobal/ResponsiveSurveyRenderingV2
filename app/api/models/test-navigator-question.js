@@ -1,8 +1,8 @@
 /**
  * @desc Test navigator question model.
  */
-export default class TestNavigatorQuestion{
-    constructor(question){
+export default class TestNavigatorQuestion {
+    constructor(question) {
         this._question = question;
     }
 
@@ -11,7 +11,7 @@ export default class TestNavigatorQuestion{
      * @type {string}
      * @readonly
      */
-    get id(){
+    get id() {
         return this._question.id !== undefined ? this._question.id : '';
     }
 
@@ -29,7 +29,7 @@ export default class TestNavigatorQuestion{
      * @type {string}
      * @readonly
      */
-    get title(){
+    get title() {
         return this._question.title !== undefined ? this._question.title : '';
     }
 
@@ -38,7 +38,7 @@ export default class TestNavigatorQuestion{
      * @type {string}
      * @readonly
      */
-    get type(){
+    get type() {
         return this._question.type !== undefined ? this._question.type : '';
     }
 
@@ -47,7 +47,34 @@ export default class TestNavigatorQuestion{
      * @type {string}
      * @readonly
      */
-    get link(){
+    get link() {
         return this._question.link !== undefined ? this._question.link : '';
+    }
+
+    /**
+     * Question mask.
+     * @type {string | undefined}
+     * @readonly
+     */
+    get questionMask() {
+        return this._question.questionMask;
+    }
+
+    /**
+     * Answer mask.
+     * @type {string | undefined}
+     * @readonly
+     */
+    get precodeMask() {
+        return this._question.precodeMask;
+    }
+
+    /**
+     * Scale mask.
+     * @type {string | undefined}
+     * @readonly
+     */
+    get scalePrecodeMask() {
+        return this._question.scalePrecodeMask;
     }
 }

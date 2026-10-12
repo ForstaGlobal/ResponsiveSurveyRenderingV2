@@ -1,0 +1,51 @@
+@use "../_mixins/old-browsers-wrappers";
+@use "../variables";
+
+// LABEL PANEL
+.cf-label-panel {
+  display: flex;
+  border-bottom: 1px solid variables.$primary-shade-3;
+  background: variables.$question-bg-color;
+  padding: 8px 0;
+  font-size: variables.$font-size - 2px;
+  line-height: variables.$font-size - 2px;
+  justify-content: space-between;
+
+  &__label {
+    width: 1px;
+    flex: 0 1 40%;
+
+    &--min {
+      text-align: left;
+    }
+
+    &--max {
+      text-align: right;
+    }
+  }
+}
+
+.cf-label-panel--rtl .cf-label-panel__label{
+    &--min {
+      text-align: right;
+    }
+
+    &--max {
+      text-align: left;
+    }
+}
+
+@include old-browsers-wrappers.edge-only-wrapper{
+  .cf-label-panel__label{
+    width: auto;
+    flex: 1 1 0px;
+    max-width: 40%;
+  }
+}
+
+@include old-browsers-wrappers.ie-only-wrapper{
+  .cf-label-panel__label{
+    width: auto;
+    max-width: 40%;
+  }
+}

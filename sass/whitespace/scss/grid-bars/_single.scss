@@ -1,0 +1,25 @@
+.cf-gb-single {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__scale-container {
+    max-width: 100%;
+  }
+
+  &__scale-texts-panel {
+    margin-bottom: 16px;
+  }
+
+  &__scale {
+  }
+
+  &__non-scored-list {
+    margin-top: 16px;
+    max-width: 100%;
+  }
+
+  &__scale-label-panel {
+    margin-bottom: 16px;
+  }
+}

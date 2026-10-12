@@ -1,12 +1,11 @@
 import ValidationTypes from 'api/models/validation/validation-types.js';
 import AnswerErrorBlock from './answer-error-block';
-import QuestionIdProvider from "../helpers/question-id-provider";
+import QuestionIdProvider from '../helpers/question-id-provider';
 
 /**
  * @Deprecated
  */
 export default class AnswerErrorManager {
-
     constructor(questionId) {
         this._questionId = questionId;
         this._idProvider = new QuestionIdProvider(questionId);
@@ -17,15 +16,23 @@ export default class AnswerErrorManager {
         const answerErrors = [];
         const otherAnswerErrors = [];
         answerValidationResult.errors.forEach(error => {
-            if(error.type === ValidationTypes.OtherRequired) {
+            if (error.type === ValidationTypes.OtherRequired) {
                 otherAnswerErrors.push(error.message);
             } else {
                 answerErrors.push(error.message);
             }
         });
 
-        this._showErrorBlock(this._getAnswerErrorBlockId(answerValidationResult.answerCode), answerTarget, answerErrors);
-        this._showErrorBlock(this._getAnswerOtherErrorBlockId(answerValidationResult.answerCode), otherAnswerTarget, otherAnswerErrors);
+        this._showErrorBlock(
+            this._getAnswerErrorBlockId(answerValidationResult.answerCode),
+            answerTarget,
+            answerErrors
+        );
+        this._showErrorBlock(
+            this._getAnswerOtherErrorBlockId(answerValidationResult.answerCode),
+            otherAnswerTarget,
+            otherAnswerErrors
+        );
     }
 
     removeAllErrors() {
@@ -41,8 +48,8 @@ export default class AnswerErrorManager {
         return this._idProvider.getAnswerOtherErrorBlockId(answerCode);
     }
 
-    _showErrorBlock(id, target, errors)  {
-        if(errors.length === 0) {
+    _showErrorBlock(id, target, errors) {
+        if (errors.length === 0) {
             return;
         }
 

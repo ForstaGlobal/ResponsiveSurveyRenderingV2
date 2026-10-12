@@ -1,4 +1,4 @@
-import QuestionView from './base/question-view.js'
+import QuestionView from './base/question-view.js';
 
 export default class GeolocationQuestionView extends QuestionView {
     constructor(question) {
@@ -9,17 +9,15 @@ export default class GeolocationQuestionView extends QuestionView {
     /* this method have to be implemented in view, due to native app override */
     _getCurrentPosition() {
         if (!window.navigator.geolocation) {
-            return
+            return;
         }
 
-        window.navigator.geolocation.getCurrentPosition(
-            this._setPosition.bind(this),
-            null,
-            { enableHighAccuracy: true }
-        );
+        window.navigator.geolocation.getCurrentPosition(this._setPosition.bind(this), null, {
+            enableHighAccuracy: true,
+        });
     }
 
     _setPosition(position) {
-        this._question.setValue(position.coords.latitude, position.coords.longitude);        
+        this._question.setValue(position.coords.latitude, position.coords.longitude);
     }
 }

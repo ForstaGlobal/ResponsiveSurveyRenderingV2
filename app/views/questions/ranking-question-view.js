@@ -3,8 +3,8 @@ import Utils from './../../utils.js';
 import KEYS from '../helpers/keyboard-keys';
 import ValidationTypes from '../../api/models/validation/validation-types';
 import MultiCountHelper from '../helpers/multi-count-helper';
-import StoredOtherValuesMixin from "./base/stored-other-values-mixin";
-import {RankingOtherValuesKeeper} from "../helpers/other-values-keeper";
+import StoredOtherValuesMixin from './base/stored-other-values-mixin';
+import { RankingOtherValuesKeeper } from '../helpers/other-values-keeper';
 
 export default class RankingQuestionView extends QuestionWithAnswersView {
     /**
@@ -25,6 +25,10 @@ export default class RankingQuestionView extends QuestionWithAnswersView {
 
     _getAnswerRankNode(code) {
         return this._getAnswerNode(code).find('.cf-ranking-answer__rank');
+    }
+
+    _getAnswerRankNodeId(code) {
+        return `${this._getAnswerNodeId(code)}_rank`;
     }
 
     get _currentAnswer() {
@@ -74,25 +78,22 @@ export default class RankingQuestionView extends QuestionWithAnswersView {
         if (otherErrors.length > 0) {
             const otherNode = this._getAnswerOtherNode(validationResult.answerCode);
             const otherErrorBlockId = this._getAnswerOtherErrorBlockId(validationResult.answerCode);
-            otherNode
-                .attr('aria-errormessage', otherErrorBlockId)
-                .attr('aria-invalid', 'true');
+            otherNode.attr('aria-errormessage', otherErrorBlockId).attr('aria-invalid', 'true');
             this._answerErrorBlockManager.showErrors(otherErrorBlockId, otherNode, otherErrors);
         }
     }
 
     _hideErrors() {
         super._hideErrors();
-        this._question.answers.filter(answer => answer.isOther).forEach(answer => {
-            this._getAnswerOtherNode(answer.code)
-                .removeAttr('aria-errormessage')
-                .removeAttr('aria-invalid');
-        });
+        this._question.answers
+            .filter(answer => answer.isOther)
+            .forEach(answer => {
+                this._getAnswerOtherNode(answer.code).removeAttr('aria-errormessage').removeAttr('aria-invalid');
+            });
     }
 
-    _updateAnswerNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         this._question.answers.forEach(answer => {
             const answerNode = this._getAnswerNode(answer.code);
@@ -104,11 +105,27 @@ export default class RankingQuestionView extends QuestionWithAnswersView {
                 .css('background-color', '')
                 .css('border-color', '');
 
-            if (MultiCountHelper.isMaxMultiCountReached(Object.values(this._question.values).length, this._question.multiCount)) {
+            if (
+                MultiCountHelper.isMaxMultiCountReached(
+                    Object.values(this._question.values).length,
+                    this._question.multiCount
+                )
+            ) {
                 answerNode.addClass(this._disabledAnswerClass);
             }
 
             this._getAnswerRankNode(answer.code).text('-');
+
+            if (!this._settings.isAccessible && answer.isOther) {
+                this._getAnswerNode(answer.code).attr(
+                    'aria-label',
+                    this._getAnswerNode(answer.code)
+                        .attr('aria-label')
+                        .replace(/^[-0-9]{1,2} /, '- ')
+                );
+            } else {
+                this._getAnswerNode(answer.code).attr('aria-labelledby', `${this._getAnswerTextNodeId(answer.code)}`);
+            }
         });
 
         Object.entries(this._question.values).forEach(([code, value]) => {
@@ -122,35 +139,51 @@ export default class RankingQuestionView extends QuestionWithAnswersView {
                 answerNode.css({
                     color: answer.backgroundColor,
                     backgroundColor: answer.backgroundColor,
-                    borderColor: answer.backgroundColor
+                    borderColor: answer.backgroundColor,
                 });
             }
 
-            this._getAnswerRankNode(code).text(value);
+            this._getAnswerRankNode(answer.code).text(value);
+
+            if (!this._settings.isAccessible && answer.isOther) {
+                this._getAnswerNode(answer.code).attr(
+                    'aria-label',
+                    this._getAnswerNode(answer.code)
+                        .attr('aria-label')
+                        .replace(/^[-0-9]{1,2} /, `${value} `)
+                );
+            } else {
+                this._getAnswerNode(answer.code).attr(
+                    'aria-labelledby',
+                    `${this._getAnswerRankNodeId(answer.code)} ${this._getAnswerTextNodeId(answer.code)}`
+                );
+            }
         });
     }
 
-    _updateAnswerOtherNodes({values = [], otherValues = []}) {
+    _updateAnswerOtherNodes({ values = [], otherValues = [] }) {
         if (values.length > 0) {
-            this._question.answers.filter(answer => answer.isOther).forEach(answer => {
-                const isSelected = this._isSelected(answer);
+            this._question.answers
+                .filter(answer => answer.isOther)
+                .forEach(answer => {
+                    const isSelected = this._isSelected(answer);
 
-                const answerOtherNode = this._getAnswerOtherNode(answer.code);
-                answerOtherNode
-                    .attr('tabindex', isSelected ? '0' : '-1')
-                    .attr('aria-hidden', isSelected ? 'false' : 'true');
+                    const answerOtherNode = this._getAnswerOtherNode(answer.code);
+                    answerOtherNode
+                        .attr('tabindex', isSelected ? '0' : '-1')
+                        .attr('aria-hidden', isSelected ? 'false' : 'true');
 
-                if (MultiCountHelper.isMultiCountSet(this._question.multiCount)) {
-                    const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(
-                        Object.values(this._question.values).length,
-                        this._question.multiCount
-                    );
-                    answerOtherNode.attr('disabled', isMaxMultiCountReached && !isSelected);
-                }
-            });
+                    if (MultiCountHelper.isMultiCountSet(this._question.multiCount)) {
+                        const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(
+                            Object.values(this._question.values).length,
+                            this._question.multiCount
+                        );
+                        answerOtherNode.attr('disabled', isMaxMultiCountReached && !isSelected);
+                    }
+                });
         }
 
-        super._updateAnswerOtherNodes({otherValues});
+        super._updateAnswerOtherNodes({ otherValues });
     }
 
     _attachHandlersToDOM() {
@@ -187,7 +220,12 @@ export default class RankingQuestionView extends QuestionWithAnswersView {
     }
 
     _selectAnswer(answer) {
-        if (MultiCountHelper.isMaxMultiCountReached(Object.values(this._question.values).length, this._question.multiCount)) {
+        if (
+            MultiCountHelper.isMaxMultiCountReached(
+                Object.values(this._question.values).length,
+                this._question.multiCount
+            )
+        ) {
             return;
         }
 
@@ -202,8 +240,7 @@ export default class RankingQuestionView extends QuestionWithAnswersView {
 
         this._question.setValue(answer.code, null);
         Object.entries(this._question.values).forEach(([code, value]) => {
-            if (value > oldValue)
-                this._question.setValue(code, value - 1);
+            if (value > oldValue) this._question.setValue(code, value - 1);
         });
     }
 
@@ -215,21 +252,23 @@ export default class RankingQuestionView extends QuestionWithAnswersView {
             3) if other input value is changed
          */
         const answersStatuses = [];
-        Object.entries(this._question.values).sort((a, b) => a[1] - b[1]).forEach(([answerCode, rank]) => {
-            const answer = this._question.getAnswer(answerCode);
-            let answerStatus = `${rank} ${answer.text}`;
-            if (answer.isOther && !Utils.isEmpty(this._question.otherValues[answerCode])) {
-                answerStatus += `(${this._question.otherValues[answerCode]})`;
-            }
+        Object.entries(this._question.values)
+            .sort((a, b) => a[1] - b[1])
+            .forEach(([answerCode, rank]) => {
+                const answer = this._question.getAnswer(answerCode);
+                let answerStatus = `${rank} ${answer.text}`;
+                if (answer.isOther && !Utils.isEmpty(this._question.otherValues[answerCode])) {
+                    answerStatus += `(${this._question.otherValues[answerCode]})`;
+                }
 
-            answersStatuses.push(answerStatus);
-        });
+                answersStatuses.push(answerStatus);
+            });
 
         const status = `${this._question.text}: ${answersStatuses.join(', ')}`;
         this._rankingStatusNode.html(status);
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
         this._updateAnswerOtherNodes(changes);
         this._updateRankingStatus(changes);

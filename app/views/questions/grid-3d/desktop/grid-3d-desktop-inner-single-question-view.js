@@ -1,4 +1,4 @@
-import Grid3DDesktopInnerQuestionView from "./grid-3d-desktop-inner-question-view";
+import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
 
 export default class Grid3DDesktopInnerSingleQuestionView extends Grid3DDesktopInnerQuestionView {
     constructor(parentQuestion, question, settings = null) {
@@ -21,7 +21,7 @@ export default class Grid3DDesktopInnerSingleQuestionView extends Grid3DDesktopI
         return answer.imagesSettings !== null ? 'cf-image--selected' : 'cf-radio--selected';
     }
 
-    _updateAnswerNodes({value}) {
+    _updateAnswerNodes({ value }) {
         if (value === undefined) {
             return;
         }
@@ -43,13 +43,11 @@ export default class Grid3DDesktopInnerSingleQuestionView extends Grid3DDesktopI
         this._getAnswerNode(answer.code).addClass(this._getSelectedAnswerClass(answer));
         const controlNode = this._getAnswerControlNode(answer.code);
 
-        controlNode
-            .addClass(this._getSelectedControlClass(answer))
-            .attr('aria-checked', 'true');
-            //.attr('tabindex', '0');
+        controlNode.addClass(this._getSelectedControlClass(answer)).attr('aria-checked', 'true');
+        //.attr('tabindex', '0');
 
         if (answer.backgroundColor !== null) {
-            controlNode.css({backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor});
+            controlNode.css({ backgroundColor: answer.backgroundColor, borderColor: answer.backgroundColor });
         }
     }
 
@@ -67,7 +65,7 @@ export default class Grid3DDesktopInnerSingleQuestionView extends Grid3DDesktopI
         this._question.setValue(answer.code);
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
     }
 }

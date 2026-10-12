@@ -17,6 +17,8 @@ export default class CodeCaptureQuestion extends Question {
 
         this._value = model.value;
         this._cameraOnly = model.cameraOnly || false;
+        this._rows = model.rows;
+        this._columns = model.columns;
     }
 
     /**
@@ -26,6 +28,24 @@ export default class CodeCaptureQuestion extends Question {
      */
     get cameraOnly() {
         return this._cameraOnly;
+    }
+
+    /**
+     * Text input rows.
+     * @type {number}
+     * @readonly
+     */
+    get rows() {
+        return this._rows;
+    }
+
+    /**
+     * Text input columns.
+     * @type {number}
+     * @readonly
+     */
+    get columns() {
+        return this._columns;
     }
 
     /**

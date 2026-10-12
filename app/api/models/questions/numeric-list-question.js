@@ -1,4 +1,5 @@
 import QuestionWithAnswers from './../base/question-with-answers.js';
+import AllowForNoResponseMixin from '../base/allow-for-no-response-mixin';
 import ValidationTypes from '../validation/validation-types.js';
 import RuleValidationResult from '../validation/rule-validation-result.js';
 import Utils from 'utils.js';
@@ -6,7 +7,7 @@ import Utils from 'utils.js';
 /**
  * @extends {QuestionWithAnswers}
  */
-export default class NumericListQuestion extends QuestionWithAnswers {
+export class NumericListQuestion extends QuestionWithAnswers {
     /**
      * Create instance.
      * @param {object} model - The instance of the model.
@@ -193,6 +194,10 @@ export default class NumericListQuestion extends QuestionWithAnswers {
     }
 
     _setValue(answerCode, answerValue) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         answerCode = answerCode.toString();
         answerValue = Utils.isEmpty(answerValue) ? null : answerValue.toString();
 
@@ -215,7 +220,7 @@ export default class NumericListQuestion extends QuestionWithAnswers {
     }
 
     _clearValues() {
-        if (this._values === {}) {
+        if (Object.keys(this._values).length === 0) {
             return false;
         }
 
@@ -256,7 +261,7 @@ export default class NumericListQuestion extends QuestionWithAnswers {
 
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isNormalAnswer = !answer.isOther;
             let isEmpty = Utils.isEmpty(this.values[answer.code]);
 
@@ -270,7 +275,7 @@ export default class NumericListQuestion extends QuestionWithAnswers {
     _validateOther() {
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isOtherAnswer = answer.isOther;
             let isNotEmpty = !Utils.isEmpty(this.values[answer.code]);
             let otherIsEmpty = Utils.isEmpty(this.otherValues[answer.code]);
@@ -372,7 +377,7 @@ export default class NumericListQuestion extends QuestionWithAnswers {
             // bypass if not required and not answered
             return new RuleValidationResult(true);
 
-        const hasNotANumberValue = values.find((value) => Utils.isNotANumber(value));
+        const hasNotANumberValue = values.find(value => Utils.isNotANumber(value));
         if (hasNotANumberValue)
             // bypass if invalid type in values
             return new RuleValidationResult(true);
@@ -386,5 +391,25 @@ export default class NumericListQuestion extends QuestionWithAnswers {
         if (!Utils.isEmpty(max) && sum > max) return new RuleValidationResult(false);
 
         return new RuleValidationResult(true);
+    }
+}
+
+export default class AllowForNoResponseNumericListQuestion extends AllowForNoResponseMixin(NumericListQuestion) {
+    constructor(rawModel) {
+        super(rawModel, () => Object.keys(this._values).length === 0);
+    }
+
+    _validateMultiSum() {
+        if (this._isAllowedForNoResponseAndHasNoResponseValue()) {
+            return new RuleValidationResult(true);
+        }
+        return super._validateMultiSum();
+    }
+
+    _validateMultiCount() {
+        if (this._isAllowedForNoResponseAndHasNoResponseValue()) {
+            return new RuleValidationResult(true);
+        }
+        return super._validateMultiCount();
     }
 }

@@ -25,11 +25,11 @@ export default class Event {
      * @param {function} subscriber - Event handler function.
      */
     on(subscriber) {
-        if(this._subscribers.find(item => item === subscriber) !== undefined) {
+        if (this._subscribers.find(item => item === subscriber) !== undefined) {
             return;
         }
 
-        this._subscribers.push(subscriber)
+        this._subscribers.push(subscriber);
     }
 
     /**

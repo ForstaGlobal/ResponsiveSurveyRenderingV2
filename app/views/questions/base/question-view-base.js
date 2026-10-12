@@ -1,4 +1,4 @@
-import Event from "../../../event";
+import Event from '../../../event';
 
 export default class QuestionViewBase {
     /**
@@ -31,11 +31,11 @@ export default class QuestionViewBase {
     }
 
     set pending(value) {
-        if(this._pending === value) {
+        if (this._pending === value) {
             return;
         }
         this._pending = value;
-        this._pendingChangeEvent.trigger({id: this._question.id, pending: this._pending});
+        this._pendingChangeEvent.trigger({ id: this._question.id, pending: this._pending });
     }
 
     detach() {
@@ -52,9 +52,7 @@ export default class QuestionViewBase {
         this._question.validationCompleteEvent.on(this._boundOnValidationComplete);
     }
 
-    _onValidationComplete() {
-    }
+    _onValidationComplete() {}
 
-    _onModelValueChange() {
-    }
+    _onModelValueChange() {}
 }

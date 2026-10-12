@@ -1,6 +1,6 @@
-import Grid3DDesktopInnerQuestionView from "./grid-3d-desktop-inner-question-view";
-import HorizontalSlider from "../../../controls/slider/horizontal-slider";
-import HorizontalRtlSlider from "../../../controls/slider/horizontal-rtl-slider";
+import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
+import HorizontalSlider from '../../../controls/slider/horizontal-slider';
+import HorizontalRtlSlider from '../../../controls/slider/horizontal-rtl-slider';
 
 export default class Grid3DDesktopInnerSliderGridQuestionView extends Grid3DDesktopInnerQuestionView {
     constructor(parentQuestion, question, settings = null) {
@@ -12,7 +12,7 @@ export default class Grid3DDesktopInnerSliderGridQuestionView extends Grid3DDesk
     }
 
     detach() {
-        super.detach()
+        super.detach();
 
         for (let slider of this._sliders.values()) {
             slider.detach();
@@ -21,8 +21,10 @@ export default class Grid3DDesktopInnerSliderGridQuestionView extends Grid3DDesk
 
     _init() {
         const sliderValues = this._question.scales.map(scale => scale.code);
-        const sliderTextValueHandler = (sliderValue) => {
-            return sliderValue === null ? this._settings.messages.noResponse : this._question.getScale(sliderValue).text;
+        const sliderTextValueHandler = sliderValue => {
+            return sliderValue === null
+                ? this._settings.messages.noResponse
+                : this._question.getScale(sliderValue).text;
         };
 
         this._question.answers.forEach(answer => {
@@ -49,16 +51,15 @@ export default class Grid3DDesktopInnerSliderGridQuestionView extends Grid3DDesk
         return new HorizontalSlider(sliderNode, sliderValues, sliderValue, textValueHandler, false, readOnly);
     }
 
-    _updateSliders({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateSliders({ values = [] }) {
+        if (values.length === 0) return;
 
         values.forEach(answerCode => {
             this._sliders.get(answerCode).value = this._question.values[answerCode] || null;
         });
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateSliders(changes);
     }
 

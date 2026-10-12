@@ -10,14 +10,13 @@ import Grid3DMobileInnerRankByNumberQuestionView from './grid-3d-mobile-inner-ra
 import Grid3DMobileInnerHorizontalRatingGridQuestionView from './grid-3d-mobile-inner-horizontal-rating-grid-question-view';
 import Grid3DMobileInnerGridBarsGridQuestionView from './grid-3d-mobile-inner-grid-bars-grid-question-view';
 import Grid3DMobileInnerStarRatingGridQuestionView from './grid-3d-mobile-inner-star-rating-grid-question-view';
-import Grid3DMobileInnerSliderGridQuestionView from "./grid-3d-mobile-inner-slider-grid-question-view";
+import Grid3DMobileInnerSliderGridQuestionView from './grid-3d-mobile-inner-slider-grid-question-view';
 import QuestionTypes from 'api/question-types.js';
 
 /**
  * @desc Question view factory
  */
 export default class Grid3DMobileInnerQuestionViewFactory {
-
     constructor(question, settings) {
         this._question = question;
         this._settings = settings;
@@ -32,12 +31,20 @@ export default class Grid3DMobileInnerQuestionViewFactory {
         switch (innerQuestion.type) {
             case QuestionTypes.Single:
                 if (innerQuestion.answerButtons) {
-                    return new Grid3DMobileInnerSingleAnswerButtonsQuestionView(this._question, innerQuestion, this._settings);
+                    return new Grid3DMobileInnerSingleAnswerButtonsQuestionView(
+                        this._question,
+                        innerQuestion,
+                        this._settings
+                    );
                 }
                 return new Grid3DMobileInnerSingleQuestionView(this._question, innerQuestion, this._settings);
             case QuestionTypes.Multi:
                 if (innerQuestion.answerButtons) {
-                    return new Grid3DMobileInnerMultiAnswerButtonsQuestionView(this._question, innerQuestion, this._settings);
+                    return new Grid3DMobileInnerMultiAnswerButtonsQuestionView(
+                        this._question,
+                        innerQuestion,
+                        this._settings
+                    );
                 }
                 return new Grid3DMobileInnerMultiQuestionView(this._question, innerQuestion, this._settings);
             case QuestionTypes.OpenTextList:
@@ -53,7 +60,11 @@ export default class Grid3DMobileInnerQuestionViewFactory {
                 }
                 return new Grid3DMobileInnerGridQuestionView(this._question, innerQuestion, this._settings);
             case QuestionTypes.HorizontalRatingScale:
-                return new Grid3DMobileInnerHorizontalRatingGridQuestionView(this._question, innerQuestion, this._settings);
+                return new Grid3DMobileInnerHorizontalRatingGridQuestionView(
+                    this._question,
+                    innerQuestion,
+                    this._settings
+                );
             case QuestionTypes.GridBars:
                 return new Grid3DMobileInnerGridBarsGridQuestionView(this._question, innerQuestion, this._settings);
             case QuestionTypes.StarRating:

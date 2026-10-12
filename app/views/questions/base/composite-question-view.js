@@ -13,7 +13,7 @@ export default class CompositeQuestionView extends QuestionView {
 
         this._questionViews = questionViews;
         this._questionViews.forEach(view => {
-           view.pendingChangeEvent.on(this._onQuestionViewPendingChange);
+            view.pendingChangeEvent.on(this._onQuestionViewPendingChange);
         });
     }
 
@@ -26,7 +26,7 @@ export default class CompositeQuestionView extends QuestionView {
 
     _onQuestionViewPendingChange() {
         const viewsHasPending = this._questionViews.some(view => view.pending);
-        if(viewsHasPending === this.pending) {
+        if (viewsHasPending === this.pending) {
             return;
         }
 

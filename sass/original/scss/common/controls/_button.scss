@@ -1,0 +1,30 @@
+@use "../../_mixins/old-browsers-wrappers";
+@use "../../variables";
+
+.cf-button {
+  color: variables.$question-font-color;
+  background-color: variables.$control-primary-color;
+  max-width: 100%;
+  min-height: 3em;
+  padding: 0 1em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+/* fix for min-height flex bug in IE11 */
+@include old-browsers-wrappers.ie-only-wrapper {
+  .cf-button::before {
+    content: "";
+    visibility: hidden;
+    width: 0;
+    height: 3em;
+  }
+}
+
+.cf-button--selected {
+  color: variables.$question-bg-color;
+  border-color: variables.$control-active-color;
+  background-color: variables.$control-active-color;
+}

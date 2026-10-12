@@ -11,6 +11,7 @@ import NumericListQuestionView from './questions/numeric-list-question-view.js';
 import DateQuestionView from './questions/date-question-view.js';
 import DateQuestionPolyfillView from './questions/date-question-polyfill-view.js';
 import EmailQuestionView from './questions/email-question-view';
+import AssistedOpenTextQuestionView from './questions/assisted-open-text-question-view';
 import { RankingQuestionViewWithStoredOtherValues } from './questions/ranking-question-view.js';
 import RankByNumberQuestionView from './questions/rank-by-number-question-view';
 import RankByDragQuestionView from './questions/rank-by-drag-question-view';
@@ -28,6 +29,7 @@ import CarouselHorizontalRatingGridQuestionView from './questions/carousel-horiz
 import CarouselGridBarsGridQuestionView from './questions/carousel-grid-bars-grid-question-view.js';
 import CarouselStarRatingGridQuestionView from './questions/carousel-star-rating-grid-question-view.js';
 import AccordionGridQuestionView from './questions/accordion-grid-question-view.js';
+import AccordionAnswerButtonsGridQuestionView from './questions/accordion-answer-buttons-grid-question-view.js';
 import CardSortGridQuestionView from './questions/card-sort-grid-question-view.js';
 import DropdownSingleQuestionView from './questions/dropdown-single-question-view.js';
 import DropdownGridQuestionView from './questions/dropdown-grid-question-view.js';
@@ -38,16 +40,20 @@ import GeolocationQuestionView from './questions/geolocation-question-view.js';
 import ImageUploadQuestionView from './questions/image-upload-question-view.js';
 import LoginPageQuestionView from './questions/login-page-question-view.js';
 import Grid3DQuestionView from './questions/grid-3d-question-view.js';
-import MaxDiffQuestionView from './questions/max-diff/max-diff-question-view.js';
+import BestWorstQuestionView from './questions/best-worst/best-worst-question-view.js';
 import { SliderSingleQuestionViewWithStoredOtherValues } from './questions/slider-single-question-view.js';
 import SliderGridQuestionView from './questions/slider-grid-question-view.js';
 import SliderNumericQuestionView from './questions/slider-numeric-question-view.js';
 import SliderNumericListQuestionView from './questions/slider-numeric-list-question-view';
-import VideoUploadQuestionView from './questions/video-upload-question-view';
+import VideoUploadQuestionView from './questions/video-upload/video-upload-question-view';
 import AudioUploadQuestionView from './questions/audio-upload-question-view';
+import FileUploaderQuestionView from './questions/file-upload-question-view';
 import CodeCaptureQuestionView from './questions/code-capture-question-view';
 import SearchableMultiQuestionView from './questions/searchable-multi-question-view';
 import SearchableSingleQuestionView from './questions/searchable-single-question-view';
+import ThumbRatingQuestionView from './questions/thumb-rating-question-view';
+import MaxDiffQuestionView from './questions/max-diff-question-view';
+import AnswerButtonsMaxDiffQuestionView from './questions/answer-buttons-max-diff-question-view';
 
 /**
  * @desc Question view factory
@@ -100,6 +106,8 @@ export default class QuestionViewFactory {
                 return this._createDateQuestionView(model);
             case QuestionTypes.EmailOpen:
                 return new EmailQuestionView(model);
+            case QuestionTypes.AssistedOpen:
+                return new AssistedOpenTextQuestionView(model, this._questionViewSettings);
             case QuestionTypes.Ranking:
                 return this._createRankingQuestionView(model);
             case QuestionTypes.HorizontalRatingScaleSingle:
@@ -122,6 +130,8 @@ export default class QuestionViewFactory {
                 return new VideoUploadQuestionView(model, this._questionViewSettings);
             case QuestionTypes.AudioCapture:
                 return new AudioUploadQuestionView(model, this._questionViewSettings);
+            case QuestionTypes.FileUpload:
+                return new FileUploaderQuestionView(model, this._questionViewSettings);
             case QuestionTypes.CodeCapture:
                 return new CodeCaptureQuestionView(model, this._questionViewSettings);
             case QuestionTypes.DynamicQuestionPlaceholder:
@@ -134,6 +144,8 @@ export default class QuestionViewFactory {
                 return new SearchableMultiQuestionView(model, this._questionViewSettings);
             case QuestionTypes.SearchableSingle:
                 return new SearchableSingleQuestionView(model, this._questionViewSettings);
+            case QuestionTypes.MaxDiff:
+                return this._createMaxDiffQuestionView(model);
             default:
                 return;
         }
@@ -146,6 +158,10 @@ export default class QuestionViewFactory {
 
         if (model.slider) {
             return new SliderSingleQuestionViewWithStoredOtherValues(model, this._questionViewSettings);
+        }
+
+        if (model.thumbRating) {
+            return new ThumbRatingQuestionView(model, this._questionViewSettings);
         }
 
         if (model.answerButtons) {
@@ -176,6 +192,9 @@ export default class QuestionViewFactory {
         }
 
         if (model.accordion) {
+            if (model.answerButtons) {
+                return new AccordionAnswerButtonsGridQuestionView(model, this._questionViewSettings);
+            }
             return new AccordionGridQuestionView(model, this._questionViewSettings);
         }
 
@@ -208,7 +227,7 @@ export default class QuestionViewFactory {
         }
 
         if (model.maxDiff) {
-            return new MaxDiffQuestionView(model, this._questionViewSettings);
+            return new BestWorstQuestionView(model, this._questionViewSettings);
         }
 
         return new Grid3DQuestionView(model, this._questionViewSettings);
@@ -275,5 +294,13 @@ export default class QuestionViewFactory {
         }
 
         return new RankingQuestionViewWithStoredOtherValues(model, this._questionViewSettings);
+    }
+
+    _createMaxDiffQuestionView(model) {
+        if (model.answerButtons) {
+            return new AnswerButtonsMaxDiffQuestionView(model, this._questionViewSettings);
+        }
+
+        return new MaxDiffQuestionView(model, this._questionViewSettings);
     }
 }

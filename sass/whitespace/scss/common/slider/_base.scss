@@ -1,0 +1,65 @@
+@use "../../variables";
+@use "slider-variables";
+
+/**
+ * Base style for slider
+ */
+.cf-slider__track-area {
+  cursor: pointer;
+}
+
+.cf-slider__track {
+  background: variables.$primary-shade-4;
+  z-index: slider-variables.$z-cf-slider__track;
+  position: relative;
+  cursor: pointer;
+}
+
+.cf-slider__track-highlight {
+  background: variables.$control-active-color;
+  z-index: slider-variables.$z-cf-slider__track-highlight;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: width 0.2s ease-in, height 0.2s ease-in;
+}
+
+.cf-slider__no-value {
+  position: absolute;
+  width: slider-variables.$cf-slider__handle-width;
+  height: slider-variables.$cf-slider__handle-height;
+  border-radius: slider-variables.$cf-slider__handle-border-radius;
+  border: 1px dashed variables.$control-active-color;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
+}
+
+.cf-slider__handle {
+  transition: left 0.2s ease-in, top 0.2s ease-in, right 0.2s ease-in;
+  width: slider-variables.$cf-slider__handle-width;
+  height: slider-variables.$cf-slider__handle-height;
+  border: slider-variables.$cf-slider__handle-border;
+  border-radius: slider-variables.$cf-slider__handle-border-radius;
+  background: slider-variables.$cf-slider__handle-background;
+  background-image: none;
+  z-index: slider-variables.$z-cf-slider__track-handle;
+  position: absolute;
+  cursor: pointer;
+  touch-action: none;
+
+  &--no-value {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: slider-variables.$cf-slider__handle-width * 0.5;
+  }
+}
+
+.cf-slider--sliding {
+  .cf-slider__handle {
+    transition: none;
+  }
+
+  .cf-slider__track-highlight {
+    transition: none;
+  }
+}

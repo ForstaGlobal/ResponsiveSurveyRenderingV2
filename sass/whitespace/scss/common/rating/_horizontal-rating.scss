@@ -1,0 +1,135 @@
+@use "../../_mixins/old-browsers-wrappers";
+@use "../../variables";
+
+.cf-horizontal-rating-scale {
+  display: flex;
+  flex: 0 0 auto;
+
+  &__item {
+    flex: 0 1 auto;
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.cf-horizontal-rating-scale--rtl {
+  .cf-horizontal-rating-scale__item {
+    margin-left: 8px;
+    margin-right: 0;
+
+    &:first-child {
+      margin-left: 8px;
+    }
+
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
+
+
+.cf-horizontal-rating-item {
+  min-width: variables.$control-size + 16px;
+  min-height: variables.$control-size + 16px;
+  height: 100%;
+  padding: 0 4px;
+  border: 1px solid variables.$primary-shade-3;
+  border-radius: 2px;
+  color: variables.$control-active-color;
+  text-align: center;
+  font-size: variables.$font-size - 2px;
+
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &--selected {
+    border-color: variables.$control-active-color;
+    background: variables.$control-active-color;
+    color: variables.$question-bg-color;
+  }
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-horizontal-rating-item {
+    min-width: variables.$control-size;
+    min-height: variables.$control-size;
+  }
+
+  .cf-horizontal-rating-scale__item {
+    margin-right: 4px;
+  }
+
+  .cf-horizontal-rating-scale--rtl .cf-horizontal-rating-scale__item {
+    margin-left: 4px;
+
+    &:first-child {
+      margin-left: 4px;
+    }
+  }
+}
+
+.cf-non-scored-rating-scale {
+  display: flex;
+
+  &__item {
+    flex: 0 1 auto;
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.cf-non-scored-rating-scale--rtl {
+  .cf-non-scored-rating-scale {
+    &__item {
+      margin-left: 8px;
+      margin-right: 0;
+
+      &:first-child {
+        margin-left: 8px;
+      }
+
+      &:last-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.cf-non-scored-rating-item {
+  min-width: variables.$control-size + 16px;
+  min-height: variables.$control-size + 16px;
+  padding: 0 12px;
+  border-radius: 2px;
+  background: variables.$primary-shade-5;
+  color: variables.$control-active-color;
+  text-align: center;
+  font-size: variables.$font-size - 2px;
+
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &--selected {
+    border-color: variables.$control-active-color;
+    background: variables.$control-active-color;
+    color: variables.$question-bg-color;
+  }
+}
+
+@include old-browsers-wrappers.ie-only-wrapper {
+  .cf-non-scored-rating-item {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+}

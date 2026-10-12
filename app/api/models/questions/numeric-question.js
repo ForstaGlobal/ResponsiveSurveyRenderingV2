@@ -1,4 +1,5 @@
 import Question from './../base/question.js';
+import AllowForNoResponseMixin from '../base/allow-for-no-response-mixin';
 import ValidationTypes from '../validation/validation-types.js';
 import RuleValidationResult from '../validation/rule-validation-result.js';
 import Utils from 'utils.js';
@@ -6,7 +7,7 @@ import Utils from 'utils.js';
 /**
  * @extends {Question}
  */
-export default class NumericQuestion extends Question {
+export class NumericQuestion extends Question {
     /**
      * Create instance.
      * @param {object} model - The instance of the model.
@@ -17,6 +18,7 @@ export default class NumericQuestion extends Question {
         this._numeric = { ...model.numeric };
         this._slider = model.slider || false;
         this._sliderIsVertical = model.sliderIsVertical || false;
+        this._columns = model.columns;
 
         this._value = model.value || null;
     }
@@ -68,6 +70,15 @@ export default class NumericQuestion extends Question {
     }
 
     /**
+     * Numeric input columns.
+     * @type {number}
+     * @readonly
+     */
+    get columns() {
+        return this._columns;
+    }
+
+    /**
      * Select answer for numeric.
      * @param {number|string} value - Question value.
      */
@@ -83,6 +94,10 @@ export default class NumericQuestion extends Question {
     }
 
     _setValue(value) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         value = Utils.isEmpty(value) ? null : value.toString();
 
         if (this._value === value) {
@@ -161,5 +176,11 @@ export default class NumericQuestion extends Question {
         if (!Utils.isEmpty(max) && this.value > max) return new RuleValidationResult(false);
 
         return new RuleValidationResult(true);
+    }
+}
+
+export default class AllowForNoResponseNumericQuestion extends AllowForNoResponseMixin(NumericQuestion) {
+    constructor(rawModel) {
+        super(rawModel, () => this._value === null);
     }
 }

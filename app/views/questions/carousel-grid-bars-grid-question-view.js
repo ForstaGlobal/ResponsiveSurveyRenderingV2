@@ -13,8 +13,13 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
     constructor(question, settings) {
         super(question, settings);
 
-        this._carouselItems = this._question.answers.map(answer =>
-            new CarouselItem(this._getCarouselItemId(answer.code), !Utils.isEmpty(this._question.values[answer.code])));
+        this._carouselItems = this._question.answers.map(
+            answer =>
+                new CarouselItem(
+                    this._getCarouselItemId(answer.code),
+                    !Utils.isEmpty(this._question.values[answer.code])
+                )
+        );
         this._carousel = new Carousel(this._container.find('.cf-carousel'), this._carouselItems);
         this._carousel.moveEvent.on(() => this._onCarouselMove());
         this._moveToFirstError = true;
@@ -27,6 +32,10 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
         return this._getAnswerNodeId(answerCode);
     }
 
+    _getScaleGroupNode(answerCode) {
+        return this._getAnswerNode(answerCode).find('.cf-gb-single');
+    }
+
     _getClickableScaleNode(answer, scale) {
         if (this._isItemInScale(scale.code)) {
             return this._getScaleControlNode(answer.code, scale.code);
@@ -35,14 +44,13 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
     }
 
     _getSelectedControlClass(scaleCode) {
-        return this._isItemInScale(scaleCode) ? "cf-grid-bars-item--selected" : "cf-radio--selected";
+        return this._isItemInScale(scaleCode) ? 'cf-grid-bars-item--selected' : 'cf-radio--selected';
     }
 
-    _updateAnswerScaleNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerScaleNodes({ values = [] }) {
+        if (values.length === 0) return;
 
-        super._updateAnswerScaleNodes({values});
+        super._updateAnswerScaleNodes({ values });
 
         values.forEach(answerCode => {
             this._scales
@@ -60,14 +68,14 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
         super._selectScaleControlNode(answerCode, scaleCode);
 
         const selectedScaleIndex = this._question.scaleItems.findIndex(item => item.code === scaleCode);
-        if(selectedScaleIndex > -1) {
+        if (selectedScaleIndex > -1) {
             this._question.scaleItems.forEach((scale, scaleIndex) => {
                 if (scaleIndex <= selectedScaleIndex) {
-                    this._getScaleTextNode(answerCode, scale.code)
-                        .addClass('cf-grid-bars-scale-texts-panel__item--selected');
+                    this._getScaleTextNode(answerCode, scale.code).addClass(
+                        'cf-grid-bars-scale-texts-panel__item--selected'
+                    );
                 }
             });
-
         }
     }
 
@@ -82,7 +90,8 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
     _clearAnswerHoverStyles(answerCode) {
         super._clearAnswerHoverStyles(answerCode);
 
-        this._getAnswerNode(answerCode).find('.cf-grid-bars-scale-texts-panel__item')
+        this._getAnswerNode(answerCode)
+            .find('.cf-grid-bars-scale-texts-panel__item')
             .removeClass('cf-grid-bars-scale-texts-panel__item--hover');
     }
 
@@ -104,7 +113,9 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
         this._question.answers.forEach((answer, answerIndex) => {
             const carouselItem = this._carouselItems[answerIndex];
             if (answer.isOther) {
-                carouselItem.isComplete = this._question.values[answer.code] !== undefined && this._question.otherValues[answer.code] !== undefined;
+                carouselItem.isComplete =
+                    this._question.values[answer.code] !== undefined &&
+                    this._question.otherValues[answer.code] !== undefined;
             } else {
                 carouselItem.isComplete = this._question.values[answer.code] !== undefined;
             }
@@ -117,7 +128,9 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
         }
 
         const otherIsChanged = changes.otherValues !== undefined;
-        const answerCompleteStatusIsChangedToComplete = this._carousel.currentItem.isComplete === true && this._carousel.currentItem.isComplete !== currentItemIsCompleteBefore;
+        const answerCompleteStatusIsChangedToComplete =
+            this._carousel.currentItem.isComplete === true &&
+            this._carousel.currentItem.isComplete !== currentItemIsCompleteBefore;
         if (answerCompleteStatusIsChangedToComplete && !otherIsChanged) {
             this._carousel.moveNext();
         }
@@ -132,12 +145,16 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
     }
 
     _showErrors(validationResult) {
-        const invalidAnswerValidationResults = validationResult.answerValidationResults.filter(result => !result.isValid);
+        const invalidAnswerValidationResults = validationResult.answerValidationResults.filter(
+            result => !result.isValid
+        );
 
         // update carousel paging state
         if (invalidAnswerValidationResults.length > 0) {
-            const answersWithError = invalidAnswerValidationResults.map(result => this._getCarouselItemId(result.answerCode));
-            this._carouselItems.forEach(item => item.isError = answersWithError.includes(item.id));
+            const answersWithError = invalidAnswerValidationResults.map(result =>
+                this._getCarouselItemId(result.answerCode)
+            );
+            this._carouselItems.forEach(item => (item.isError = answersWithError.includes(item.id)));
         }
 
         // accessible flow
@@ -150,7 +167,9 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
         super._showErrors(validationResult);
 
         if (invalidAnswerValidationResults.length > 0) {
-            let currentPageValidationResult = invalidAnswerValidationResults.find(result => this._getCarouselItemId(result.answerCode) === this._carousel.currentItem.id);
+            let currentPageValidationResult = invalidAnswerValidationResults.find(
+                result => this._getCarouselItemId(result.answerCode) === this._carousel.currentItem.id
+            );
             if (!currentPageValidationResult && this._moveToFirstError) {
                 const index = this._carouselItems.findIndex(item => item.isError);
                 if (index !== -1) {
@@ -159,7 +178,9 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
             }
 
             if (currentPageValidationResult) {
-                const currentPageOtherError = currentPageValidationResult.errors.find(error => error.type === 'OtherRequired');
+                const currentPageOtherError = currentPageValidationResult.errors.find(
+                    error => error.type === 'OtherRequired'
+                );
                 if (currentPageOtherError) {
                     // have to wait transition end; don't want to subscribe on transitionend event.
                     setTimeout(() => this._getAnswerOtherNode(this._carousel.currentItem.id).focus(), 500);
@@ -173,13 +194,17 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
     }
 
     _accessibleShowErrors(validationResult) {
-        const invalidAnswerValidationResults = validationResult.answerValidationResults.filter(result => !result.isValid);
+        const invalidAnswerValidationResults = validationResult.answerValidationResults.filter(
+            result => !result.isValid
+        );
 
         if (invalidAnswerValidationResults.length === 0) {
             return;
         }
 
-        const currentPageValidationResult = invalidAnswerValidationResults.find(result => this._getCarouselItemId(result.answerCode) === this._carousel.currentItem.id);
+        const currentPageValidationResult = invalidAnswerValidationResults.find(
+            result => this._getCarouselItemId(result.answerCode) === this._carousel.currentItem.id
+        );
         if (!currentPageValidationResult) {
             const index = this._carouselItems.findIndex(item => item.isError);
             if (index !== -1) {
@@ -193,11 +218,11 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
 
     _hideErrors() {
         super._hideErrors();
-        this._carouselItems.forEach(item => item.isError = false);
+        this._carouselItems.forEach(item => (item.isError = false));
     }
 
-    _onModelValueChange({changes}) {
-        super._onModelValueChange({changes});
+    _onModelValueChange({ changes }) {
+        super._onModelValueChange({ changes });
 
         const currentCarouselItemIsCompleteBefore = this._carousel.currentItem.isComplete;
         this._updateCarouselComplete();
@@ -219,7 +244,8 @@ export default class CarouselGridBarsGridQuestionView extends GridBarsGridQuesti
 
         const isLastAnswer = this._currentAnswerIndex === this._answers.length - 1;
         const nextButtonIsFocused = activeElement.classList.contains('cf-carousel__navigation-button--next');
-        const scaleItemIsFocused = activeElement.classList.contains('cf-grid-bars-item') || activeElement.classList.contains('cf-radio');
+        const scaleItemIsFocused =
+            activeElement.classList.contains('cf-grid-bars-item') || activeElement.classList.contains('cf-radio');
 
         if (isLastAnswer && nextButtonIsFocused && this._currentAnswer.isOther) {
             event.preventDefault();

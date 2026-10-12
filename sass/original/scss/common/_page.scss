@@ -1,0 +1,129 @@
+@use "../variables";
+
+.cf-page {
+  margin: 0;
+  min-width: variables.$min-width;
+  background-color: variables.$window-bg-color;
+  background-image: variables.$window-bg-image;
+  background-position: center;
+  background-repeat: variables.$window-bg-repeat;
+  font-family: variables.$page-font;
+  font-size: variables.$font-size;
+  line-height: 1.4em;
+  color: variables.$question-font-color;
+
+  -webkit-text-size-adjust: none;
+
+  * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  &__main {
+    max-width: variables.$max-width - (2 * variables.$padding-desktop);
+    margin: variables.$padding-desktop auto;
+    overflow: auto;
+    height: auto;
+  }
+
+  &__question-list {
+    margin-bottom: variables.$padding-desktop;
+  }
+
+  &__navigation {
+    margin-top: variables.$padding-desktop;
+    margin-bottom: variables.$padding-desktop;
+  }
+
+  &__powered-by-confirmit {
+    margin-bottom: variables.$padding-desktop;
+  }
+
+  &__progress {
+    padding: 0 5%;
+    margin-bottom: variables.$padding-desktop;
+
+    &-inner {
+      margin: 0 auto;
+      width: 100%;
+      max-width: variables.$desktop-layout-delimiter;
+    }
+  }
+}
+
+@media (max-width: variables.$max-width) {
+  .cf-page__main {
+    margin: variables.$padding-desktop;
+  }
+}
+
+@media (max-width: variables.$delimiter-tablet) {
+  .cf-page {
+    &__main {
+      margin: variables.$padding-tablet;
+    }
+
+    &__question-list {
+      margin-bottom: variables.$padding-tablet;
+    }
+
+    &__navigation {
+      margin-top: variables.$padding-tablet;
+      margin-bottom: variables.$padding-tablet;
+    }
+
+    &__powered-by-confirmit {
+      margin-bottom: variables.$padding-tablet;
+    }
+
+    &__progress {
+      margin-bottom: variables.$padding-tablet;
+    }
+  }
+}
+
+@media (max-width: variables.$delimiter-mobile) {
+  .cf-page {
+    &__main {
+      margin: variables.$padding-mobile;
+    }
+
+    &__question-list {
+      margin-bottom: variables.$padding-mobile;
+    }
+
+    &__navigation {
+      margin-top: variables.$padding-mobile;
+      margin-bottom: variables.$padding-mobile;
+    }
+
+    &__powered-by-confirmit {
+      margin-bottom: variables.$padding-mobile;
+    }
+
+    &__progress {
+      margin-bottom: variables.$padding-mobile;
+    }
+  }
+}
+
+.cf-page--accessible {
+  * {
+    -webkit-tap-highlight-color: initial;
+  }
+
+  :focus {
+    outline: 1px variables.$control-active-color dotted;
+    outline-offset: 2px;
+  }
+
+  .cf-powered-by-confirmit__link {
+    opacity: 1;
+    background-position: top center;
+    transition: none;
+  }
+}

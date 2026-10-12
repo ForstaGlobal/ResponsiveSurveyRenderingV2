@@ -53,7 +53,7 @@ export default class MultiQuestionBase extends QuestionWithAnswers {
     get formValues() {
         let form = {};
 
-        this.values.forEach((answerCode) => {
+        this.values.forEach(answerCode => {
             let answer = this.getAnswer(answerCode);
             if (answer) {
                 form[answer.fieldName] = '1';
@@ -92,6 +92,10 @@ export default class MultiQuestionBase extends QuestionWithAnswers {
     }
 
     _setValue(answerCode, selected) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         const changed = selected ? this._addValue(answerCode) : this._removeValue(answerCode);
         return changed;
     }
@@ -123,13 +127,13 @@ export default class MultiQuestionBase extends QuestionWithAnswers {
             return false;
         }
 
-        this._values = this._values.filter((item) => item !== answerCode);
+        this._values = this._values.filter(item => item !== answerCode);
 
         return true;
     }
 
     _clearValues() {
-        if (this._values === []) {
+        if (this._values.length === 0) {
             return false;
         }
 
@@ -170,7 +174,7 @@ export default class MultiQuestionBase extends QuestionWithAnswers {
     _validateOther() {
         let invalidAnswers = [];
 
-        this.answers.forEach((answer) => {
+        this.answers.forEach(answer => {
             let isOther = answer.isOther;
             let isNotEmpty = this.values.includes(answer.code);
             let otherIsEmpty = Utils.isEmpty(this.otherValues[answer.code]);
@@ -207,7 +211,7 @@ export default class MultiQuestionBase extends QuestionWithAnswers {
     _validateRequiredIfOtherSpecified() {
         let invalidAnswers = [];
 
-        Object.keys(this.otherValues).forEach((otherAnswerCode) => {
+        Object.keys(this.otherValues).forEach(otherAnswerCode => {
             if (!this.values.includes(otherAnswerCode)) invalidAnswers.push(otherAnswerCode);
         });
 

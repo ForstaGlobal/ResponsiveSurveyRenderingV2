@@ -1,0 +1,77 @@
+@use "_mixins/old-browsers-wrappers";
+@use "variables";
+
+.cf-page-html-wrapper {
+  height: 100%;
+}
+
+.cf-page--reviewing {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+
+  .cf-page__main-wrapper {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 0 4px;
+  }
+
+  .cf-page__comments-panel {
+    flex: 0 0 auto;
+    overflow: auto;
+    background-color: white;
+  }
+
+  .cf-page__comments-panel > * {
+    width: 400px;
+  }
+}
+
+.cf-question__comments-button {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 variables.$font-size * 0.5;
+  height: 20px;
+}
+
+.sr-question-comments-button svg {
+  fill: variables.$control-primary-color;
+}
+
+.sr-question-comments-button--active svg {
+  fill: variables.$control-active-color;
+}
+
+.sr-question-attribute {
+  font-size: 12px;
+}
+
+.sr-test-navigator-wrapper {
+  z-index: 9999;
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .sr-test-navigator-wrapper {
+    display: none;
+  }
+
+  .cf-page--reviewing {
+    .cf-page__comments-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .cf-page__comments-panel > * {
+      width: 97vw;
+      overflow-y: auto;
+    }
+  }
+}
+
+@include old-browsers-wrappers.edge-only-wrapper {
+  .cf-page--reviewing {
+    height: 100vh;
+  }
+}

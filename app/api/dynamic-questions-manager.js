@@ -16,9 +16,11 @@ export default class DynamicQuestionsManager {
             this._pageView.getFormAction(),
             this._pageView.getFormMethod(),
             this._pageView.getHiddenInputs().concat(this._page.formValues),
-            this._processResponse.bind(this));
+            this._processResponse.bind(this)
+        );
     }
 
+    // TODO: RR V3: move view initialization(`this._pageView.replaceDynamicQuestion`) to subscription for `page:dynamic question change complete` event.
     _processResponse(result) {
         const rawModels = result.questions.map(question => JSON.parse(question.model));
         const models = this._page.replaceDynamicQuestions(rawModels);

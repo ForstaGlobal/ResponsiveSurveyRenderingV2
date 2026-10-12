@@ -1,7 +1,7 @@
 import QuestionErrorBlock from '../../error/question-error-block.js';
-import QuestionViewBase from "./question-view-base";
+import QuestionViewBase from './question-view-base';
 import $ from 'jquery';
-import QuestionIdProvider from "../../helpers/question-id-provider";
+import QuestionIdProvider from '../../helpers/question-id-provider';
 
 export default class QuestionView extends QuestionViewBase {
     /**
@@ -48,7 +48,6 @@ export default class QuestionView extends QuestionViewBase {
     _getQuestionContentNode() {
         return $('#' + this._idProvider.getQuestionContentNodeId());
     }
-
 
     _onValidationComplete(validationResult) {
         this._hideErrors();

@@ -1,0 +1,243 @@
+@use "../variables";
+
+.cf-dnd-ranking {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+
+	user-select: none;
+	-ms-user-select: none;
+
+	&__unranked-list,
+	&__ranked-list {
+		min-width: 1px;
+		flex: 1 1 50%;
+	}
+}
+
+.cf-dnd-ranking-list {
+	border-radius: 5px;
+
+	&__item-list {
+		display: flex;
+		flex-direction: column;
+		padding: 8px 16px;
+		min-height: 80px;
+	}
+
+	&__item {
+		margin: 8px 0;
+	}
+
+	&__counter {
+		color: variables.$control-active-color;
+		margin: -8px 16px 8px;
+		text-align: right;
+	}
+
+	&--unranked {
+		border: 2px dashed variables.$primary-shade-4;
+	}
+
+	&--ranked {
+		margin: 0 16px;
+		border: 2px dashed variables.$control-active-color;
+		background: rgba(variables.$control-active-color, 0.1);
+	}
+
+	&--limit-exceeded {
+		border-color: variables.$error-text-color;
+
+		.cf-dnd-ranking-list__counter {
+			color: variables.$error-text-color;
+		}
+	}
+}
+
+.cf-dnd-ranking-answer {
+	display: flex;
+	min-height: 48px;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 5px;
+	border: 1px solid variables.$primary-shade-2;
+	color: variables.$control-active-color;
+	cursor: grab;
+
+
+	&__text {
+		flex: 1 1 auto;
+	}
+
+	&__rank {
+		flex: 0 0 auto;
+		min-width: 8px;
+		margin-right: 16px;
+		display: none;
+		color: variables.$question-bg-color;
+	}
+
+	&__handle {
+		flex: 0 0 24px;
+		height: 8px;
+		margin: 8px 0 8px 16px;
+		display: block;
+		content: "";
+		border-top: 3px solid ;
+		border-bottom: 3px solid;
+		border-color: variables.$control-active-color;
+	}
+
+	&__other {
+		margin-right: auto;
+		flex: 0 1 auto;
+		max-width: 80%;
+		min-width: 1px;
+		padding-top: 4px;
+
+		&:not(:hover):not(:focus) {
+			border-bottom: none;
+			padding-bottom: 4px;
+		}
+	}
+
+	&--dragging {
+		background: variables.$control-active-color;
+		color: variables.$question-bg-color;
+		border: none;
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 100;
+		cursor: grabbing;
+		margin: 0;
+
+		.cf-dnd-ranking-answer__other {
+			color: variables.$question-bg-color;
+		}
+		.cf-dnd-ranking-answer__handle {
+			border-color: variables.$question-bg-color;
+		}
+	}
+
+	&--ranked {
+		background: variables.$control-active-color;
+		color: variables.$question-bg-color;
+		border: none;
+
+		.cf-dnd-ranking-answer__rank {
+			display: block;
+		}
+
+		.cf-dnd-ranking-answer__other {
+			color: variables.$question-bg-color;
+			border-bottom: 1px solid variables.$question-bg-color;
+		}
+
+		.cf-dnd-ranking-answer__handle {
+			border-color: variables.$question-bg-color;
+		}
+	}
+
+	&--disabled {
+		opacity: 0.5;
+		cursor: default;
+		pointer-events: none;
+	}
+}
+
+.cf-dnd-ranking-answer-placeholder {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 48px;
+	border-radius: 5px;
+
+	&__rank {
+		display: none;
+		color: variables.$question-bg-color;
+		flex: 0 1 auto;
+		min-width: 8px;
+	}
+
+	&--unranked {
+		background: variables.$primary-shade-4;
+	}
+
+	&--ranked {
+		background: rgba(variables.$control-active-color, 0.5);
+
+		.cf-dnd-ranking-answer-placeholder__rank {
+			display: block;
+		}
+	}
+}
+
+.cf-dnd-ranking-answer-placeholder,
+.cf-dnd-ranking-answer {
+	padding: 8px 16px;
+
+	& + .cf-error-block {
+		margin-top: -4px;
+	}
+}
+
+@media(max-width: variables.$desktop-layout-delimiter) {
+	.cf-dnd-ranking {
+		max-width: 100%;
+		flex-direction: column;
+		align-items: stretch;
+		flex: 0 0 auto;
+
+		&__unranked-list,
+		&__ranked-list {
+			min-width: auto;
+			flex: 0 1 auto;
+		}
+
+		&__ranked-list {
+			order: 1;
+		}
+
+		&__unranked-list {
+			order: 2;
+		}
+	}
+
+	.cf-dnd-ranking-list {
+		&__item {
+			flex-shrink: 0;
+		}
+
+		&--ranked {
+			margin: 0 0 32px 0
+		}
+	}
+}
+
+.cf-dnd-ranking-list--rtl .cf-dnd-ranking-list {
+	&__counter {
+		margin-right: 0;
+		margin-left: 16px;
+		text-align: left;
+	}
+}
+
+.cf-dnd-ranking-answer--rtl .cf-dnd-ranking-answer {
+	&__other {
+		margin-right: 0;
+		margin-left: auto;
+	}
+
+	&__handle {
+		margin-left: 0;
+		margin-right: 16px;
+	}
+
+	&__rank {
+		margin-right: 0;
+		margin-left: 16px;
+	}
+}

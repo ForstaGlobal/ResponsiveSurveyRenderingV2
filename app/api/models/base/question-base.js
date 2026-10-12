@@ -1,4 +1,4 @@
-import QuestionValidationResult from "./../validation/question-validation-result";
+import QuestionValidationResult from './../validation/question-validation-result';
 import CustomQuestion from './custom-question';
 import Utils from 'utils.js';
 
@@ -13,6 +13,7 @@ export default class QuestionBase {
     constructor(model) {
         this._type = model.nodeType;
         this._id = model.questionId;
+        this._entityId = model.entityId;
         this._title = model.title;
         this._text = model.text;
         this._instruction = model.instruction;
@@ -28,6 +29,15 @@ export default class QuestionBase {
      */
     get type() {
         return this._type;
+    }
+
+    /**
+     * Question entity id.
+     * @type {string}
+     * @readonly
+     */
+    get entityId() {
+        return this._entityId;
     }
 
     /**
@@ -71,7 +81,7 @@ export default class QuestionBase {
      * @type {boolean}
      * @readonly
      */
-    get customRendering(){
+    get customRendering() {
         return this._customRendering;
     }
 

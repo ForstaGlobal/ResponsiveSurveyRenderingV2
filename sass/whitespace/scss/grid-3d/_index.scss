@@ -1,0 +1,102 @@
+@use "../variables";
+
+// Mobile
+.cf-grid-3d-mobile-inner-question {
+  margin-bottom: 32px;
+
+  &__text,
+  &__errors {
+    margin-bottom: 16px;
+  }
+
+  &__text {
+    font-weight: bold;
+  }
+
+  &__content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Desktop
+.cf-grid-3d-desktop {
+  &__errors {
+    margin-bottom: 16px;
+  }
+
+  &__content {
+    padding-bottom: 16px;
+  }
+
+  &__answer-other-input {
+    min-width: 100px;
+    max-width: 240px;
+    width: 100%;
+  }
+
+  &__scale-group-text {
+    border-bottom: 1px solid variables.$primary-shade-3;
+    padding: 0 4px 4px 4px;
+  }
+}
+
+.cf-grid-3d-desktop__slider-no-value-header-spacer {
+  width: 42px - (8px * 2);
+}
+
+.cf-grid-3d-desktop__dropdown-control {
+  min-width: 100px;
+  max-width: 240px;
+  width: 100%;
+}
+
+.cf-grid-3d-desktop__open-control {
+  min-width: 100px;
+  max-width: 240px;
+  width: 100%;
+
+  &--no-limit {
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  &--disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
+.cf-grid-3d-desktop__numeric-control {
+  min-width: 32px;
+  max-width: 64px;
+  width: 100%;
+
+  -moz-appearance: textfield;
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  &::-ms-clear {
+    display: none;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.cf-grid-3d-desktop__cf-numeric-list-auto-sum {
+  width: 4em;
+  text-align: right;
+
+  &--rtl {
+    text-align: left;
+  }
+}

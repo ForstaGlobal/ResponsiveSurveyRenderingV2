@@ -1,0 +1,5 @@
+.cf-question--geolocation {
+  &:not(:only-child){
+    display: none;
+  }
+}

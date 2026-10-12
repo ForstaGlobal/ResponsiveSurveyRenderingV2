@@ -1,0 +1,100 @@
+@use "../variables";
+
+$outline-gap: 4px;
+$outline-gap-in-em: 0.25em;
+
+.cf-question {
+  padding: variables.$padding-desktop;
+  margin-bottom: variables.$padding-desktop * 2;
+  border: 1px solid variables.$question-border-color;
+  border-radius: variables.$border-radius;
+  background-color: variables.$question-bg-color;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__title,
+  &__text,
+  &__instruction,
+  &__error {
+    margin-bottom: 1em;
+  }
+
+  &__title {
+    margin-top: 1em;
+    font-size: 2em;
+    line-height: 1em;
+    font-weight: bold;
+  }
+
+  &__text {
+    font-weight: bold;
+  }
+
+  &__instruction {
+    font-style: italic;
+    color: variables.$question-instruction-color;
+  }
+
+  &__content {
+    overflow: auto;
+    margin: (2em - $outline-gap-in-em) (-$outline-gap) (-$outline-gap) (-$outline-gap);
+    $horizontal-padding: variables.$padding-desktop + variables.$answer-group-border-width + $outline-gap;
+    padding: $outline-gap-in-em $horizontal-padding $outline-gap $horizontal-padding;
+  }
+
+  &--error {
+    border-color: variables.$error-border-color;
+  }
+}
+
+@media (max-width: variables.$delimiter-tablet) {
+  .cf-question {
+    padding: variables.$padding-tablet;
+    margin-bottom: variables.$padding-tablet * 2;
+
+    &__content {
+      $horizontal-padding: variables.$padding-tablet + variables.$answer-group-border-width + $outline-gap;
+      padding-left: $horizontal-padding;
+      padding-right: $horizontal-padding;
+    }
+  }
+}
+
+@media (max-width: variables.$delimiter-mobile) {
+  .cf-question {
+    padding: variables.$padding-mobile;
+    margin-bottom: variables.$padding-mobile * 2;
+
+    &__content {
+      $horizontal-padding: variables.$padding-mobile + variables.$answer-group-border-width + $outline-gap;
+      padding-left: $horizontal-padding;
+      padding-right: $horizontal-padding;
+    }
+  }
+}
+
+
+.cf-question__content--no-padding {
+  padding-left: $outline-gap;
+  padding-right: $outline-gap;
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-question__content--mobile {
+    display: block;
+  }
+  .cf-question__content--desktop {
+    display: none;
+  }
+}
+
+@media (min-width: variables.$desktop-layout-delimiter + 1) {
+  .cf-question__content--mobile {
+    display: none;
+  }
+  .cf-question__content--desktop {
+    display: block;
+  }
+}

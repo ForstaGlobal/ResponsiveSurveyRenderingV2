@@ -1,5 +1,5 @@
 import QuestionView from './question-view.js';
-import ErrorBlockManager from "../../error/error-block-manager";
+import ErrorBlockManager from '../../error/error-block-manager';
 import $ from 'jquery';
 
 export default class QuestionWithAnswersView extends QuestionView {
@@ -45,7 +45,7 @@ export default class QuestionWithAnswersView extends QuestionView {
         return this._idProvider.getAnswerControlNodeId(answerCode);
     }
 
-    _getScaleControlNodeId(answerCode, scaleCode){
+    _getScaleControlNodeId(answerCode, scaleCode) {
         return this._idProvider.getScaleControlNodeId(answerCode, scaleCode);
     }
 
@@ -61,11 +61,11 @@ export default class QuestionWithAnswersView extends QuestionView {
         return $('#' + this._getAnswerNodeId(answerCode));
     }
 
-    _getAnswerControlNode(answerCode){
+    _getAnswerControlNode(answerCode) {
         return $('#' + this._getAnswerControlNodeId(answerCode));
     }
 
-    _getScaleControlNode(answerCode, scaleCode){
+    _getScaleControlNode(answerCode, scaleCode) {
         return $('#' + this._getScaleControlNodeId(answerCode, scaleCode));
     }
 
@@ -86,16 +86,12 @@ export default class QuestionWithAnswersView extends QuestionView {
     }
 
     _getScaleTextNode(answerCode, scaleCode) {
-        return $('#' + this._getScaleTextNodeId(answerCode, scaleCode))
+        return $('#' + this._getScaleTextNodeId(answerCode, scaleCode));
     }
 
     _showErrors(validationResult) {
-        this._showQuestionErrors(validationResult);
-        this._showAnswerErrors(validationResult);
-    }
-
-    _showQuestionErrors(validationResult) {
         super._showErrors(validationResult);
+        this._showAnswerErrors(validationResult);
     }
 
     /**
@@ -103,7 +99,9 @@ export default class QuestionWithAnswersView extends QuestionView {
      * @protected
      */
     _showAnswerErrors(validationResult) {
-        validationResult.answerValidationResults.filter(result => !result.isValid).forEach(result => this._showAnswerError(result));
+        validationResult.answerValidationResults
+            .filter(result => !result.isValid)
+            .forEach(result => this._showAnswerError(result));
     }
 
     /**
@@ -125,7 +123,7 @@ export default class QuestionWithAnswersView extends QuestionView {
         this._answerErrorBlockManager.removeAllErrors();
     }
 
-    _updateAnswerOtherNodes({otherValues = []}) {
+    _updateAnswerOtherNodes({ otherValues = [] }) {
         otherValues.forEach(answerCode => {
             const otherValue = this._question.otherValues[answerCode];
             this._setOtherNodeValue(answerCode, otherValue);

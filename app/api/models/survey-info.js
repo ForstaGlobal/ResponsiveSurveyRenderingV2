@@ -11,6 +11,8 @@ export default class SurveyInfo {
         this._autoNextInterval = rawSurveyInfo.autoNextInterval;
         this._progress = rawSurveyInfo.progress;
         this._language = rawSurveyInfo.language;
+        this._respondentId = rawSurveyInfo.respondentId;
+        this._responseId = rawSurveyInfo.responseId;
         this._mobileThreshold = rawSurveyInfo.mobileThreshold;
         this._messages = rawSurveyInfo.messages;
         this._allowNextNavigation = rawSurveyInfo.allowNextNavigation;
@@ -89,6 +91,24 @@ export default class SurveyInfo {
      */
     get language() {
         return this._language;
+    }
+
+    /**
+     * Current respondent id.
+     * @returns {number}
+     * @readonly
+     */
+    get respondentId() {
+        return this._respondentId;
+    }
+
+    /**
+     * Current response id.
+     * @returns {number}
+     * @readonly
+     */
+    get responseId() {
+        return this._responseId;
     }
 
     /**

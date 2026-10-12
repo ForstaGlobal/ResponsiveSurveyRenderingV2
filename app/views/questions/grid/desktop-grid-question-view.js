@@ -1,5 +1,5 @@
-import DesktopQuestionIdProvider from "../../helpers/desktop-question-id-provider";
-import GridQuestionViewBase from "./grid-question-view-base";
+import DesktopQuestionIdProvider from '../../helpers/desktop-question-id-provider';
+import GridQuestionViewBase from './grid-question-view-base';
 
 export default class DesktopGridQuestionView extends GridQuestionViewBase {
     /**

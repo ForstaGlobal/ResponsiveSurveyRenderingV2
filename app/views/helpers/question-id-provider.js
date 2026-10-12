@@ -32,15 +32,15 @@ export default class QuestionIdProvider {
     }
 
     getAnswerErrorBlockId(answerCode) {
-        return `${this._questionId}_${answerCode}_error`
+        return `${this._questionId}_${answerCode}_error`;
     }
 
     getAnswerErrorListId(answerCode) {
-        return `${this._questionId}_${answerCode}_error_list`
+        return `${this._questionId}_${answerCode}_error_list`;
     }
 
     getAnswerOtherErrorBlockId(answerCode) {
-        return `${this._questionId}_${answerCode}_other_error`
+        return `${this._questionId}_${answerCode}_other_error`;
     }
 
     getAnswerNodeId(answerCode) {
@@ -71,11 +71,15 @@ export default class QuestionIdProvider {
         return `${this._questionId}_${answerCode}_${scaleCode}`;
     }
 
+    getCommonScaleTextNodeId(scaleCode) {
+        return `${this._questionId}_scale_${scaleCode}_text`;
+    }
+
     getScaleTextNodeId(answerCode, scaleCode) {
         return `${this._questionId}_${answerCode}_${scaleCode}_text`;
     }
 
-    getScaleControlNodeId(answerCode, scaleCode){
+    getScaleControlNodeId(answerCode, scaleCode) {
         return `${this._questionId}_${answerCode}_${scaleCode}_control`;
     }
 }

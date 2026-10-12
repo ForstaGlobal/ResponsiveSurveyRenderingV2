@@ -1,0 +1,123 @@
+@use "../_mixins/old-browsers-wrappers";
+@use "../variables";
+
+.cf-grid-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  &__row {
+    display: flex;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: variables.$desktop-layout-delimiter) {
+  .cf-grid-layout {
+    &__row {
+      margin-bottom: 24px;
+      flex-direction: column;
+      align-items: stretch;
+
+      &-text {
+        flex: 1 1 auto;
+        align-self: stretch;
+        width: auto;
+        max-width: none;
+        margin-bottom: 16px;
+
+        &--right {
+          flex-shrink: 1;
+          margin-bottom: 0;
+          margin-top: 16px;
+        }
+      }
+
+      &-control {
+        flex: 1 0 auto;
+      }
+    }
+  }
+}
+
+@media (min-width: variables.$desktop-layout-delimiter + 1) {
+  .cf-grid-layout {
+    &__row {
+      margin-bottom: 24px;
+      flex-direction: row;
+      align-items: flex-start;
+
+      &-text {
+        flex: 0 0 auto;
+        width: 30%;
+        max-width: 260px;
+        margin-right: 24px;
+
+        &--right {
+          flex-shrink: 1;
+          margin-right: 0px;
+          margin-left: 24px;
+        }
+      }
+
+      &-control {
+        flex: 0 1 auto;
+        min-width: 1px; // 1px instead of 0px due to fix ie11 bug
+      }
+    }
+
+    &--right-text .cf-grid-layout__row-text {
+      width: 25%;
+    }
+  }
+}
+
+.cf-grid-layout--stretched {
+  .cf-grid-layout__row-control {
+    flex-grow: 1;
+  }
+}
+
+.cf-grid-layout--rtl {
+
+  @media (min-width: variables.$desktop-layout-delimiter + 1) {
+    .cf-grid-layout__row-text {
+      margin-left: 24px;
+      margin-right: 0;
+
+      &--right {
+        margin-right: 24px;
+      }
+    }
+  }
+}
+
+@media (min-width: variables.$desktop-layout-delimiter + 1) {
+  .cf-grid-layout--multi-columns {
+    display: -ms-grid;
+    display: grid;
+
+    grid-auto-flow: column;
+    grid-column-gap: 5%;
+
+
+    .cf-grid-layout__row {
+      min-width: 0;
+    }
+
+    .cf-grid-layout__row-text {
+      margin-right: 10px;
+    }
+  }
+}
+
+@include old-browsers-wrappers.ie-only-wrapper {
+  @media (min-width: variables.$desktop-layout-delimiter + 1) {
+    .cf-grid-layout__row {
+      margin-right: 10%;
+    }
+  }
+}

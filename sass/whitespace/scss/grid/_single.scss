@@ -1,0 +1,51 @@
+@use "../variables";
+
+.cf-mobile-grid {
+  display: flex;
+  flex-direction: column;
+
+  &__answer {
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.cf-mobile-grid-answer {
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__right-text {
+    margin-top: 16px;
+  }
+}
+
+.cf-desktop-grid {
+
+  &__scale-group-text {
+    border-bottom: 1px solid variables.$primary-shade-3;
+    padding: 0 4px 4px 4px;
+  }
+
+  &__answer-other {
+    width: 100%;
+    max-width: 200px;
+    min-width: 80px;
+  }
+
+  &__scale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.cf-desktop-grid--answer-buttons {
+  .cf-desktop-grid__cell-element {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}

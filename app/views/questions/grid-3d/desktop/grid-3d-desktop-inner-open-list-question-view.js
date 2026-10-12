@@ -1,5 +1,5 @@
-import Grid3DDesktopInnerQuestionView from "./grid-3d-desktop-inner-question-view";
-import ErrorBlockManager from "../../../error/error-block-manager";
+import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
+import ErrorBlockManager from '../../../error/error-block-manager';
 import MultiCountHelper from '../../../helpers/multi-count-helper';
 
 export default class Grid3DDesktopInnerOpenListQuestionView extends Grid3DDesktopInnerQuestionView {
@@ -20,9 +20,8 @@ export default class Grid3DDesktopInnerOpenListQuestionView extends Grid3DDeskto
         });
     }
 
-    _updateAnswerNodes({values = []}) {
-        if(values.length === 0)
-            return;
+    _updateAnswerNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         this._question.answers.forEach(answer => {
             const answerInput = this._getAnswerNode(answer.code);
@@ -58,8 +57,8 @@ export default class Grid3DDesktopInnerOpenListQuestionView extends Grid3DDeskto
                 this._question.multiCount
             );
             this._question.answers
-                .filter((answer) => answer.isOther)
-                .forEach((answer) => {
+                .filter(answer => answer.isOther)
+                .forEach(answer => {
                     const answerOtherNode = this._getAnswerOtherNode(answer.code);
                     answerOtherNode.attr('disabled', isMaxMultiCountReached && !this._question.values[answer.code]);
                 });
@@ -83,7 +82,7 @@ export default class Grid3DDesktopInnerOpenListQuestionView extends Grid3DDeskto
         this._question.setValue(answerCode, answerValue);
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
     }
 

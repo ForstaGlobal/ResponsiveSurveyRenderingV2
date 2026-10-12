@@ -1,9 +1,9 @@
 import QuestionWithAnswersView from './base/question-with-answers-view.js';
 import Utils from 'utils.js';
-import ValidationTypes from "../../api/models/validation/validation-types";
-import VerticalSlider from "../controls/slider/vertical-slider";
-import HorizontalRtlSlider from "../controls/slider/horizontal-rtl-slider";
-import HorizontalSlider from "../controls/slider/horizontal-slider";
+import ValidationTypes from '../../api/models/validation/validation-types';
+import VerticalSlider from '../controls/slider/vertical-slider';
+import HorizontalRtlSlider from '../controls/slider/horizontal-rtl-slider';
+import HorizontalSlider from '../controls/slider/horizontal-slider';
 
 export default class SliderNumericListQuestionView extends QuestionWithAnswersView {
     constructor(question, settings) {
@@ -20,13 +20,12 @@ export default class SliderNumericListQuestionView extends QuestionWithAnswersVi
         });
 
         this._attachControlHandlers();
-
     }
 
     detach() {
         super.detach();
 
-        for(let answerCode in this._sliders){
+        for (let answerCode in this._sliders) {
             this._sliders[answerCode].detach();
         }
     }
@@ -46,7 +45,7 @@ export default class SliderNumericListQuestionView extends QuestionWithAnswersVi
 
     _createSliders() {
         const sliderValues = this._sliderValues;
-        const sliderTextValueHandler = (sliderValue) => {
+        const sliderTextValueHandler = sliderValue => {
             return sliderValue === null ? this._settings.messages.noResponse : sliderValue;
         };
 
@@ -59,12 +58,33 @@ export default class SliderNumericListQuestionView extends QuestionWithAnswersVi
             const sliderValue = this._question.values[answerCode];
 
             if (this._question.sliderIsVertical) {
-                sliders[answerCode] = new VerticalSlider(sliderNode, sliderValues, sliderValue, sliderTextValueHandler, true, readOnly);
+                sliders[answerCode] = new VerticalSlider(
+                    sliderNode,
+                    sliderValues,
+                    sliderValue,
+                    sliderTextValueHandler,
+                    true,
+                    readOnly
+                );
             } else {
                 if (this._question.isRtl) {
-                    sliders[answerCode] = new HorizontalRtlSlider(sliderNode, sliderValues, sliderValue, sliderTextValueHandler, true, readOnly);
+                    sliders[answerCode] = new HorizontalRtlSlider(
+                        sliderNode,
+                        sliderValues,
+                        sliderValue,
+                        sliderTextValueHandler,
+                        true,
+                        readOnly
+                    );
                 } else {
-                    sliders[answerCode] = new HorizontalSlider(sliderNode, sliderValues, sliderValue, sliderTextValueHandler, true, readOnly);
+                    sliders[answerCode] = new HorizontalSlider(
+                        sliderNode,
+                        sliderValues,
+                        sliderValue,
+                        sliderTextValueHandler,
+                        true,
+                        readOnly
+                    );
                 }
             }
         });
@@ -76,9 +96,8 @@ export default class SliderNumericListQuestionView extends QuestionWithAnswersVi
         this._question.setValue(answerCode, this._sliders[answerCode].value);
     }
 
-    _updateAnswerNodes({values = []}) {
-        if (values.length === 0)
-            return;
+    _updateAnswerNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         this._question.answers.forEach(answer => {
             const answerInput = this._getAnswerInputNode(answer.code);
@@ -141,13 +160,19 @@ export default class SliderNumericListQuestionView extends QuestionWithAnswersVi
     }
 
     _showAnswerError(validationResult) {
-        const answerErrors = [];
-        const otherErrors = [];
+        let hasNormalAnswerError = false;
+        let hasOtherAnswerError = false;
+        let hasRequiredAnswerError = false;
+        let errorMessages = [];
         validationResult.errors.forEach(error => {
+            errorMessages.push(error.message);
             if (error.type === ValidationTypes.OtherRequired) {
-                otherErrors.push(error.message);
+                hasOtherAnswerError = true;
             } else {
-                answerErrors.push(error.message);
+                if (error.type === ValidationTypes.Required) {
+                    hasRequiredAnswerError = true;
+                }
+                hasNormalAnswerError = true;
             }
         });
 
@@ -156,20 +181,25 @@ export default class SliderNumericListQuestionView extends QuestionWithAnswersVi
             ? this._getAnswerOtherNode(validationResult.answerCode)
             : this._getAnswerTextNode(validationResult.answerCode);
         const errorBlockId = this._getAnswerErrorBlockId(validationResult.answerCode);
-        const errors = answerErrors.concat(otherErrors);
-        this._answerErrorBlockManager.showErrors(errorBlockId, target, errors);
+        this._answerErrorBlockManager.showErrors(errorBlockId, target, errorMessages);
 
-        if (answerErrors.length > 0) {
+        if (hasNormalAnswerError) {
             this._getAnswerInputNode(validationResult.answerCode)
                 .attr('aria-errormessage', errorBlockId)
                 .attr('aria-invalid', 'true')
                 .addClass('cf-text-box--error');
         }
 
-        if (otherErrors.length > 0) {
+        if (hasOtherAnswerError) {
             const otherNode = this._getAnswerOtherNode(validationResult.answerCode);
             otherNode
                 .attr('aria-errormessage', this._getAnswerOtherErrorBlockId(validationResult.answerCode))
+                .attr('aria-invalid', 'true');
+        }
+
+        if (hasRequiredAnswerError) {
+            this._sliders[validationResult.answerCode].handleNode
+                .attr('aria-errormessage', errorBlockId)
                 .attr('aria-invalid', 'true');
         }
     }
@@ -177,13 +207,18 @@ export default class SliderNumericListQuestionView extends QuestionWithAnswersVi
     _hideErrors() {
         super._hideErrors();
 
-        this._container.find('.cf-text-box')
+        this._container
+            .find('.cf-text-box')
             .removeAttr('aria-errormessage')
             .removeAttr('aria-invalid')
-            .removeClass('cf-text-box--error')
+            .removeClass('cf-text-box--error');
+
+        this._question.answers.forEach(answer => {
+            this._sliders[answer.code].handleNode.removeAttr('aria-errormessage').removeAttr('aria-invalid');
+        });
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
         this._updateAnswerOtherNodes(changes);
 

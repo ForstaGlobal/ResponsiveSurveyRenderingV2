@@ -1,0 +1,84 @@
+@use "../../_mixins/placeholder";
+@use "../../variables";
+
+$input_padding: 0.5em;
+
+@mixin text_input_common {
+  width: 30em;
+  max-width: 100%;
+
+  border-radius: variables.$border-radius;
+  border: none;
+  border-bottom: 1px solid variables.$control-secondary-color;
+
+  background-color: variables.$control-primary-color;
+
+  font-size: inherit;
+  text-overflow: ellipsis;
+
+  &--error {
+    border-color: variables.$error-border-color;
+  }
+
+  &--no-limit {
+    width: auto;
+  }
+}
+
+.cf-text-box {
+  padding: 0 $input_padding;
+  padding-top: 1px;
+  line-height: variables.$control-size + 0.2;
+  height: variables.$control-size + 0.2;
+
+  @include text_input_common;
+  @include placeholder.placeholder {
+    color: inherit;
+    opacity: 0.5;
+  }
+
+  &:focus {
+    background-color: variables.$question-bg-color;
+    border-color: variables.$control-active-color;
+  }
+
+  &--text-aligned {
+    margin-left: -$input_padding;
+  }
+
+  &--number {
+    text-align: right;
+    width: 10em;
+  }
+
+  &--date {
+    width: auto;
+    min-width: 8em;
+  }
+
+  &--rank-by-number {
+    width: 2.7em;
+    text-align: right;
+  }
+}
+
+.cf-text-area {
+  padding: $input_padding;
+  resize: both;
+
+  @include text_input_common;
+
+  &:focus {
+    border-color: variables.$control-active-color;
+  }
+}
+
+.cf-text-box--rtl {
+  &.cf-text-box--text-aligned {
+    margin-right: -$input_padding;
+  }
+
+  &.cf-text-box--number {
+    text-align: left;
+  }
+}

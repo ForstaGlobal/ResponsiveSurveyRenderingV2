@@ -60,7 +60,7 @@ export default class SliderBase {
      * @param newValue
      */
     set value(newValue) {
-        this._setValueIndex(this._values.findIndex((value) => value === newValue));
+        this._setValueIndex(this._values.findIndex(value => value === newValue));
     }
 
     /**
@@ -109,7 +109,7 @@ export default class SliderBase {
      */
     setValueSilently(newValue) {
         this._setValueIndex(
-            this._values.findIndex((value) => value === newValue),
+            this._values.findIndex(value => value === newValue),
             true
         );
     }
@@ -130,6 +130,7 @@ export default class SliderBase {
         $(document).off('touchend', this._onDocumentTouchEnd);
 
         this._handleNode.off('keydown', this._onHandleKeyPress);
+        this._noValueNode.off('keydown', this._onNoValueKeyPress);
     }
 
     _init(value) {
@@ -142,7 +143,7 @@ export default class SliderBase {
         if (this._valueIndex === -1) {
             this._syncHandlePositionToIndexValue();
             this._syncProgressToIndexValue();
-            this._updateNoValueCSSAttribute();
+            this._updateNoValueAttributes();
         }
     }
 
@@ -191,7 +192,9 @@ export default class SliderBase {
 
         //keyboard
         this._onHandleKeyPress = this._onHandleKeyPress.bind(this);
+        this._onNoValueKeyPress = this._onNoValueKeyPress.bind(this);
         this._handleNode.on('keydown', this._onHandleKeyPress);
+        this._noValueNode.on('keydown', this._onNoValueKeyPress);
     }
 
     _getValueIndexByTrackValue(trackValue) {
@@ -223,7 +226,7 @@ export default class SliderBase {
 
         this._syncHandlePositionToIndexValue();
         this._syncProgressToIndexValue();
-        this._updateNoValueCSSAttribute();
+        this._updateNoValueAttributes();
         this._updateAccessibilityState();
 
         this._moveEvent.trigger(this._values[this._handleIndex] || null);
@@ -355,8 +358,17 @@ export default class SliderBase {
         this._setProgress(trackValue);
     }
 
-    _updateNoValueCSSAttribute() {
+    _updateNoValueAttributes() {
         this._toggleHandleNodeNoValueCSSModifier(this._valueIndex === -1);
+        this._updateNoValueTabIndexAttribute(this._valueIndex !== -1);
+    }
+
+    _updateNoValueTabIndexAttribute(add) {
+        if (add) {
+            this._noValueNode.attr('tabindex', '0');
+        } else {
+            this._noValueNode.removeAttr('tabindex');
+        }
     }
 
     _updateAccessibilityState() {
@@ -533,7 +545,7 @@ export default class SliderBase {
         this._isSliding = false;
         this._sliderNode.removeClass(this._sliderNodeSlidingModifierClass);
 
-        let newValueIndex = null;
+        let newValueIndex;
         if (pointerPositionOnTheTrack < -(this._getHandleNodeSize() / 2)) {
             newValueIndex = -1;
         } else {
@@ -544,7 +556,7 @@ export default class SliderBase {
         if (newValueIndex === this._valueIndex) {
             this._syncHandlePositionToIndexValue();
             this._syncProgressToIndexValue();
-            this._updateNoValueCSSAttribute();
+            this._updateNoValueAttributes();
         } else {
             this._setValueIndex(newValueIndex);
         }
@@ -569,5 +581,19 @@ export default class SliderBase {
 
         this._handleCommonKeys(event.keyCode);
         this._handleArrowsKeys(event.keyCode);
+    }
+
+    _onNoValueKeyPress(event) {
+        const allowedKeys = [KEYS.SpaceBar, KEYS.Enter];
+        if (allowedKeys.includes(event.keyCode) === false) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (this._valueIndex !== -1) {
+            this._setValueIndex(-1);
+            this._handleNode.focus();
+        }
     }
 }

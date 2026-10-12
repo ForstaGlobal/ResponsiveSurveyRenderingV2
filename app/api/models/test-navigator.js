@@ -5,10 +5,16 @@ import TestNavigatorQuestion from './test-navigator-question';
  */
 export default class TestNavigator {
     constructor(model) {
-        this._questions = model.questions.map((question) => new TestNavigatorQuestion(question));
+        this._questions = model.questions.map(question => new TestNavigatorQuestion(question));
         this._currentQuestionId = model.currentQuestionId;
-        this._extQuicktestCommentsEnabled = model.extQuicktestCommentsEnabled;
+        this._autoResponderEnabled = model.autoResponderEnabled;
         this._commentingEndpoint = model.commentingEndpoint;
+        this._authQueryString = model.authQueryString;
+        this._displayQuestionId = model.displayQuestionId ?? false;
+        this._displayQuestionCategory = model.displayQuestionCategory ?? false;
+        this._displayQuestionMasking = model.displayQuestionMasking ?? false;
+        this._displayQuestionNotRequired = model.displayQuestionNotRequired ?? false;
+        this._displayAnswerCodes = model.displayAnswerCodes ?? false;
     }
 
     /**
@@ -30,12 +36,12 @@ export default class TestNavigator {
     }
 
     /**
-     * Whether or not ExtQuicktestComments feature toggle is enabled.
+     * Is autoresponder enabled.
      * @type {boolean}
      * @readonly
      */
-    get extQuicktestCommentsEnabled() {
-        return this._extQuicktestCommentsEnabled;
+    get autoResponderEnabled() {
+        return this._autoResponderEnabled;
     }
 
     /**
@@ -45,5 +51,59 @@ export default class TestNavigator {
      */
     get commentingEndpoint() {
         return this._commentingEndpoint;
+    }
+
+    /**
+     * Commenting endpoint authentication query string
+     * @type {string}
+     * @readonly
+     */
+    get authQueryString() {
+        return this._authQueryString;
+    }
+
+    /**
+     * Show question id.
+     * @type {boolean}
+     * @readonly
+     */
+    get displayQuestionId() {
+        return this._displayQuestionId;
+    }
+
+    /**
+     * Show question category.
+     * @type {boolean}
+     * @readonly
+     */
+    get displayQuestionCategory() {
+        return this._displayQuestionCategory;
+    }
+
+    /**
+     * Show is question masking enabled.
+     * @type {boolean}
+     * @readonly
+     */
+    get displayQuestionMasking() {
+        return this._displayQuestionMasking;
+    }
+
+    /**
+     * Show is question required.
+     * @type {boolean}
+     * @readonly
+     */
+    get displayQuestionNotRequired() {
+        return this._displayQuestionNotRequired;
+    }
+
+    /**
+     * Show answers codes
+     * @type {boolean}
+     * @readonly
+     */
+    get displayAnswerCodes() {
+        return this._displayAnswerCodes;
     }
 }

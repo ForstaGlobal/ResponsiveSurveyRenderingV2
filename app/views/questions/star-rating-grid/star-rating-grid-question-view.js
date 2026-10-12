@@ -12,7 +12,7 @@ export default class StarRatingGridQuestionView extends CompositeQuestionView {
             question,
             [
                 new MobileStarGridQuestionView(question, settings),
-                new DesktopStarRatingGridQuestionView(question, settings)
+                new DesktopStarRatingGridQuestionView(question, settings),
             ],
             settings
         );

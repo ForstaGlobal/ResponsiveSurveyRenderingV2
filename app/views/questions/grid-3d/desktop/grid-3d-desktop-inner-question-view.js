@@ -1,6 +1,6 @@
-import QuestionViewBase from "../../base/question-view-base";
-import DesktopQuestionIdProvider from "../../../helpers/desktop-question-id-provider";
-import $ from "jquery";
+import QuestionViewBase from '../../base/question-view-base';
+import DesktopQuestionIdProvider from '../../../helpers/desktop-question-id-provider';
+import $ from 'jquery';
 
 export default class Grid3DDesktopInnerQuestionView extends QuestionViewBase {
     constructor(parentQuestion, question, settings = null) {
@@ -28,8 +28,12 @@ export default class Grid3DDesktopInnerQuestionView extends QuestionViewBase {
         return $('#' + this._idProvider.getAnswerControlNodeId(answerCode));
     }
 
+    _getAnswerInputNode(answerCode) {
+        return $('#' + this._idProvider.getAnswerInputNodeId(answerCode));
+    }
+
     _getAnswerOtherNode(answerCode) {
-        return  $('#' + this._idProvider.getAnswerOtherNodeId(answerCode));
+        return $('#' + this._idProvider.getAnswerOtherNodeId(answerCode));
     }
 
     _getScaleNode(answerCode, scaleCode) {

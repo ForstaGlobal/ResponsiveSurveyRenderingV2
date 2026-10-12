@@ -1,5 +1,7 @@
 import Question from '../base/question';
 import Utils from 'utils.js';
+import ValidationTypes from '../validation/validation-types';
+import RuleValidationResult from '../validation/rule-validation-result';
 
 /**
  * @desc Image upload question.
@@ -97,6 +99,10 @@ export default class ImageUploadQuestion extends Question {
     }
 
     _setValue(imageId, imagePreviewUrl) {
+        if (this._isCatiReviewingMode) {
+            return false;
+        }
+
         const newImageId = Utils.isEmpty(imageId) ? null : imageId.toString();
         const newImagePreviewUrl = Utils.isEmpty(imagePreviewUrl) ? null : imagePreviewUrl.toString();
 
@@ -124,5 +130,19 @@ export default class ImageUploadQuestion extends Question {
         this._imagePreviewUrl = null;
 
         return true;
+    }
+
+    _validateRule(validationType) {
+        switch (validationType) {
+            case ValidationTypes.Required:
+                return this._validateRequired();
+        }
+    }
+
+    _validateRequired() {
+        if (!this.required) return new RuleValidationResult(true);
+
+        let isValid = !Utils.isEmpty(this._imageId);
+        return new RuleValidationResult(isValid);
     }
 }

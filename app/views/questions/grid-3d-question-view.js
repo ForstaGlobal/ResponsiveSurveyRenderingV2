@@ -20,11 +20,14 @@ export default class Grid3DQuestionView extends QuestionView {
         this._desktopView.detach();
     }
 
+    // this is needed to add an error state to the global container
     _showErrors() {
         this._addQuestionErrorModifier();
     }
 
+    // this is needed to remove an error state from the global container and hide server side validation errors
     _hideErrors() {
         this._removeQuestionErrorModifier();
+        this._questionErrorBlock.hideErrors();
     }
 }

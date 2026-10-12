@@ -1,7 +1,9 @@
-import Grid3dMobileInnerQuestionViewMixin from "./grid-3d-mobile-inner-question-view-mixin";
-import AnswerButtonsMultiQuestionView from "../../answer-buttons-multi-question-view";
+import Grid3dMobileInnerQuestionViewMixin from './grid-3d-mobile-inner-question-view-mixin';
+import AnswerButtonsMultiQuestionView from '../../answer-buttons-multi-question-view';
 
-export default class Grid3DMobileInnerMultiQuestionView extends Grid3dMobileInnerQuestionViewMixin(AnswerButtonsMultiQuestionView) {
+export default class Grid3DMobileInnerMultiQuestionView extends Grid3dMobileInnerQuestionViewMixin(
+    AnswerButtonsMultiQuestionView
+) {
     constructor(parentQuestion, question, settings = null) {
         super(parentQuestion, question, settings);
     }
@@ -24,7 +26,7 @@ export default class Grid3DMobileInnerMultiQuestionView extends Grid3dMobileInne
                 return;
             }
 
-            if(!this._isAnswerSelected(answer)) {
+            if (!this._isAnswerSelected(answer)) {
                 return;
             }
 

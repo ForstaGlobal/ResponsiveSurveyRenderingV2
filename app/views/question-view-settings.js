@@ -11,8 +11,14 @@ export default class QuestionViewSettings {
         this._isAccessible = surveyInfo.isAccessible;
         this._messages = {
             noResponse: surveyInfo.messages.noResponseMessage,
+            error: surveyInfo.messages.toastErrorMessage,
+            retakeVideo: surveyInfo.messages.retakeVideoMessage,
+            retakeAudio: surveyInfo.messages.retakeAudioMessage,
+            fileUploadMaxFileSizeErrorMessage: surveyInfo.messages.fileUploadMaxFileSizeErrorMessage,
+            fileUploadUnsupportedTypeErrorMessage: surveyInfo.messages.fileUploadUnsupportedTypeErrorMessage,
         };
         this._renderingVersion = surveyInfo.renderingVersion;
+        this._language = surveyInfo.language;
     }
 
     /**
@@ -64,5 +70,13 @@ export default class QuestionViewSettings {
      */
     get renderingVersion() {
         return this._renderingVersion;
+    }
+
+    /**
+     * Interview language
+     * @returns {number}
+     */
+    get language() {
+        return this._language;
     }
 }

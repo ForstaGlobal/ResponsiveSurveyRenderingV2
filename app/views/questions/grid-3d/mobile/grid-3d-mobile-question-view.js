@@ -1,4 +1,4 @@
-import QuestionViewBase from "views/questions/base/question-view-base";
+import QuestionViewBase from 'views/questions/base/question-view-base';
 import ViewFactory from './grid-3d-mobile-inner-question-view-factory';
 
 export default class Grid3DMobileQuestionView extends QuestionViewBase {
@@ -19,14 +19,14 @@ export default class Grid3DMobileQuestionView extends QuestionViewBase {
         super.detach();
 
         this._innerQuestionViews.forEach(questionView => {
-           questionView.detach();
+            questionView.detach();
         });
     }
 
     _createInnerQuestions() {
         this._question.innerQuestions.forEach(innerQuestion => {
             const view = this._viewFactory.create(innerQuestion);
-            if(view !== undefined) {
+            if (view !== undefined) {
                 this._innerQuestionViews.push(view);
             }
         });

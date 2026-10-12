@@ -1,0 +1,32 @@
+@use "../variables";
+
+.cf-collapsible-group {
+  margin-bottom: 16px;
+
+  &__body {
+      margin-top: 16px;
+  }
+
+  &__short-info {
+    color: variables.$control-active-color;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 32px;
+    margin-top: 16px;
+
+    &--hidden {
+      display: none;
+    }
+
+    &:empty{
+      margin-top: 0;
+    }
+
+    &-separator:after{
+      content: "|";
+      display: inline-block;
+      margin: 0 10px;
+    }
+  }
+}
+

@@ -1,10 +1,9 @@
-import SliderBase from "./slider-base";
-import KEYS from "../../helpers/keyboard-keys";
+import SliderBase from './slider-base';
+import KEYS from '../../helpers/keyboard-keys';
 
 export default class HorizontalSlider extends SliderBase {
-
     _setProgressNodeSize(progressValue) {
-        this._progressNode.css('width', progressValue+'%');
+        this._progressNode.css('width', progressValue + '%');
     }
 
     _setHandleNodePosition(position) {
@@ -24,15 +23,15 @@ export default class HorizontalSlider extends SliderBase {
     }
 
     _getNoValueNodeOffset() {
-        return this._noValueNode.offset().left
+        return this._noValueNode.offset().left;
     }
 
     _getTrackNodeOffset() {
-        return this._trackNode.offset().left
+        return this._trackNode.offset().left;
     }
 
     _getNoValueHandleNodePosition() {
-        return (this._getNoValueNodeOffset() - this._getHandleNodeMargin()) - this._getTrackNodeOffset();
+        return this._getNoValueNodeOffset() - this._getHandleNodeMargin() - this._getTrackNodeOffset();
     }
 
     _getMouseEventPointerPosition(event) {

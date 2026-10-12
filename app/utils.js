@@ -36,8 +36,9 @@ export default class Utils {
      * @return {object}
      */
     static measureNumber(number) {
-        let [fractionalDigits, decimalDigits = 0] = Math.abs(number).toString().split('.').map(s => s.length);
-        return {fractionalDigits, decimalDigits, totalDigits: fractionalDigits + decimalDigits};
+        const absoluteValue = number.toString().replace(/^-/, '');
+        let [fractionalDigits, decimalDigits = 0] = absoluteValue.split('.').map(s => s.length);
+        return { fractionalDigits, decimalDigits, totalDigits: fractionalDigits + decimalDigits };
     }
 
     /**
@@ -46,16 +47,13 @@ export default class Utils {
      * @returns {boolean}  true if the given value is Date; otherwise, false.
      */
     static isDate(value) {
-        if (this.isEmpty(value))
-            return false;
+        if (this.isEmpty(value)) return false;
 
         let rx = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-        if (!rx.test(value))
-            return false;
+        if (!rx.test(value)) return false;
 
         let date = new Date(value);
-        if (isNaN(date))
-            return false;
+        if (isNaN(date)) return false;
 
         let parsed = date.toISOString().slice(0, 10); // check for February 31 etc
         return parsed === value;
@@ -84,7 +82,7 @@ export default class Utils {
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
     }
-    
+
     static getRtlCSSClassModifier(question, className) {
         return question.isRtl ? className + '--rtl' : '';
     }
@@ -97,5 +95,20 @@ export default class Utils {
     static round(value, precision) {
         const multiplier = Math.pow(10, precision);
         return Math.round(value * multiplier) / multiplier;
+    }
+
+    /**
+     * Returns the amount of seconds passed in mm:ss string format.
+     * @param {number} durationInSeconds The amount of seconds passed.
+     * @returns {string} The amount of seconds passed in mm:ss string format.
+     */
+    static formatDuration(durationInSeconds) {
+        const minutesLabel = Math.floor(durationInSeconds / 60).toString();
+        let secondsLabel = (durationInSeconds % 60).toString();
+        if (secondsLabel.length === 1) {
+            secondsLabel = `0${secondsLabel}`;
+        }
+
+        return `${minutesLabel}:${secondsLabel}`;
     }
 }

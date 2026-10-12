@@ -15,23 +15,21 @@ export default class GridBarsSingleQuestionView extends HorizontalRatingSingleQu
     _attachHandlersToDOM() {
         super._attachHandlersToDOM();
 
-        const attachHoverHandler = (answerCode) => {
+        const attachHoverHandler = answerCode => {
             const item = this._getAnswerNode(answerCode);
             item.on('mouseover', mouseOver.bind(this, answerCode));
             item.on('mouseout', mouseOut.bind(this, answerCode));
         };
 
-        const mouseOver = (answerCode) => {
-            if (this._question.value && this._isItemInScale(this._question.value))
-                return;
+        const mouseOver = answerCode => {
+            if (this._question.value && this._isItemInScale(this._question.value)) return;
 
             this._clearHoverItemStyles(answerCode);
             this._setHoverItemStyles(answerCode);
         };
 
-        const mouseOut = (answerCode) => {
-            if (this._question.value && this._isItemInScale(this._question.value))
-                return;
+        const mouseOut = answerCode => {
+            if (this._question.value && this._isItemInScale(this._question.value)) return;
 
             this._clearHoverItemStyles(answerCode);
         };
@@ -42,26 +40,25 @@ export default class GridBarsSingleQuestionView extends HorizontalRatingSingleQu
     _updateAnswerNodes() {
         this._clearItemStyles();
         this._question.answers.forEach(answer => {
-            this._getAnswerControlNode(answer.code)
-                .attr('aria-checked', 'false')
-                .attr('tabindex', '-1');
+            this._getAnswerControlNode(answer.code).attr('aria-checked', 'false').attr('tabindex', '-1');
         });
 
         if (this._question.value === null) {
-            this._getAnswerControlNode(this.answers[0].code)
-                .attr('tabindex', '0');
+            this._getAnswerControlNode(this.answers[0].code).attr('tabindex', '0');
             return;
         }
 
         this._setActiveItemStyles(this._question.value);
-        this._getAnswerControlNode(this._question.value)
-            .attr('aria-checked', 'true')
-            .attr('tabindex', '0');
+        this._getAnswerControlNode(this._question.value).attr('aria-checked', 'true').attr('tabindex', '0');
     }
 
     _setHoverItemStyles(answerCode) {
         if (this._isItemInScale(answerCode)) {
-            this._setBarItemStyles(answerCode, 'cf-grid-bars-item--hover', 'cf-grid-bars-scale-texts-panel__item--hover');
+            this._setBarItemStyles(
+                answerCode,
+                'cf-grid-bars-item--hover',
+                'cf-grid-bars-scale-texts-panel__item--hover'
+            );
         }
     }
 
@@ -70,12 +67,9 @@ export default class GridBarsSingleQuestionView extends HorizontalRatingSingleQu
             const controlNode = this._getAnswerControlNode(scale.code);
             controlNode.addClass(itemStyle);
             if (!Utils.isEmpty(scale.backgroundColor)) {
-                controlNode
-                    .css('background-color', scale.backgroundColor)
-                    .css('border-color', scale.backgroundColor);
+                controlNode.css('background-color', scale.backgroundColor).css('border-color', scale.backgroundColor);
             } else {
-                controlNode
-                    .css('opacity', (scaleIndex + 2) / (this._question.scaleItems.length + 1));
+                controlNode.css('opacity', (scaleIndex + 2) / (this._question.scaleItems.length + 1));
             }
             this._getAnswerTextNode(scale.code).addClass(textStyle);
             return scale.code === answerCode;
@@ -89,48 +83,54 @@ export default class GridBarsSingleQuestionView extends HorizontalRatingSingleQu
         controlNode.addClass('cf-radio--selected');
 
         if (!Utils.isEmpty(answer.backgroundColor)) {
-            controlNode
-                .css('background-color', answer.backgroundColor)
-                .css('border-color', answer.backgroundColor);
+            controlNode.css('background-color', answer.backgroundColor).css('border-color', answer.backgroundColor);
         }
     }
 
     _setActiveItemStyles(answerCode) {
         if (this._isItemInScale(answerCode)) {
-            this._setBarItemStyles(answerCode, 'cf-grid-bars-item--selected', 'cf-grid-bars-scale-texts-panel__item--selected');
+            this._setBarItemStyles(
+                answerCode,
+                'cf-grid-bars-item--selected',
+                'cf-grid-bars-scale-texts-panel__item--selected'
+            );
         } else {
             this._setNaItemStyles(answerCode);
         }
     }
 
     _clearItemStyles() {
-        this._container.find('.cf-grid-bars-item')
+        this._container
+            .find('.cf-grid-bars-item')
             .removeClass('cf-grid-bars-item--selected')
             .removeClass('cf-grid-bars-item--hover')
             .css('opacity', '')
             .css('background-color', '')
             .css('border-color', '');
 
-        this._container.find('.cf-radio-answer')
-            .removeClass('cf-radio-answer--selected');
-        this._container.find('.cf-radio')
+        this._container.find('.cf-radio-answer').removeClass('cf-radio-answer--selected');
+        this._container
+            .find('.cf-radio')
             .removeClass('cf-radio--selected')
             .css('background-color', '')
             .css('border-color', '');
 
-        this._container.find('.cf-grid-bars-scale-texts-panel__item')
+        this._container
+            .find('.cf-grid-bars-scale-texts-panel__item')
             .removeClass('cf-grid-bars-scale-texts-panel__item--selected')
             .removeClass('cf-grid-bars-scale-texts-panel__item--hover');
     }
 
     _clearHoverItemStyles() {
-        this._container.find('.cf-grid-bars-item')
+        this._container
+            .find('.cf-grid-bars-item')
             .removeClass('cf-grid-bars-item--hover')
             .css('opacity', '')
             .css('background-color', '')
             .css('border-color', '');
 
-        this._container.find('.cf-grid-bars-scale-texts-panel__item')
+        this._container
+            .find('.cf-grid-bars-scale-texts-panel__item')
             .removeClass('cf-grid-bars-scale-texts-panel__item--hover');
     }
 }

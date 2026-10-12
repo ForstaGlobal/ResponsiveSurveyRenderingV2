@@ -10,10 +10,7 @@ export default class GridQuestionView extends CompositeQuestionView {
     constructor(question, settings) {
         super(
             question,
-            [
-                new MobileGridQuestionView(question, settings),
-                new DesktopGridQuestionView(question, settings)
-            ],
+            [new MobileGridQuestionView(question, settings), new DesktopGridQuestionView(question, settings)],
             settings
         );
     }

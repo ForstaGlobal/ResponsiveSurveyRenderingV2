@@ -1,5 +1,5 @@
-import DesktopQuestionIdProvider from "../../helpers/desktop-question-id-provider";
-import GridBarsGridQuestionViewBase from "./grid-bars-grid-question-view-base";
+import DesktopQuestionIdProvider from '../../helpers/desktop-question-id-provider';
+import GridBarsGridQuestionViewBase from './grid-bars-grid-question-view-base';
 
 export default class DesktopGridBarsGridQuestionView extends GridBarsGridQuestionViewBase {
     /**
@@ -15,6 +15,6 @@ export default class DesktopGridBarsGridQuestionView extends GridBarsGridQuestio
     }
 
     _getSelectedControlClass(scaleCode) {
-        return this._isItemInScale(scaleCode) ? "cf-grid-bars-item--selected" : "cf-non-scored-rating-item--selected";
+        return this._isItemInScale(scaleCode) ? 'cf-grid-bars-item--selected' : 'cf-non-scored-rating-item--selected';
     }
 }

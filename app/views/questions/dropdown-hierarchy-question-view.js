@@ -1,4 +1,4 @@
-import QuestionWithAnswersView from "./base/question-with-answers-view";
+import QuestionWithAnswersView from './base/question-with-answers-view';
 import Utils from './../../utils.js';
 
 export default class DropdownHierarchyQuestionView extends QuestionWithAnswersView {
@@ -14,7 +14,9 @@ export default class DropdownHierarchyQuestionView extends QuestionWithAnswersVi
     _init() {
         let currentNode = this._question.currentHierarchyNode;
         while (currentNode !== null) {
-            this._getSelectNodeByHierarchyNode(currentNode).on('change', event => this._question.setValue(event.target.value));
+            this._getSelectNodeByHierarchyNode(currentNode).on('change', event =>
+                this._question.setValue(event.target.value)
+            );
             currentNode = currentNode.parent;
         }
     }
@@ -45,12 +47,15 @@ export default class DropdownHierarchyQuestionView extends QuestionWithAnswersVi
     _removeLowerLevels(currentNode) {
         const node = currentNode.parent !== null ? currentNode.parent : currentNode;
         const answerNode = this._getAnswerNodeByHierarchyNode(node);
-        const currentIndex = this._container.find(".cf-dropdown-hierarchy__node").index(answerNode);
-        this._container.find(".cf-dropdown-hierarchy__node").filter(index => index > currentIndex).remove();
+        const currentIndex = this._container.find('.cf-dropdown-hierarchy__node').index(answerNode);
+        this._container
+            .find('.cf-dropdown-hierarchy__node')
+            .filter(index => index > currentIndex)
+            .remove();
     }
 
     _updateUpperLevels(node) {
-        if(node === this._question.hierarchy){
+        if (node === this._question.hierarchy) {
             this._updateDropdownNode(this._question.hierarchy, '""');
             return;
         }
@@ -62,15 +67,11 @@ export default class DropdownHierarchyQuestionView extends QuestionWithAnswersVi
         }
     }
 
-    _updateDropdownNode(hierarchyNode, value){
+    _updateDropdownNode(hierarchyNode, value) {
         const input = this._getSelectNodeByHierarchyNode(hierarchyNode);
-        input.find('option')
-            .removeClass("cf-dropdown__item--selected")
-            .removeAttr('selected');
+        input.find('option').removeClass('cf-dropdown__item--selected').removeAttr('selected');
 
-        input.find(`option[value=${value}]`)
-            .addClass("cf-dropdown__item--selected")
-            .attr('selected', 'selected');
+        input.find(`option[value=${value}]`).addClass('cf-dropdown__item--selected').attr('selected', 'selected');
     }
 
     _renderSubLevel(currentNode) {
@@ -98,10 +99,15 @@ export default class DropdownHierarchyQuestionView extends QuestionWithAnswersVi
         this._container.find('.cf-dropdown-hierarchy').append(containerHtml);
 
         // append content with small delay just to help screen reader realize that content is updated
-        setTimeout(() => {
-            this._getAnswerNode(currentNode.answer.code).append(contentHtml);
-            this._getSelectNodeByHierarchyNode(currentNode).on('change', event => this._question.setValue(event.target.value));
-        }, this._settings.isAccessible ? 200 : 0);
+        setTimeout(
+            () => {
+                this._getAnswerNode(currentNode.answer.code).append(contentHtml);
+                this._getSelectNodeByHierarchyNode(currentNode).on('change', event =>
+                    this._question.setValue(event.target.value)
+                );
+            },
+            this._settings.isAccessible ? 200 : 0
+        );
     }
 
     _isSelectNodeRequired(hierarchyNode) {
@@ -109,12 +115,14 @@ export default class DropdownHierarchyQuestionView extends QuestionWithAnswersVi
     }
 
     _getDefaultOptionText(hierarchyNode) {
-        return this._isSelectNodeRequired(hierarchyNode) ? this._question.mandatoryLevelText : this._question.optionalLevelText;
+        return this._isSelectNodeRequired(hierarchyNode)
+            ? this._question.mandatoryLevelText
+            : this._question.optionalLevelText;
     }
 
     _getAriaLabelAttr(hierarchyNode) {
         if (hierarchyNode.caption !== null) {
-            return ""
+            return '';
         }
 
         if (hierarchyNode.answer === null) {

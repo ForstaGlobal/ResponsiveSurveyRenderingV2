@@ -35,8 +35,8 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
         };
 
         return this._question.answerGroups
-            .filter((group) => group.type === GroupTypes.Collapsible)
-            .map((group) => new CollapsibleGroup(this._question, group, prepareCollapsibleGroupShortInfo));
+            .filter(group => group.type === GroupTypes.Collapsible)
+            .map(group => new CollapsibleGroup(this._question, group, prepareCollapsibleGroupShortInfo));
     }
 
     _attachHandlersToDOM() {
@@ -46,9 +46,9 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
 
             if (answer.isOther) {
                 const otherInput = this._getAnswerOtherNode(answer.code);
-                otherInput.on('click', (e) => e.stopPropagation());
-                otherInput.on('keydown', (e) => e.stopPropagation());
-                otherInput.on('input', (e) => this._onAnswerOtherNodeValueChange(answer, e.target.value));
+                otherInput.on('click', e => e.stopPropagation());
+                otherInput.on('keydown', e => e.stopPropagation());
+                otherInput.on('input', e => this._onAnswerOtherNodeValueChange(answer, e.target.value));
             }
         });
 
@@ -94,7 +94,7 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
             return;
         }
 
-        this._question.answers.forEach((answer) => {
+        this._question.answers.forEach(answer => {
             this._clearAnswerNode(answer);
         });
 
@@ -116,8 +116,8 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
 
     _updateAnswerOtherNodes(changes) {
         this._question.answers
-            .filter((answer) => answer.isOther)
-            .forEach((answer) => {
+            .filter(answer => answer.isOther)
+            .forEach(answer => {
                 const selected = this._question.value === answer.code;
                 this._getAnswerOtherNode(answer.code)
                     .attr('tabindex', selected ? '0' : '-1')
@@ -134,6 +134,7 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
     _showErrors(validationResult) {
         super._showErrors(validationResult);
         this._updateRadioGroupAriaInvalidState(validationResult);
+        this._addReferenceToErrorForAnswers(validationResult);
     }
 
     /**
@@ -150,7 +151,7 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
      * @protected
      */
     _addAriaValidationAttributesToAnswerOther(validationResult) {
-        const otherErrors = validationResult.errors.filter((error) => error.type === ValidationTypes.OtherRequired);
+        const otherErrors = validationResult.errors.filter(error => error.type === ValidationTypes.OtherRequired);
         if (otherErrors.length === 0) {
             return;
         }
@@ -164,8 +165,8 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
         const hasNotOnlyOtherErrors =
             validationResult.errors.length > 0 ||
             validationResult.answerValidationResults
-                .filter((result) => result.isValid === false)
-                .some((result) => result.errors.some((error) => error.type !== ValidationTypes.OtherRequired));
+                .filter(result => result.isValid === false)
+                .some(result => result.errors.some(error => error.type !== ValidationTypes.OtherRequired));
         if (hasNotOnlyOtherErrors === false) {
             return;
         }
@@ -173,16 +174,29 @@ export default class SingleQuestionView extends QuestionWithAnswersView {
         this._groupNode.attr('aria-invalid', 'true');
     }
 
+    _addReferenceToErrorForAnswers(validationResult) {
+        if (validationResult.isValid || validationResult.errors.length === 0) {
+            return;
+        }
+
+        this._question.answers.forEach(answer => {
+            const controlNode = this._getAnswerControlNode(answer.code);
+            controlNode.attr('aria-describedby', this._getQuestionErrorNodeId());
+        });
+    }
+
     _hideErrors() {
         super._hideErrors();
 
         this._groupNode.attr('aria-invalid', 'false');
 
-        this._question.answers
-            .filter((answer) => answer.isOther)
-            .forEach((answer) => {
+        this._question.answers.forEach(answer => {
+            if (answer.isOther) {
                 this._getAnswerOtherNode(answer.code).removeAttr('aria-errormessage').removeAttr('aria-invalid');
-            });
+            }
+
+            this._getAnswerControlNode(answer.code).removeAttr('aria-describedby');
+        });
     }
 
     _onModelValueChange({ changes }) {

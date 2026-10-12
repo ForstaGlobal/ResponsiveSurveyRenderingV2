@@ -1,0 +1,94 @@
+//--- FROM COMMON TO SPECIFIC! (from top to bottom) --//
+@use "_variables";
+@use "_style_bundle_variables_to_css_variables.scss";
+@use "_functions";
+@use "_mixins";
+@use "_global";
+
+@use "common/_error"; /* an exception, should be on top; TODO: remove styles conflict. */
+
+//controls
+@use "common/controls/_radio";
+@use "common/controls/_checkbox";
+@use "common/controls/_image";
+@use "common/controls/_button";
+@use "common/controls/_dropdown";
+@use "common/controls/_text-input";
+@use "common/controls/_waiting-dots";
+
+//answers
+@use "common/answers/_radio-answer";
+@use "common/answers/_checkbox-answer";
+@use "common/answers/_image-answer";
+@use "common/answers/_button-answer";
+
+@use "common/_table-layout";
+@use "common/_grid-layout";
+@use "common/_mobile-grid-layout";
+@use "common/_header";
+@use "common/_page";
+@use "common/_question";
+@use "common/_navigation";
+@use "common/_powered-by-confirmit";
+@use "common/_list";
+@use "common/_collapsing-panel";
+@use "common/_carousel";
+@use "common/_group-heading";
+@use "common/_scale-group-heading";
+@use "common/_toast";
+@use "common/_label-panel";
+@use "common/_floating-panel";
+@use "common/_progress";
+@use "common/_smart-banner";
+@use "common/slider/_index";
+@use "common/_media-upload";
+@use "common/_collapsible-groups";
+@use "common/_affix-input-decorator";
+@use "common/_searchable-question";
+@use "common/_loader";
+@use "common/rating/_horizontal-rating";
+@use "common/rating/_star-rating";
+@use "common/rating/_grid-bars";
+
+
+@use "date/_index" as index2;
+@use "open/_single";
+@use "open/_list" as list2;
+@use "open/_assisted";
+@use "numeric/_single" as single2;
+@use "numeric/_list" as list3;
+@use "ranking/_number";
+@use "ranking/_click";
+@use "ranking/_dnd";
+@use "dropdown/_grid";
+@use "hierarchy/_index" as index3;
+@use "accordion/_index" as index4;
+@use "card-sort/_grid" as grid2;
+@use "grid/_single" as single3;
+@use "grid/_multi";
+@use "grid-3d/_index" as index5;
+@use "horizontal-rating-scale/_single" as single4;
+@use "horizontal-rating-scale/_grid" as grid3;
+@use "grid-bars/_single" as single5;
+@use "grid-bars/_grid" as grid4;
+@use "star-rating/_single" as single6;
+@use "star-rating/_grid" as grid5;
+@use "carousel/_rating";
+@use "geolocation/_index" as index6;
+@use "image-upload/_index" as index7;
+@use "file-upload/_index" as index8;
+@use "login-page/_index" as index9;
+@use "max-diff/_index" as index10;
+@use "slider/_single" as single7;
+@use "slider/_numeric";
+@use "slider/_numeric_list";
+@use "slider/_grid" as grid6;
+@use "video-upload/_index" as index11;
+@use "audio-upload/_index" as index12;
+@use "code-capture/_index" as index13;
+@use "_survey-reviewer";
+@use "chart/_index" as index14;
+@use "thumb-rating/_index" as index15;
+
+//overriding styles for high contrast mode
+@use "high-contrast-mode";

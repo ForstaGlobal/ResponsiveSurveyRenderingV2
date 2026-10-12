@@ -1,6 +1,6 @@
 import Utils from '../../../utils';
 
-const StoredOtherValuesMixin = (questionView) =>
+const StoredOtherValuesMixin = questionView =>
     class extends questionView {
         /**
          * @param {QuestionWithAnswers} question
@@ -16,8 +16,8 @@ const StoredOtherValuesMixin = (questionView) =>
             super._attachHandlersToDOM();
 
             this.answers
-                .filter((answer) => answer.isOther)
-                .forEach((answer) =>
+                .filter(answer => answer.isOther)
+                .forEach(answer =>
                     this._getAnswerOtherNode(answer.code).on('focus', () => this._onAnswerOtherNodeFocus(answer))
                 );
         }

@@ -1,6 +1,7 @@
 import Grid3DDesktopInnerQuestionView from './grid-3d-desktop-inner-question-view';
 import ErrorBlockManager from '../../../error/error-block-manager';
 import MultiCountHelper from '../../../helpers/multi-count-helper';
+import Utils from '../../../../utils';
 
 export default class Grid3DDesktopInnerRankByNumberQuestionView extends Grid3DDesktopInnerQuestionView {
     constructor(parentQuestion, question, settings = null) {
@@ -22,27 +23,26 @@ export default class Grid3DDesktopInnerRankByNumberQuestionView extends Grid3DDe
         });
     }
 
-    _updateAnswerNodes({values = []}) {
-        if(values.length === 0)
-            return;
+    _updateAnswerNodes({ values = [] }) {
+        if (values.length === 0) return;
 
         this._question.answers.forEach(answer => {
             const answerInput = this._getAnswerNode(answer.code);
-            const value = this._question.values[answer.code] || '';
+            const value = !Utils.isEmpty(this._question.values[answer.code]) ? this._question.values[answer.code] : '';
 
             if (MultiCountHelper.isMultiCountSet(this._question.multiCount)) {
-                const answerNode  = this._getAnswerNode(answer.code);
+                const answerNode = this._getAnswerNode(answer.code);
                 const isMaxMultiCountReached = MultiCountHelper.isMaxMultiCountReached(
                     Object.values(this._question.values).length,
                     this._question.multiCount
                 );
-                if (isMaxMultiCountReached && !value) {
+                if (isMaxMultiCountReached && Utils.isEmpty(value)) {
                     answerNode.addClass(this._disabledAnswerClass);
                 } else {
                     answerNode.removeClass(this._disabledAnswerClass);
                 }
 
-                answerInput.attr('disabled', isMaxMultiCountReached && !value);
+                answerInput.attr('disabled', isMaxMultiCountReached && Utils.isEmpty(value));
             }
 
             if (value === this._nanCode) {
@@ -69,7 +69,7 @@ export default class Grid3DDesktopInnerRankByNumberQuestionView extends Grid3DDe
         this._answerErrorBlockManager.removeAllErrors();
     }
 
-    _onModelValueChange({changes}) {
+    _onModelValueChange({ changes }) {
         this._updateAnswerNodes(changes);
     }
 

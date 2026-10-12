@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "se.rendering.responsive/app/api/models/base/allow-for-no-response-mixin.js~allowfornoresponsemixin",
+    "function/index.html#static-function-AllowForNoResponseMixin",
+    "<span>AllowForNoResponseMixin</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/base/allow-for-no-response-mixin.js</span>",
+    "function"
+  ],
+  [
     "se.rendering.responsive/app/api/models/base/answer.js~answer",
     "class/app/api/models/base/answer.js~Answer.html",
     "<span>Answer</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/base/answer.js</span>",
@@ -21,6 +27,18 @@ window.esdocSearchIndex = [
     "se.rendering.responsive/app/api/models/questions/audio-upload-question.js~audiouploadquestion",
     "class/app/api/models/questions/audio-upload-question.js~AudioUploadQuestion.html",
     "<span>AudioUploadQuestion</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/questions/audio-upload-question.js</span>",
+    "class"
+  ],
+  [
+    "se.rendering.responsive/app/api/models/questions/chart-grid-question.js~chartgridquestion",
+    "class/app/api/models/questions/chart-grid-question.js~ChartGridQuestion.html",
+    "<span>ChartGridQuestion</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/questions/chart-grid-question.js</span>",
+    "class"
+  ],
+  [
+    "se.rendering.responsive/app/api/models/questions/chart-single-question.js~chartsinglequestion",
+    "class/app/api/models/questions/chart-single-question.js~ChartSingleQuestion.html",
+    "<span>ChartSingleQuestion</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/questions/chart-single-question.js</span>",
     "class"
   ],
   [
@@ -51,6 +69,12 @@ window.esdocSearchIndex = [
     "se.rendering.responsive/app/event.js~event",
     "class/app/event.js~Event.html",
     "<span>Event</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/event.js</span>",
+    "class"
+  ],
+  [
+    "se.rendering.responsive/app/api/models/questions/file-upload-question.js~fileuploadquestion",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html",
+    "<span>FileUploadQuestion</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/questions/file-upload-question.js</span>",
     "class"
   ],
   [
@@ -105,6 +129,12 @@ window.esdocSearchIndex = [
     "se.rendering.responsive/app/api/models/questions/info-question.js~infoquestion",
     "class/app/api/models/questions/info-question.js~InfoQuestion.html",
     "<span>InfoQuestion</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/questions/info-question.js</span>",
+    "class"
+  ],
+  [
+    "se.rendering.responsive/app/api/models/questions/max-diff-question.js~maxdiffquestion",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html",
+    "<span>MaxDiffQuestion</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/questions/max-diff-question.js</span>",
     "class"
   ],
   [
@@ -240,12 +270,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "se.rendering.responsive/app/api/models/test-navigator.js~testnavigator",
-    "class/app/api/models/test-navigator.js~TestNavigator.html",
-    "<span>TestNavigator</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/test-navigator.js</span>",
-    "class"
-  ],
-  [
     "se.rendering.responsive/app/api/models/test-navigator-question.js~testnavigatorquestion",
     "class/app/api/models/test-navigator-question.js~TestNavigatorQuestion.html",
     "<span>TestNavigatorQuestion</span> <span class=\"search-result-import-path\">se.rendering.responsive/app/api/models/test-navigator-question.js</span>",
@@ -336,15 +360,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "app/api/hierarchy-service.js",
-    "file/app/api/hierarchy-service.js.html",
-    "app/api/hierarchy-service.js",
-    "file"
-  ],
-  [
-    "app/api/image-uploader.js",
-    "file/app/api/image-uploader.js.html",
-    "app/api/image-uploader.js",
+    "app/api/models/base/allow-for-no-response-mixin.js",
+    "file/app/api/models/base/allow-for-no-response-mixin.js.html",
+    "app/api/models/base/allow-for-no-response-mixin.js",
     "file"
   ],
   [
@@ -552,6 +570,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "app/api/models/base/question-base.js~questionbase#entityid",
+    "class/app/api/models/base/question-base.js~QuestionBase.html#instance-get-entityId",
+    "app/api/models/base/question-base.js~QuestionBase#entityId",
+    "member"
+  ],
+  [
     "app/api/models/base/question-base.js~questionbase#formvalues",
     "class/app/api/models/base/question-base.js~QuestionBase.html#instance-get-formValues",
     "app/api/models/base/question-base.js~QuestionBase#formValues",
@@ -666,6 +690,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "app/api/models/base/question.js~question#category",
+    "class/app/api/models/base/question.js~Question.html#instance-get-category",
+    "app/api/models/base/question.js~Question#category",
+    "member"
+  ],
+  [
     "app/api/models/base/question.js~question#changeevent",
     "class/app/api/models/base/question.js~Question.html#instance-get-changeEvent",
     "app/api/models/base/question.js~Question#changeEvent",
@@ -682,6 +712,12 @@ window.esdocSearchIndex = [
     "class/app/api/models/base/question.js~Question.html#instance-constructor-constructor",
     "app/api/models/base/question.js~Question#constructor",
     "method"
+  ],
+  [
+    "app/api/models/base/question.js~question#iscatireviewingmode",
+    "class/app/api/models/base/question.js~Question.html#instance-get-isCatiReviewingMode",
+    "app/api/models/base/question.js~Question#isCatiReviewingMode",
+    "member"
   ],
   [
     "app/api/models/base/question.js~question#readonly",
@@ -930,10 +966,64 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "app/api/models/questions/audio-upload-question.js~audiouploadquestion#uploader",
+    "class/app/api/models/questions/audio-upload-question.js~AudioUploadQuestion.html#instance-get-uploader",
+    "app/api/models/questions/audio-upload-question.js~AudioUploadQuestion#uploader",
+    "member"
+  ],
+  [
     "app/api/models/questions/audio-upload-question.js~audiouploadquestion#value",
     "class/app/api/models/questions/audio-upload-question.js~AudioUploadQuestion.html#instance-get-value",
     "app/api/models/questions/audio-upload-question.js~AudioUploadQuestion#value",
     "member"
+  ],
+  [
+    "app/api/models/questions/chart-grid-question.js",
+    "file/app/api/models/questions/chart-grid-question.js.html",
+    "app/api/models/questions/chart-grid-question.js",
+    "file"
+  ],
+  [
+    "app/api/models/questions/chart-grid-question.js~chartgridquestion#chartscales",
+    "class/app/api/models/questions/chart-grid-question.js~ChartGridQuestion.html#instance-get-chartScales",
+    "app/api/models/questions/chart-grid-question.js~ChartGridQuestion#chartScales",
+    "member"
+  ],
+  [
+    "app/api/models/questions/chart-grid-question.js~chartgridquestion#charttotal",
+    "class/app/api/models/questions/chart-grid-question.js~ChartGridQuestion.html#instance-get-chartTotal",
+    "app/api/models/questions/chart-grid-question.js~ChartGridQuestion#chartTotal",
+    "member"
+  ],
+  [
+    "app/api/models/questions/chart-grid-question.js~chartgridquestion#constructor",
+    "class/app/api/models/questions/chart-grid-question.js~ChartGridQuestion.html#instance-constructor-constructor",
+    "app/api/models/questions/chart-grid-question.js~ChartGridQuestion#constructor",
+    "method"
+  ],
+  [
+    "app/api/models/questions/chart-single-question.js",
+    "file/app/api/models/questions/chart-single-question.js.html",
+    "app/api/models/questions/chart-single-question.js",
+    "file"
+  ],
+  [
+    "app/api/models/questions/chart-single-question.js~chartsinglequestion#chartscale",
+    "class/app/api/models/questions/chart-single-question.js~ChartSingleQuestion.html#instance-get-chartScale",
+    "app/api/models/questions/chart-single-question.js~ChartSingleQuestion#chartScale",
+    "member"
+  ],
+  [
+    "app/api/models/questions/chart-single-question.js~chartsinglequestion#charttotal",
+    "class/app/api/models/questions/chart-single-question.js~ChartSingleQuestion.html#instance-get-chartTotal",
+    "app/api/models/questions/chart-single-question.js~ChartSingleQuestion#chartTotal",
+    "member"
+  ],
+  [
+    "app/api/models/questions/chart-single-question.js~chartsinglequestion#constructor",
+    "class/app/api/models/questions/chart-single-question.js~ChartSingleQuestion.html#instance-constructor-constructor",
+    "app/api/models/questions/chart-single-question.js~ChartSingleQuestion#constructor",
+    "method"
   ],
   [
     "app/api/models/questions/code-capture-question.js",
@@ -954,6 +1044,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "app/api/models/questions/code-capture-question.js~codecapturequestion#columns",
+    "class/app/api/models/questions/code-capture-question.js~CodeCaptureQuestion.html#instance-get-columns",
+    "app/api/models/questions/code-capture-question.js~CodeCaptureQuestion#columns",
+    "member"
+  ],
+  [
     "app/api/models/questions/code-capture-question.js~codecapturequestion#constructor",
     "class/app/api/models/questions/code-capture-question.js~CodeCaptureQuestion.html#instance-constructor-constructor",
     "app/api/models/questions/code-capture-question.js~CodeCaptureQuestion#constructor",
@@ -963,6 +1059,12 @@ window.esdocSearchIndex = [
     "app/api/models/questions/code-capture-question.js~codecapturequestion#formvalues",
     "class/app/api/models/questions/code-capture-question.js~CodeCaptureQuestion.html#instance-get-formValues",
     "app/api/models/questions/code-capture-question.js~CodeCaptureQuestion#formValues",
+    "member"
+  ],
+  [
+    "app/api/models/questions/code-capture-question.js~codecapturequestion#rows",
+    "class/app/api/models/questions/code-capture-question.js~CodeCaptureQuestion.html#instance-get-rows",
+    "app/api/models/questions/code-capture-question.js~CodeCaptureQuestion#rows",
     "member"
   ],
   [
@@ -1077,6 +1179,60 @@ window.esdocSearchIndex = [
     "app/api/models/questions/email-question.js~emailquestion#value",
     "class/app/api/models/questions/email-question.js~EmailQuestion.html#instance-get-value",
     "app/api/models/questions/email-question.js~EmailQuestion#value",
+    "member"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js",
+    "file/app/api/models/questions/file-upload-question.js.html",
+    "app/api/models/questions/file-upload-question.js",
+    "file"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#allowedmimetypes",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-get-allowedMimeTypes",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#allowedMimeTypes",
+    "member"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#clearvalues",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-method-clearValues",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#clearValues",
+    "method"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#constructor",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-constructor-constructor",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#constructor",
+    "method"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#formvalues",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-get-formValues",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#formValues",
+    "member"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#maxfilesize",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-get-maxFileSize",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#maxFileSize",
+    "member"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#setvalue",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-method-setValue",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#setValue",
+    "method"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#uploader",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-get-uploader",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#uploader",
+    "member"
+  ],
+  [
+    "app/api/models/questions/file-upload-question.js~fileuploadquestion#value",
+    "class/app/api/models/questions/file-upload-question.js~FileUploadQuestion.html#instance-get-value",
+    "app/api/models/questions/file-upload-question.js~FileUploadQuestion#value",
     "member"
   ],
   [
@@ -1500,6 +1656,60 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "app/api/models/questions/max-diff-question.js",
+    "file/app/api/models/questions/max-diff-question.js.html",
+    "app/api/models/questions/max-diff-question.js",
+    "file"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#answerbuttons",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-get-answerButtons",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#answerButtons",
+    "member"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#clearvalues",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-method-clearValues",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#clearValues",
+    "method"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#formvalues",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-get-formValues",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#formValues",
+    "member"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#getscale",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-method-getScale",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#getScale",
+    "method"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#scales",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-get-scales",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#scales",
+    "member"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#selectedstatuslabel",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-get-selectedStatusLabel",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#selectedStatusLabel",
+    "member"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#setvalue",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-method-setValue",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#setValue",
+    "method"
+  ],
+  [
+    "app/api/models/questions/max-diff-question.js~maxdiffquestion#values",
+    "class/app/api/models/questions/max-diff-question.js~MaxDiffQuestion.html#instance-get-values",
+    "app/api/models/questions/max-diff-question.js~MaxDiffQuestion#values",
+    "member"
+  ],
+  [
     "app/api/models/questions/multi-question-base.js",
     "file/app/api/models/questions/multi-question-base.js.html",
     "app/api/models/questions/multi-question-base.js",
@@ -1722,6 +1932,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "app/api/models/questions/numeric-question.js~numericquestion#columns",
+    "class/app/api/models/questions/numeric-question.js~NumericQuestion.html#instance-get-columns",
+    "app/api/models/questions/numeric-question.js~NumericQuestion#columns",
+    "member"
+  ],
+  [
     "app/api/models/questions/numeric-question.js~numericquestion#constructor",
     "class/app/api/models/questions/numeric-question.js~NumericQuestion.html#instance-constructor-constructor",
     "app/api/models/questions/numeric-question.js~NumericQuestion#constructor",
@@ -1782,6 +1998,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "app/api/models/questions/open-text-list-question.js~opentextlistquestion#columns",
+    "class/app/api/models/questions/open-text-list-question.js~OpenTextListQuestion.html#instance-get-columns",
+    "app/api/models/questions/open-text-list-question.js~OpenTextListQuestion#columns",
+    "member"
+  ],
+  [
     "app/api/models/questions/open-text-list-question.js~opentextlistquestion#constructor",
     "class/app/api/models/questions/open-text-list-question.js~OpenTextListQuestion.html#instance-constructor-constructor",
     "app/api/models/questions/open-text-list-question.js~OpenTextListQuestion#constructor",
@@ -1824,6 +2046,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "app/api/models/questions/open-text-list-question.js~opentextlistquestion#rows",
+    "class/app/api/models/questions/open-text-list-question.js~OpenTextListQuestion.html#instance-get-rows",
+    "app/api/models/questions/open-text-list-question.js~OpenTextListQuestion#rows",
+    "member"
+  ],
+  [
     "app/api/models/questions/open-text-list-question.js~opentextlistquestion#setothervalue",
     "class/app/api/models/questions/open-text-list-question.js~OpenTextListQuestion.html#instance-method-setOtherValue",
     "app/api/models/questions/open-text-list-question.js~OpenTextListQuestion#setOtherValue",
@@ -1854,6 +2082,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "app/api/models/questions/open-text-question.js~opentextquestion#columns",
+    "class/app/api/models/questions/open-text-question.js~OpenTextQuestion.html#instance-get-columns",
+    "app/api/models/questions/open-text-question.js~OpenTextQuestion#columns",
+    "member"
+  ],
+  [
     "app/api/models/questions/open-text-question.js~opentextquestion#constructor",
     "class/app/api/models/questions/open-text-question.js~OpenTextQuestion.html#instance-constructor-constructor",
     "app/api/models/questions/open-text-question.js~OpenTextQuestion#constructor",
@@ -1869,6 +2103,12 @@ window.esdocSearchIndex = [
     "app/api/models/questions/open-text-question.js~opentextquestion#maxlength",
     "class/app/api/models/questions/open-text-question.js~OpenTextQuestion.html#instance-get-maxLength",
     "app/api/models/questions/open-text-question.js~OpenTextQuestion#maxLength",
+    "member"
+  ],
+  [
+    "app/api/models/questions/open-text-question.js~opentextquestion#rows",
+    "class/app/api/models/questions/open-text-question.js~OpenTextQuestion.html#instance-get-rows",
+    "app/api/models/questions/open-text-question.js~OpenTextQuestion#rows",
     "member"
   ],
   [
@@ -2022,6 +2262,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "app/api/models/questions/single-question.js~singlequestion#boolean",
+    "class/app/api/models/questions/single-question.js~SingleQuestion.html#instance-get-boolean",
+    "app/api/models/questions/single-question.js~SingleQuestion#boolean",
+    "member"
+  ],
+  [
     "app/api/models/questions/single-question.js~singlequestion#clearvalues",
     "class/app/api/models/questions/single-question.js~SingleQuestion.html#instance-method-clearValues",
     "app/api/models/questions/single-question.js~SingleQuestion#clearValues",
@@ -2097,6 +2343,12 @@ window.esdocSearchIndex = [
     "app/api/models/questions/single-question.js~singlequestion#sliderisvertical",
     "class/app/api/models/questions/single-question.js~SingleQuestion.html#instance-get-sliderIsVertical",
     "app/api/models/questions/single-question.js~SingleQuestion#sliderIsVertical",
+    "member"
+  ],
+  [
+    "app/api/models/questions/single-question.js~singlequestion#thumbrating",
+    "class/app/api/models/questions/single-question.js~SingleQuestion.html#instance-get-thumbRating",
+    "app/api/models/questions/single-question.js~SingleQuestion#thumbRating",
     "member"
   ],
   [
@@ -2206,6 +2458,12 @@ window.esdocSearchIndex = [
     "class/app/api/models/questions/video-upload-question.js~VideoUploadQuestion.html#instance-method-setValue",
     "app/api/models/questions/video-upload-question.js~VideoUploadQuestion#setValue",
     "method"
+  ],
+  [
+    "app/api/models/questions/video-upload-question.js~videouploadquestion#uploader",
+    "class/app/api/models/questions/video-upload-question.js~VideoUploadQuestion.html#instance-get-uploader",
+    "app/api/models/questions/video-upload-question.js~VideoUploadQuestion#uploader",
+    "member"
   ],
   [
     "app/api/models/questions/video-upload-question.js~videouploadquestion#value",
@@ -2334,6 +2592,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "app/api/models/survey-info.js~surveyinfo#respondentid",
+    "class/app/api/models/survey-info.js~SurveyInfo.html#instance-get-respondentId",
+    "app/api/models/survey-info.js~SurveyInfo#respondentId",
+    "member"
+  ],
+  [
+    "app/api/models/survey-info.js~surveyinfo#responseid",
+    "class/app/api/models/survey-info.js~SurveyInfo.html#instance-get-responseId",
+    "app/api/models/survey-info.js~SurveyInfo#responseId",
+    "member"
+  ],
+  [
     "app/api/models/survey-info.js~surveyinfo#surveychannel",
     "class/app/api/models/survey-info.js~SurveyInfo.html#instance-get-surveyChannel",
     "app/api/models/survey-info.js~SurveyInfo#surveyChannel",
@@ -2370,6 +2640,24 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "app/api/models/test-navigator-question.js~testnavigatorquestion#precodemask",
+    "class/app/api/models/test-navigator-question.js~TestNavigatorQuestion.html#instance-get-precodeMask",
+    "app/api/models/test-navigator-question.js~TestNavigatorQuestion#precodeMask",
+    "member"
+  ],
+  [
+    "app/api/models/test-navigator-question.js~testnavigatorquestion#questionmask",
+    "class/app/api/models/test-navigator-question.js~TestNavigatorQuestion.html#instance-get-questionMask",
+    "app/api/models/test-navigator-question.js~TestNavigatorQuestion#questionMask",
+    "member"
+  ],
+  [
+    "app/api/models/test-navigator-question.js~testnavigatorquestion#scaleprecodemask",
+    "class/app/api/models/test-navigator-question.js~TestNavigatorQuestion.html#instance-get-scalePrecodeMask",
+    "app/api/models/test-navigator-question.js~TestNavigatorQuestion#scalePrecodeMask",
+    "member"
+  ],
+  [
     "app/api/models/test-navigator-question.js~testnavigatorquestion#title",
     "class/app/api/models/test-navigator-question.js~TestNavigatorQuestion.html#instance-get-title",
     "app/api/models/test-navigator-question.js~TestNavigatorQuestion#title",
@@ -2379,36 +2667,6 @@ window.esdocSearchIndex = [
     "app/api/models/test-navigator-question.js~testnavigatorquestion#type",
     "class/app/api/models/test-navigator-question.js~TestNavigatorQuestion.html#instance-get-type",
     "app/api/models/test-navigator-question.js~TestNavigatorQuestion#type",
-    "member"
-  ],
-  [
-    "app/api/models/test-navigator.js",
-    "file/app/api/models/test-navigator.js.html",
-    "app/api/models/test-navigator.js",
-    "file"
-  ],
-  [
-    "app/api/models/test-navigator.js~testnavigator#commentingendpoint",
-    "class/app/api/models/test-navigator.js~TestNavigator.html#instance-get-commentingEndpoint",
-    "app/api/models/test-navigator.js~TestNavigator#commentingEndpoint",
-    "member"
-  ],
-  [
-    "app/api/models/test-navigator.js~testnavigator#currentquestionid",
-    "class/app/api/models/test-navigator.js~TestNavigator.html#instance-get-currentQuestionId",
-    "app/api/models/test-navigator.js~TestNavigator#currentQuestionId",
-    "member"
-  ],
-  [
-    "app/api/models/test-navigator.js~testnavigator#extquicktestcommentsenabled",
-    "class/app/api/models/test-navigator.js~TestNavigator.html#instance-get-extQuicktestCommentsEnabled",
-    "app/api/models/test-navigator.js~TestNavigator#extQuicktestCommentsEnabled",
-    "member"
-  ],
-  [
-    "app/api/models/test-navigator.js~testnavigator#questions",
-    "class/app/api/models/test-navigator.js~TestNavigator.html#instance-get-questions",
-    "app/api/models/test-navigator.js~TestNavigator#questions",
     "member"
   ],
   [
@@ -2568,6 +2826,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "app/api/open-assist-service.js",
+    "file/app/api/open-assist-service.js.html",
+    "app/api/open-assist-service.js",
+    "file"
+  ],
+  [
     "app/api/question-factory.js",
     "file/app/api/question-factory.js.html",
     "app/api/question-factory.js",
@@ -2580,9 +2844,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "app/api/searchable-answer-list-service.js",
-    "file/app/api/searchable-answer-list-service.js.html",
-    "app/api/searchable-answer-list-service.js",
+    "app/api/test-mode-image-uploader.js",
+    "file/app/api/test-mode-image-uploader.js.html",
+    "app/api/test-mode-image-uploader.js",
+    "file"
+  ],
+  [
+    "app/api/test-mode-media-uploader.js",
+    "file/app/api/test-mode-media-uploader.js.html",
+    "app/api/test-mode-media-uploader.js",
     "file"
   ],
   [

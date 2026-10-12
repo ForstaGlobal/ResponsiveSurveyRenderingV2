@@ -1,8 +1,9 @@
-import QuestionView from './base/question-view.js'
+import AllowForNoResponseViewMixin from './base/allow-for-no-response-view-mixin.js';
+import QuestionView from './base/question-view.js';
 
-export default class OpenTextQuestionView extends QuestionView {
-    constructor(question) {
-        super(question);
+export class OpenTextQuestionView extends QuestionView {
+    constructor(question, settings) {
+        super(question, settings);
         this._input = this._getQuestionInputNode();
         this._attachControlHandlers();
     }
@@ -31,3 +32,5 @@ export default class OpenTextQuestionView extends QuestionView {
         });
     }
 }
+
+export default AllowForNoResponseViewMixin(OpenTextQuestionView);

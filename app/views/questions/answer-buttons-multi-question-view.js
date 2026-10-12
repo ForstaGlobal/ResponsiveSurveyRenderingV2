@@ -1,6 +1,6 @@
 import MultiQuestionView from './multi-question-view.js';
-import StoredOtherValuesMixin from "./base/stored-other-values-mixin";
-import {MultiOtherValuesKeeper} from "../helpers/other-values-keeper";
+import StoredOtherValuesMixin from './base/stored-other-values-mixin';
+import { MultiOtherValuesKeeper } from '../helpers/other-values-keeper';
 
 export default class AnswerButtonsMultiQuestionView extends MultiQuestionView {
     /**
@@ -12,11 +12,11 @@ export default class AnswerButtonsMultiQuestionView extends MultiQuestionView {
     }
 
     _getSelectedAnswerClass() {
-        return  'cf-button-answer--selected';
+        return 'cf-button-answer--selected';
     }
 
     _getSelectedControlClass() {
-        return  'cf-button--selected';
+        return 'cf-button--selected';
     }
 
     _showAnswerError(validationResult) {
@@ -34,7 +34,9 @@ export default class AnswerButtonsMultiQuestionView extends MultiQuestionView {
     }
 }
 
-export class AnswerButtonsMultiQuestionViewWithStoredOtherValues extends StoredOtherValuesMixin(AnswerButtonsMultiQuestionView) {
+export class AnswerButtonsMultiQuestionViewWithStoredOtherValues extends StoredOtherValuesMixin(
+    AnswerButtonsMultiQuestionView
+) {
     constructor(question, settings) {
         super(question, settings, new MultiOtherValuesKeeper(question, settings));
     }
